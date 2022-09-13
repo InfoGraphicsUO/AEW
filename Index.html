@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+         <link href="index.css" rel="stylesheet">
+    
+    </head>
+    
+    <body>
+        
+<!--The Excel File is located at:"\\cas-fs-geog\InfoGraphics\Projects\JustFutures\Essential_Workers_Atlas\Topics\Carceral Firefighting\Data Files\infographics_persondaycount_Tree_Diagram(8_16_2022).xlsx" -->
+        
+        <figure class="highcharts-figure">
+            <div id="container" ></div>
+            <p class="highcharts-description" style="width:600px;">
+            </p>
+<!--
+                        <p class="highcharts-description" style="width:600px;">
+                This chart shows the percent of the Population defined by the US Census as non-white within 4 regions of the US and within the US itself. Non-White is used to address changing definintions of people of color over time within the US Census and for the purpose of this chart includes all people who do not identify as white and only white within the US Census. As a reference we are using this line chart <a href="https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/line-basic">here.</a> 
+            </p>
+-->
+        </figure>
+        
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+<!--        <script src="https://code.highcharts.com/modules/exporting.js"></script>-->
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        
+                <script>
+       
+var categoryLabels = [1950, 2020];                  
+                    
+Highcharts.chart('container', {
+    
+    chart: {
+//        alignTicks: true,
+        type: 'line',
+        width: 600,
+        height: 500,
+        spacingRight: 0,
+     },
+    
+    title: {
+        text: '',
+        
+    },
+
+//    subtitle: {
+//        text: 'Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">US CE</a>'
+//    },
+
+    yAxis: {
+                
+            
+        labels: {
+            format: '{text}%',
+            style: {
+                fontSize: 12
+            }            
+        },
+        title: {
+//            text: 'percent change'
+            enabled: false
+        },
+         tickInterval: 10,
+        
+    },
+
+    xAxis: {
+        accessibility: {
+            rangeDescription: 'Range: 1950 to 2020'
+        },
+         type: 'linear',
+        
+//        categories: [1950, 2020],
+//                tickPosition: 'on',
+        alignTicks:false,
+        tickInterval: 1,
+        tickLength: 0,
+//        startOnTick: true,
+//        endOnTick:true,
+//        tickPixelInterval: 1000,
+//        tickPosition: 'on',
+//         uniqueNames: false
+//        max: 2019,
+//        min: 1951
+//        max: 0,
+//        min: 1
+        labels: {
+            formatter: function(){
+              return categoryLabels[this.value];
+            },
+                    
+            style: {
+                fontSize: 12
+            }
+        
+        }   
+    },
+
+    legend: {
+//        layout: 'vertical',
+//        align: 'right',
+//        verticalAlign: 'middle',
+        enabled: true,
+        layout: 'proximate',
+        align: 'right',
+        margin: 0,
+        padding: 0,
+        symbolHeight: 0.1,
+        symbolWidth: 0.1,
+        symbolRadius: 0.1,
+        labelFormatter: function() {
+        return '<span style="color:'+this.color+'">'+this.name+'</span>';
+      },
+//         title: {
+//            text: 'Regions<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
+//            style: {
+//                fontStyle: 'italic'
+//            }
+//        },
+    },
+
+    tooltip: {
+        formatter: function () {
+            return '<b><span style="color:'+this.series.color+'">'+this.series.name+'</span></b><br>1950: <b>' + this.series.points[0].y + '%</b> <br>2020: <b>' + this.series.points[1].y + '%</b>'
+        },
+        positioner: function () {
+            return { x: 80, y: 95 };
+        },
+        positioner: function () {
+            return { x: 80, y: 95 };
+        },
+        shadow: false,
+        borderWidth: 0,
+        backgroundColor: 'rgba(255,255,255,0.8)',
+//        enabled: false
+//   
+},
+
+  
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false,
+                enabled:false,
+                crop: false,
+                inside: true,
+                
+            },
+              events: {
+                  legendItemClick: function(e) {
+                    e.preventDefault();
+                            }   
+                        },
+            linecap: 'square',
+            dataLabels:{
+                enabled:false,
+                crop: false,
+                overflow: 'none',
+                align: 'left',
+                verticalAlign: 'middle',
+                formatter: function () {
+                    // Only label data points in 2020, using the series name instead of drawing a legend
+                    if (categoryLabels[this.x]== 2020){
+                    return '<b><span style="color:'+this.color+'">'+this.series.name + '</span></b>' ;
+                    } 
+                }
+                
+                
+            },
+            marker: {
+                enabled: false,
+                states: {
+                    hover: {
+                        radius: 3,
+                        symbol: 'circle'
+//                        enabled: false
+                    }
+                }
+            },
+//            tooltip:{
+//            formatter: function () {
+//                console.log(this)
+////                return '<b><span style="color:'+this.color+'">'+this.name+'</span></b><br> US BIPOC Population: <b>' + '%</b>' ;
+//            },
+//                enabled:true,
+//        },
+        }
+    },
+
+    
+    series: [{
+        name: 'Pacific Northwest',
+        data: [2.1, 28.8],
+//         data: [{
+//            [name: '1950',
+//            y: 2.09],[name: '2020',
+//            y: 28.82]
+//        }
+        color: '#336666',
+        lineWidth: 5,
+        marker:{
+            enabled:true
+        }
+
+    },  {
+        name: 'North Central',
+        data: [2.8, 32.4],
+        opacity:0.5,
+        color:'#996699'
+    }, {
+        name: 'South Central',
+        data: [16.0, 47.7],
+        color: '#99CC99',
+        opacity:0.5
+    }, {
+        name: 'United States',
+        data: [10.4, 33.4],
+        color: '#999999',
+        lineWidth: 5,
+        marker:{
+            enabled:true,
+            symbol: 'circle'
+        }
+    },  {
+        name: 'Southwest',
+        data: [6.5, 53.3],
+        color: '#FF9966',
+        opacity:0.5
+    }], 
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+        </script>
+
+    </body>
+            
+</html>
+<!--
+ data: {
+        googleAPIKey: 'AIzaSyCIZXVMIq7dDMwcfIb4cMOen1oLEQjsWHI',
+        googleSpreadsheetKey: '1NudaZTf3hneu_wK9OkW35SxYpUFFRHaUjlGu8niv63A',
+        error: console.error 
+    }
+-->
+<!--https://docs.google.com/spreadsheets/d/e/2PACX-1vTaG03Htnsk5AgIxTW6mqBORkXKRW-_QqDfZqqAtgzN_m2rRiKRVtNeOoYXpEjqU2DrlJxB3Tcr73Y4/pubhtml-->
