@@ -37,7 +37,7 @@ Highcharts.chart('container', {
 //        alignTicks: true,
         type: 'line',
         width: 600,
-        height: 500,
+        height: 450,
         spacingRight: 0,
      },
     
@@ -112,7 +112,15 @@ Highcharts.chart('container', {
         symbolWidth: 0.1,
         symbolRadius: 0.1,
         labelFormatter: function() {
-        return '<span style="color:'+this.color+'">'+this.name+'</span>';
+            // set larger size for PNW label only
+            var fontSizeStyle = "" // start with empty string
+            if (this.name.includes("Pacific") || this.name.includes("United")){
+                fontSizeStyle = " font-size: larger;"
+            }
+        return '<span style="color:'+this.color+';'+fontSizeStyle+'">'+this.name+'</span>';
+    
+            
+
       },
 //         title: {
 //            text: 'Regions<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
