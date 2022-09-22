@@ -36,9 +36,27 @@ Highcharts.chart('container', {
     chart: {
 //        alignTicks: true,
         type: 'line',
-        width: 600,
-        height: 450,
-        spacingRight: 0,
+        width: 400,
+        height: 600,
+//        spacingRight: 0,
+        events: {
+          load: function() {
+            var chart = this,
+              legend = chart.legend;
+            //alert('legend');
+            for (var i = 0, len = legend.allItems.length; i < len; i++) {
+              (function(i) {
+                var item = legend.allItems[i].legendItem;
+                item.on('mouseover', function(e) {
+                   // console.log(i)
+                  chart.tooltip.refresh(chart.series[i].data[0]);
+                }).on('mouseout', function(e) {
+                  //console.log("mouseout" + i);
+                });
+              })(i);
+            }
+          }
+        },
      },
     
     title: {
@@ -64,6 +82,7 @@ Highcharts.chart('container', {
             enabled: false
         },
          tickInterval: 10,
+        ceiling: 80,
         
     },
 
@@ -101,7 +120,6 @@ Highcharts.chart('container', {
 
     legend: {
 //        layout: 'vertical',
-//        align: 'right',
 //        verticalAlign: 'middle',
         enabled: true,
         layout: 'proximate',
@@ -128,6 +146,12 @@ Highcharts.chart('container', {
 //                fontStyle: 'italic'
 //            }
 //        },
+        itemStyle: {
+            fontWeight: 200,
+            fontSize: '8'
+            
+            
+        }
     },
 
     tooltip: {
@@ -135,14 +159,14 @@ Highcharts.chart('container', {
             return '<b><span style="color:'+this.series.color+'">'+this.series.name+'</span></b><br>1950: <b>' + this.series.points[0].y + '%</b> <br>2020: <b>' + this.series.points[1].y + '%</b>'
         },
         positioner: function () {
-            return { x: 80, y: 95 };
+            return { x: 80, y: 84 };
         },
         positioner: function () {
-            return { x: 80, y: 95 };
+            return { x: 80, y: 84 };
         },
         shadow: false,
         borderWidth: 0,
-        backgroundColor: 'rgba(255,255,255,0.8)',
+        backgroundColor: 'rgba(255,255,255,0.0)',
 //        enabled: false
 //   
 },
@@ -202,32 +226,28 @@ Highcharts.chart('container', {
     series: [{
         name: 'Pacific Northwest',
         data: [2.1, 28.8],
-//         data: [{
-//            [name: '1950',
-//            y: 2.09],[name: '2020',
-//            y: 28.82]
-//        }
         color: '#336666',
         lineWidth: 5,
         marker:{
-            enabled:true
+            enabled:true,
         }
 
     },  {
         name: 'North Central',
         data: [2.8, 32.4],
         opacity:0.5,
-        color:'#996699'
+        color:'grey'
     }, {
         name: 'South Central',
         data: [16.0, 47.7],
-        color: '#99CC99',
+        color: 'grey',
         opacity:0.5
     }, {
         name: 'United States',
         data: [10.4, 33.4],
-        color: '#999999',
-        lineWidth: 5,
+        color: 'black',
+        lineWidth: 3,
+        dashStyle: 'shortdot',
         marker:{
             enabled:true,
             symbol: 'circle'
@@ -235,20 +255,64 @@ Highcharts.chart('container', {
     },  {
         name: 'Southwest',
         data: [6.5, 53.3],
-        color: '#FF9966',
+        color: 'grey',
         opacity:0.5
-    }], 
+    }, {
+        name: 'Midwest',
+        data: [5.5, 28.2],
+        color: 'grey',
+        opacity:0.5
+    }, {
+        name: 'Southeast',
+        data: [28.5, 39.6],
+        color: 'grey',
+        opacity:0.5
+    },{
+        name: 'Northeast',
+        data: [7.5, 35.9],
+        color: 'grey',
+        opacity:0.5
+    }, {
+        name: 'Alaska',
+        data: [27.9, 40.6],
+        color: 'grey',
+        opacity:0.5
+    }, {
+        name: 'Hawaii',
+        data: [77.0, 77.1],
+        color: 'grey',
+        opacity:0.5
+    },
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            ],
+    
 
+
+        // not using responsive?
     responsive: {
         rules: [{
             condition: {
-                maxWidth: 500
+//                maxWidth: 500
             },
             chartOptions: {
                 legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
+//                    layout: 'horizontal',
+//                    align: 'center',
+//                    verticalAlign: 'bottom'
                 }
             }
         }]
