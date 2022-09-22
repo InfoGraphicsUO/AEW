@@ -1,3 +1,6 @@
+body{
+    margin: 0;
+}
 .highcharts-figure,
 .highcharts-data-table table {
 /*    min-width: 360px;*/
@@ -40,3 +43,8 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+/*
+.highcharts-description .highcharts-linked-description{
+    margin:0 !important;
+}
+*/
