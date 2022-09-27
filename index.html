@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+         <link href="index.css" rel="stylesheet">
+    
+    </head>
+    
+    <body>
+        
+<!--The Excel File is located at:"\\cas-fs-geog\InfoGraphics\Projects\JustFutures\Essential_Workers_Atlas\Topics\Carceral Firefighting\Data Files\infographics_persondaycount_Tree_Diagram(8_16_2022).xlsx" -->
+        
+        <figure class="highcharts-figure">
+            <div id="container"></div>
+            <p class="highcharts-description" style="width:800px;">
+            </p>
+        </figure>
+        
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/treemap.js"></script>
+<!--        <script src="https://code.highcharts.com/modules/exporting.js"></script>-->
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        
+                <script>
+                           
+                    
+//            Highcharts.chart('container', {
+//
+//            title: {
+//                text: 'Fires Organized by Number of Person Days'
+//            },
+//                
+//            chart: {
+//                type: 'treemap'
+//            },
+//                
+//           subtitle: {
+//                text:
+//                    'Source: <a href="insert link here" target="_blank">To Be Defined</a>'
+//            },
+            Highcharts.chart('container', {
+                
+                
+                 title: {
+                text: ''
+            },
+                
+            chart: {
+                type: 'treemap',
+//                 width: 700,
+//                 height: 600,
+            },
+                
+//           subtitle: {
+//                text:
+//                    'Source: <a href="insert link here" target="_blank">To Be Defined</a>'
+//            },
+            accessibility: {
+                exposeAsGroupOnly: true
+            },
+    series: [{
+       name: 'Bins',
+            type: 'treemap',
+            layoutAlgorithm: 'squarified',   
+            allowDrillToNode: true,
+            animationLimit: 1000,
+        borderWidth: 1,
+        borderRadius: 5,
+         dataLabels: {
+                enabled: true,
+                align: 'center',
+                verticalAlign: 'top',
+                style: {
+                    fontSize: 6,
+                    textOutline: 0,
+                 },
+//                levelIsConstant: false,
+            },
+ 			levels: [{
+            // current outer level
+                level: 1,
+
+                layoutAlgorithm: 'sliceanddice',          
+                dataLabels: {
+                    enabled: true,
+                     align: 'left',
+                     style: {
+//                        textOutline: 0,
+                        fontSize: 14,
+                     }
+                },
+                borderWidth: 2, 
+                levelIsConstant: false
+            }, {
+            // current outer level
+                level: 2,
+                 dataLabels: {
+                    enabled: true,
+                     align: 'left',
+                     style: {
+//                        textOutline: 0,
+                        fontSize: 8,
+                     },
+//                     tooltip: {
+//                         enabled:false
+//                     },
+                    
+                },
+                tooltip: {
+                    useHTML: true,
+                    pointFormat:
+                        "The sum of <b>{point.name}</b> person day fires is <b>{point.value} person days</b>" 
+                },
+                     style: {
+                        color:'red',
+                     }
+            }, 
+//                     {
+//            // outer level
+////                level: 1,
+//                 layoutAlgorithm: 'squarified',
+//                borderWidth: 1, 
+//                dataLabels: {
+//                enabled:true,
+//                    style: {
+//                        fontSize: '14px',
+//                         textOutline: 0
+//                    }
+//                }
+//            }
+                    ],
+        data: [
+        //categories
+{name:'8 to 20', id:'8 to 20', color:'#cc3333'},
+{name:'21 to 40', id:'21 to 40', color:'#d9574e'},
+{name:'41 to 60', id:'41 to 60', color:'#e88074'},
+{name:'61 to 80', id:'61 to 80', color:'#f8bcb3'},
+{name:'81 to 100', id:'81 to 100', color:'#fdded9'},
+{name:'over 100', id:'over 100', color:'#fff5f3'},
+
+
+
+// fires
+{name:'Deadwood Creek Fire (Deadwood Creek)', parent:'8 to 20', value:8},
+{name:'Hoskins Field', parent:'8 to 20', value:9},
+{name:'Rogers Mountain', parent:'8 to 20', value:9},
+{name:'Horsfall Beach', parent:'8 to 20', value:9},
+{name:'West Shore Fire', parent:'8 to 20', value:9},
+{name:'Bessy Creek Fire (Bessey Creek)', parent:'8 to 20', value:9},
+{name:'Timber Rd Mulch Fire', parent:'8 to 20', value:9},
+{name:'280 Rd/Humbug Mtn', parent:'8 to 20', value:9},
+{name:'Green Peter Peninsula', parent:'8 to 20', value:9},
+{name:'Tugman Hill', parent:'8 to 20', value:9},
+{name:'Finley Loop', parent:'8 to 20', value:9},
+{name:'Timber Ridge', parent:'8 to 20', value:9},
+{name:'Dement Creek', parent:'8 to 20', value:9},
+{name:'Windhurst Lane', parent:'8 to 20', value:9},
+{name:'Mehl Canyon (Mehl Creek 6/1)', parent:'8 to 20', value:9},
+{name:'Camas Swale #2', parent:'8 to 20', value:9},
+{name:'Northernwood', parent:'8 to 20', value:9},
+{name:'Allen Creek', parent:'8 to 20', value:10},
+{name:'Euchre (Euchre Fire             )', parent:'8 to 20', value:10},
+{name:'Harper Complex', parent:'8 to 20', value:10},
+{name:'Clapshaw', parent:'8 to 20', value:10},
+{name:'Swamp Buggy', parent:'8 to 20', value:10},
+{name:'IP Deeded (IP Deeded Road)', parent:'8 to 20', value:10},
+{name:'Akawana (Akawana #152)', parent:'8 to 20', value:10},
+{name:'Healey Road (Healey Road #1)', parent:'8 to 20', value:10},
+{name:'Briggs Hill', parent:'8 to 20', value:10},
+{name:'Gunners Lake Mainline (Gunners Lake ML #1)', parent:'8 to 20', value:10},
+{name:'Liberty Road (Liberty Rd. Fire)', parent:'8 to 20', value:10},
+{name:'Big Rock Loop', parent:'8 to 20', value:10},
+{name:'Blue Ridge', parent:'8 to 20', value:10},
+{name:'Tioga Tie', parent:'8 to 20', value:10},
+{name:'NW Mason Hill Road (Mason Hill Ed Fire)', parent:'8 to 20', value:10},
+{name:'New Idanha ', parent:'8 to 20', value:10},
+{name:'Hall Creek (Halls Creek)', parent:'8 to 20', value:10},
+{name:'Pisgah Homes RD (Pisgah Homes Rd. Fire #1)', parent:'8 to 20', value:10},
+{name:'Hillsboro Highway (Stubb Stewart Fire)', parent:'8 to 20', value:10},
+{name:'Paha Loop Pile (Paha Piles)', parent:'8 to 20', value:10},
+{name:'Shepards Pie Take 2', parent:'8 to 20', value:10},
+{name:'Savage Creek', parent:'8 to 20', value:10},
+{name:'Frazer Road (Frazer Rd.)', parent:'8 to 20', value:10},
+{name:'Shepards Pie #3 (Shepards Pie 3)', parent:'8 to 20', value:10},
+{name:'Kirk Road', parent:'8 to 20', value:10},
+{name:'North Fork Cable Creek', parent:'8 to 20', value:10},
+{name:'Fir Grove (Fir Grove Frie)', parent:'8 to 20', value:10},
+{name:'CF 400', parent:'8 to 20', value:10},
+{name:'Timber 26 Junction (Timber Jct HWY 26)', parent:'8 to 20', value:10},
+{name:'Klamath Hills ', parent:'8 to 20', value:10},
+{name:'North Spit', parent:'8 to 20', value:10},
+{name:'Horse Creek Bridge', parent:'8 to 20', value:10},
+{name:'Rye Hill', parent:'8 to 20', value:10},
+{name:'Calamity', parent:'8 to 20', value:10},
+{name:'Valley View', parent:'8 to 20', value:10},
+{name:'ODF Severity 2018 / Salem Fire Cache', parent:'8 to 20', value:10},
+{name:'Pongratz Fire', parent:'8 to 20', value:10},
+{name:'ODF S Creek/Central fire', parent:'8 to 20', value:10},
+{name:'Morris Creek', parent:'8 to 20', value:10},
+{name:'Pierce Road', parent:'8 to 20', value:10},
+{name:'Pioneer Fire', parent:'8 to 20', value:10},
+{name:'Schockley Rd', parent:'8 to 20', value:10},
+{name:'Big Cliff #1', parent:'8 to 20', value:10},
+{name:'French Creek Rd Fire', parent:'8 to 20', value:10},
+{name:'HWY 22 X 25 FIRE', parent:'8 to 20', value:10},
+{name:'1620 Road Fire', parent:'8 to 20', value:10},
+{name:'Lake Fire', parent:'8 to 20', value:10},
+{name:'Bluff Road', parent:'8 to 20', value:10},
+{name:'Lake Incident', parent:'8 to 20', value:10},
+{name:'Black jetty', parent:'8 to 20', value:10},
+{name:'Swedetown Road  (Swedetown Rd. #1)', parent:'8 to 20', value:10},
+{name:'Hide and Seek Tree', parent:'8 to 20', value:10},
+{name:'Randleman Creek', parent:'8 to 20', value:10},
+{name:'Brattain', parent:'8 to 20', value:10},
+{name:'Chehalem Mtn Mutual Aid ', parent:'8 to 20', value:10},
+{name:'Mink Creek', parent:'8 to 20', value:10},
+{name:'Neibur Rd', parent:'8 to 20', value:10},
+{name:'South End Road ', parent:'8 to 20', value:10},
+{name:'Fir Butte', parent:'8 to 20', value:10},
+{name:'Larson Creek Beach', parent:'8 to 20', value:10},
+{name:'Walker Creek', parent:'8 to 20', value:10},
+{name:'Templeton Lane', parent:'8 to 20', value:17},
+{name:'Lewis & Clark (Lewis and Clark Fire)', parent:'8 to 20', value:18},
+{name:'Retz Creek', parent:'8 to 20', value:18},
+{name:'Marshalls Place', parent:'8 to 20', value:18},
+{name:'Pumpkin Ridge', parent:'8 to 20', value:19},
+{name:'Bill Creek', parent:'8 to 20', value:19},
+{name:'Coos Sumner Rd/ Lane Fire', parent:'8 to 20', value:19},
+{name:'5-Mile/ Beaver Dam Rd (Beaverdam Milepost 5 )', parent:'8 to 20', value:20},
+{name:'12-Mile Creek (Twelvemile Creek)', parent:'8 to 20', value:20},
+{name:'Stump Butte', parent:'8 to 20', value:20},
+{name:'Wollowa Fire 491 (Double Strike)', parent:'8 to 20', value:20},
+{name:'Soda (Soda Fork)', parent:'8 to 20', value:20},
+{name:'Swamp Creek', parent:'8 to 20', value:20},
+{name:'Peavy Aporetum', parent:'8 to 20', value:20},
+{name:'Holiday Road (Holiday Road 225)', parent:'8 to 20', value:20},
+{name:'Imnonen Road', parent:'8 to 20', value:20},
+{name:'High Pass #6', parent:'8 to 20', value:20},
+{name:'Big Creek', parent:'8 to 20', value:20},
+{name:'Reservoir (Reservoir 334)', parent:'8 to 20', value:20},
+{name:'Trinity Lane', parent:'8 to 20', value:20},
+{name:'Hemlock (Hemlock Fire)', parent:'8 to 20', value:20},
+{name:'Honey Creek (Honey Cr.)', parent:'8 to 20', value:20},
+{name:'Pittsburg Road (ODF name -Wilark Rd)', parent:'8 to 20', value:20},
+{name:'Shepards Pie (Shepards Pie Fire)', parent:'8 to 20', value:20},
+{name:'Buck Butte (Buck Butte 254)', parent:'8 to 20', value:20},
+{name:'McGowan Powerline', parent:'8 to 20', value:20},
+{name:'2 x 4 Creek (Two by Four Creek)', parent:'8 to 20', value:20},
+{name:'N. Cascade ', parent:'8 to 20', value:20},
+{name:'Triumph Rd (Triumph Rd. Fire)', parent:'8 to 20', value:20},
+{name:'Hwy 22', parent:'8 to 20', value:20},
+{name:'Gard Road Fire', parent:'8 to 20', value:20},
+{name:'Train Smokey 2018', parent:'8 to 20', value:20},
+{name:'Douglas Hill', parent:'8 to 20', value:20},
+{name:'Bradley Flat', parent:'8 to 20', value:20},
+{name:'Ellendale Fire', parent:'8 to 20', value:20},
+{name:'Cabbage Fire', parent:'8 to 20', value:20},
+{name:'Crystal Creek', parent:'8 to 20', value:20},
+{name:'420 Road Fire', parent:'8 to 20', value:20},
+{name:'Pihl Rd #1', parent:'8 to 20', value:20},
+{name:'Tom Rock fire', parent:'8 to 20', value:20},
+{name:'Whitney Road #1', parent:'8 to 20', value:20},
+{name:'Berry Creek Fire', parent:'8 to 20', value:20},
+{name:'Big Creek', parent:'8 to 20', value:20},
+{name:'Cabin Fever', parent:'8 to 20', value:20},
+{name:'Parsons Road', parent:'8 to 20', value:20},
+{name:'Clear Creek', parent:'8 to 20', value:20},
+{name:'Pine Creek', parent:'8 to 20', value:20},
+{name:'Neal Border', parent:'8 to 20', value:20},
+{name:'Fir Grove Lane', parent:'8 to 20', value:20},
+{name:'Yew Creek', parent:'8 to 20', value:20},
+{name:'Bull Springs', parent:'8 to 20', value:20},
+{name:'1003 Spot Fire', parent:'8 to 20', value:20},
+{name:'Bone Canyon', parent:'8 to 20', value:20},
+{name:'Wise', parent:'8 to 20', value:20},
+{name:'Bull Complex', parent:'8 to 20', value:20},
+{name:'E. Meissner Road', parent:'8 to 20', value:20},
+{name:'Rye', parent:'21 to 40', value:21},
+{name:'INC 192', parent:'21 to 40', value:21},
+{name:'Chetco Bar', parent:'21 to 40', value:24},
+{name:'Union Cap (Union Gap)', parent:'21 to 40', value:27},
+{name:'Majors Creek', parent:'21 to 40', value:27},
+{name:'Ramona Falls', parent:'21 to 40', value:29},
+{name:'Shevlin (Shevlin 0186)', parent:'21 to 40', value:30},
+{name:'Old Bald Mountain (Old Bald Fire)', parent:'21 to 40', value:30},
+{name:'Huntley Road', parent:'21 to 40', value:30},
+{name:'Griffin Gulch', parent:'21 to 40', value:30},
+{name:'Bryant (Bryant 192)', parent:'21 to 40', value:30},
+{name:'Greener Road', parent:'21 to 40', value:30},
+{name:'Astoria - Simmons Ridge (Simmons Fire)', parent:'21 to 40', value:30},
+{name:'High Heaven Fire', parent:'21 to 40', value:30},
+{name:'Little Grizzly 0493 OD', parent:'21 to 40', value:30},
+{name:'Powerline Fire (Powerline #1)', parent:'21 to 40', value:30},
+{name:'Little Rail', parent:'21 to 40', value:32},
+{name:'Neal Creek', parent:'21 to 40', value:33},
+{name:'Eli Creek', parent:'21 to 40', value:34},
+{name:'Bear Springs', parent:'21 to 40', value:38},
+{name:'Salmon Berry (N. Fork Salmonberry Fire)', parent:'21 to 40', value:40},
+{name:'Helter Shelter', parent:'21 to 40', value:40},
+{name:'400 Road (400 Rd. Fire)', parent:'21 to 40', value:40},
+{name:'Miller Ranch Road (Miller Ranch)', parent:'21 to 40', value:40},
+{name:'Naylox Fire (Naylox 593)', parent:'21 to 40', value:40},
+{name:'Jade Creek (Jade Creek 591)', parent:'21 to 40', value:40},
+{name:'Drift Creek', parent:'21 to 40', value:40},
+{name:'Beaver Creek', parent:'21 to 40', value:40},
+{name:'Astoria- Gold Creek', parent:'21 to 40', value:40},
+{name:'Dry Creek', parent:'21 to 40', value:40},
+{name:'Kinney Creek Fire', parent:'21 to 40', value:40},
+{name:'OR-582S-458271-21', parent:'21 to 40', value:40},
+{name:'Government Mtn.', parent:'21 to 40', value:40},
+{name:'Rabbit Hill', parent:'41 to 60', value:42},
+{name:'McGowan Powerline #2 (McGowan Powerline 2)', parent:'41 to 60', value:43},
+{name:'SCAS Avenue', parent:'41 to 60', value:43},
+{name:'5 Rivers Slash', parent:'41 to 60', value:45},
+{name:'Susan Creek Falls fire', parent:'41 to 60', value:47},
+{name:'Curry Complex', parent:'41 to 60', value:49},
+{name:'Boulder Creek', parent:'41 to 60', value:50},
+{name:'Hwy 53 MP 12', parent:'41 to 60', value:50},
+{name:'Camp Meriweather', parent:'41 to 60', value:50},
+{name:'Williams Road', parent:'41 to 60', value:50},
+{name:'Blue River Compound', parent:'41 to 60', value:50},
+{name:'Echo Mountain Complex', parent:'41 to 60', value:50},
+{name:'Gyda Lane', parent:'41 to 60', value:54},
+{name:'Whitewater', parent:'41 to 60', value:56},
+{name:'Eagle Creek', parent:'41 to 60', value:57},
+{name:'Early Tom/Tom Rock (Early Tom)', parent:'41 to 60', value:60},
+{name:'Wanless White/Russell Creek', parent:'41 to 60', value:60},
+{name:'Spring Creek', parent:'41 to 60', value:60},
+{name:'CF 400 #2', parent:'41 to 60', value:60},
+{name:'Fishermans Bend', parent:'41 to 60', value:60},
+{name:'Crane (Crane 345)', parent:'41 to 60', value:60},
+{name:'Alder Creek Road', parent:'41 to 60', value:60},
+{name:'Dowens Fire', parent:'61 to 80', value:63},
+{name:'Highway 38 MM16 (Hwy 38 MM 16)', parent:'61 to 80', value:63},
+{name:'Days Coffee Fire', parent:'61 to 80', value:67},
+{name:'Devils Well', parent:'61 to 80', value:69},
+{name:'Big Tom Folley', parent:'61 to 80', value:69},
+{name:'Sweet Creek', parent:'61 to 80', value:69},
+{name:'Sandy Creek', parent:'61 to 80', value:70},
+{name:'Chapman Grange (Chapman Grange #2)', parent:'61 to 80', value:70},
+{name:'Reuben Complex, Doe Mtn  (Reuben)', parent:'61 to 80', value:70},
+{name:'Little North Fork Complex (Little Green Mountain became this)', parent:'61 to 80', value:70},
+{name:'Ramsey Canyon', parent:'61 to 80', value:74},
+{name:'Whiskey Run', parent:'61 to 80', value:79},
+{name:'Seven Devils Rd', parent:'61 to 80', value:79},
+{name:'Hills Creek Incident', parent:'61 to 80', value:79},
+{name:'Hiembre Ridge', parent:'61 to 80', value:80},
+{name:'Saunders Creek', parent:'61 to 80', value:80},
+{name:'Grabhorn', parent:'61 to 80', value:80},
+{name:'Old Pittsburg - Indistrict', parent:'61 to 80', value:80},
+{name:'Shearer Hill (Timmerman Rd became Shearer Hill)', parent:'61 to 80', value:80},
+{name:'Harlan Fire', parent:'61 to 80', value:80},
+{name:'McCoy Creek', parent:'61 to 80', value:80},
+{name:'E Evans Creek', parent:'81 to 100', value:83},
+{name:'Cougar Peak', parent:'81 to 100', value:84},
+{name:'Deer Head Point', parent:'81 to 100', value:87},
+{name:'Steet Mountain', parent:'81 to 100', value:90},
+{name:'Lampa Mountain/Lane', parent:'81 to 100', value:99},
+{name:'August Fire', parent:'81 to 100', value:100},
+{name:'Cove', parent:'81 to 100', value:100},
+{name:'Fall Creek', parent:'81 to 100', value:100},
+{name:'Hwy 138 (Hwy. 138 W)', parent:'81 to 100', value:100},
+{name:'Grizzly Mountain (Grizzly**)', parent:'81 to 100', value:100},
+{name:'East Creek ', parent:'81 to 100', value:100},
+{name:'South Valley Road', parent:'81 to 100', value:100},
+{name:'Siedelman Road', parent:'81 to 100', value:100},
+{name:'Pisgah', parent:'over 100', value:104},
+{name:'I-5 N Exit 45 (I-5 MP 78)', parent:'over 100', value:108},
+{name:'Phillips Creek', parent:'over 100', value:110},
+{name:'Trojan fire', parent:'over 100', value:110},
+{name:'Lightning Burst/ Flannigan Creek Fire (Flannigan Creek)', parent:'over 100', value:119},
+{name:'187 Service Corral (Service Corrals)', parent:'over 100', value:120},
+{name:'Mile Post 163', parent:'over 100', value:120},
+{name:'North Cascade Complex', parent:'over 100', value:130},
+{name:'Fox Complex', parent:'over 100', value:130},
+{name:'Fall Creek', parent:'over 100', value:138},
+{name:'Chambers Mill', parent:'over 100', value:140},
+{name:'MP 97 fire', parent:'over 100', value:140},
+{name:'South Jetty', parent:'over 100', value:150},
+{name:'Holiday Farm', parent:'over 100', value:150},
+{name:'Bruler', parent:'over 100', value:154},
+{name:'Ravens Ridge (Ravens Ridge Fire)', parent:'over 100', value:160},
+{name:'Green Ridge (GREEN RIDGE 0684)', parent:'over 100', value:160},
+{name:'Sugar Loaf', parent:'over 100', value:180},
+{name:'Silver Creek', parent:'over 100', value:180},
+{name:'Riley Central (Riley Central Fire)', parent:'over 100', value:185},
+{name:'Skunk Creek', parent:'over 100', value:187},
+{name:'Weigh Station', parent:'over 100', value:190},
+{name:'Indian Lake', parent:'over 100', value:190},
+{name:'116 Wilson Prairie (and Little Wilson 8/16)', parent:'over 100', value:190},
+{name:'Sunset Grade', parent:'over 100', value:191},
+{name:'HWY 47 MP5 (Hwy 47 MP 5)', parent:'over 100', value:200},
+{name:'Santiam Park Fire', parent:'over 100', value:200},
+{name:'North Bank Lane MM8', parent:'over 100', value:210},
+{name:'Gold Canyon', parent:'over 100', value:213},
+{name:'Chapman Rd. #1 (Chapman Grange #1)', parent:'over 100', value:240},
+{name:'Dorris Creek', parent:'over 100', value:282},
+{name:'High Pass Road (High Pass 12.5)', parent:'over 100', value:284},
+{name:'Kimmel Fire', parent:'over 100', value:284},
+{name:'Graham', parent:'over 100', value:300},
+{name:'Dry Gulch', parent:'over 100', value:310},
+{name:'Kinzua Complex', parent:'over 100', value:330},
+{name:'Burnt Peak', parent:'over 100', value:350},
+{name:'Pike Road', parent:'over 100', value:350},
+{name:'2500 Road', parent:'over 100', value:360},
+{name:'Bear Butte', parent:'over 100', value:430},
+{name:'BLM Gold Beach Severity', parent:'over 100', value:458},
+{name:'Lobster Creek', parent:'over 100', value:460},
+{name:'Bootleg', parent:'over 100', value:462},
+{name:'Niagra (Niagra Falls)', parent:'over 100', value:499},
+{name:'Cable Crossing', parent:'over 100', value:500},
+{name:'Cornet (Cornet-Windy)', parent:'over 100', value:514},
+{name:'El Dorado (Eldorado)', parent:'over 100', value:577},
+{name:'Grizzley-Eagle Complex (Grizzly, also Grizzly Bear Complex)', parent:'over 100', value:740},
+{name:'Garner Complex (Garner RD Fire)', parent:'over 100', value:810},
+{name:'Cleveland Ridge', parent:'over 100', value:882},
+{name:'Applegate Complex', parent:'over 100', value:910},
+{name:'Willamina Creek', parent:'over 100', value:944},
+{name:'Game Hog Creek', parent:'over 100', value:1019},
+{name:'Stouts Creek (Stouts Creek Fire)', parent:'over 100', value:1694},
+{name:'Flounce', parent:'over 100', value:1843},
+{name:'Horse Prairie', parent:'over 100', value:2596},
+{name:'Wagner Complex (Wagner 2)', parent:'over 100', value:2813},
+
+
+
+
+        ]
+    }],
+//    title: {
+//        text: 'Norwegian regions and counties by area'
+//    },
+//    subtitle: {
+//        text:
+//            'Source: <a href="https://snl.no/Norge" target="_blank">SNL</a>'
+//    },
+    tooltip: {
+        useHTML: true,
+        pointFormat:
+            "On the <b>{point.name}</b> deployment <b>{point.value} person days</b> were worked." 
+    }
+});
+    
+
+        </script>
+
+    </body>
+            
+</html>
+<!--
+ data: {
+        googleAPIKey: 'AIzaSyCIZXVMIq7dDMwcfIb4cMOen1oLEQjsWHI',
+        googleSpreadsheetKey: '1NudaZTf3hneu_wK9OkW35SxYpUFFRHaUjlGu8niv63A',
+        error: console.error 
+    }
+-->
+<!--https://docs.google.com/spreadsheets/d/e/2PACX-1vTaG03Htnsk5AgIxTW6mqBORkXKRW-_QqDfZqqAtgzN_m2rRiKRVtNeOoYXpEjqU2DrlJxB3Tcr73Y4/pubhtml-->
+
+
+
+<!-- REMOVED Caption Text
+            <p class="highcharts-description">
+                This chart shows a tree map of the fires from the carceral fireighting data organized by the number of person days. The next step will be to group them into bins of person day ranges. The sample chart we were using is located <a href="https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/treemap-with-levels">here.</a>
+            </p>-->
