@@ -133,7 +133,7 @@ Highcharts.chart('container', {
             // set larger size for PNW label only
             var fontSizeStyle = "" // start with empty string
             if (this.name.includes("Pacific") || this.name.includes("United")){
-                fontSizeStyle = " font-size: larger;"
+                fontSizeStyle = " font-size: larger; font-weight: bold;"
             }
         return '<span style="color:'+this.color+';'+fontSizeStyle+'">'+this.name+'</span>';
     
@@ -232,7 +232,7 @@ Highcharts.chart('container', {
         lineWidth: 5,
         marker:{
             enabled:true,
-            radius: 5,
+            radius: 7,
         }
 
     },  {
@@ -254,7 +254,7 @@ Highcharts.chart('container', {
         marker:{
             enabled:true,
             symbol: 'circle',
-            radius: 5,
+            radius: 4,
         }
     },  {
         name: 'Southwest',
