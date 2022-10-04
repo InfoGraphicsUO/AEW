@@ -22,6 +22,8 @@
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
         <script src="https://code.highcharts.com/modules/data.js"></script>
         <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+        <scrript src ="https://code.highcharts.com/modules/series-label.js"></scrript> <!-- for series level labels with suffix -->
+        <scrript src ="https://code.highcharts.com/modules/heatmap.js"></scrript> <!-- for heatmap legend - not currently working. Due to levels? see  https://www.highcharts.com/docs/chart-and-series-types/treemap#use-with-coloraxis -->
 
         
                 <script>
@@ -41,6 +43,9 @@
 //                text:
 //                    'Source: <a href="insert link here" target="_blank">To Be Defined</a>'
 //            },
+            const dataCategories = ['8 to 20','21 to 40','41 to 60','61 to 80','81 to 100','over 100']
+                
+                    
             Highcharts.chart('container', {
                 
                 
@@ -55,19 +60,25 @@
 //                 width: 1000,
                  height: 650,
                  events: {
-                      load: function() {
+                      render: function() {
                         var points = this.series[0].points;
                         points.forEach(function(point) {
-                          console.log(point);
+                            //console.log(point.name);
                           if(point.shapeArgs.width < point.dataLabel.width) {
                             point.dataLabel.hide();
+                              console.log(point.name + " hidden");
                           }
                         });
                       }
-                }
+                },
                 
             },
-                
+            colorAxis: {
+                // color axis - work on implementation. See https://www.highcharts.com/docs/chart-and-series-types/treemap#use-with-coloraxis
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+
 //           subtitle: {
 //                text:
 //                    'Source: <a href="insert link here" target="_blank">To Be Defined</a>'
@@ -81,24 +92,31 @@
             layoutAlgorithm: 'squarified',   
             allowDrillToNode: true,
             animationLimit: 1000,
-        borderWidth: 1,
+        borderWidth: 2.5,
         borderRadius: 5,
         borderColor: 'darkGrey',
-         dataLabels: {
+        dataLabels: {
                 enabled: true,
+                formatter: function () {
+                    label = this.key
+                    //console.log(this.key);
+                    
+                    label = label.split('(')[0]; // remove everything after '('
+                    return label;
+                },
                 align: 'center',
                 verticalAlign: 'top',
                 style: {
-                    fontSize: 6,
+                    fontSize: 10, // ??
                     textOutline: 0,
                  },
-//                levelIsConstant: false,
+                levelIsConstant: false,
             },
  			levels: [{
             // current outer level
                 level: 1,
 
-                layoutAlgorithm: 'sliceanddice',          
+                layoutAlgorithm: 'strip',          
                 dataLabels: {
                     enabled: true,
                      align: 'left',
@@ -107,18 +125,19 @@
 
                      style: {
 //                        textOutline: 0,
-                        fontSize: 14,
+                        fontSize: 16,
 //                        backgroundColor: 'rgba(252, 255, 197, 0.7)'
                      }
                 },
                 borderWidth: 2, 
-                levelIsConstant: false
+                levelIsConstant: false,
+                
             }, {
             // current outer level
                 level: 2,
                  dataLabels: {
                     enabled: true,
-                     align: 'left',
+                     align: 'center',
                      allowOverlap: false,
 //                     filter: {
 //                       property:'value',
@@ -127,18 +146,33 @@
 //                     },
                      style: {
 //                        textOutline: 0,
-                        fontSize: 8,
+                        fontSize: 10,
                      },
+                     
+
 //                     tooltip: {
 //                         enabled:false
 //                     },
                     
                 },
-                tooltip: {
-                    useHTML: true,
-                    pointFormat:
-                        "The sum of <b>{point.name}</b> person day fires is <b>{point.value} person days</b>" 
-                },
+//                tooltip: {
+//                    useHTML: true,
+//                    formatter: function () {
+//                        label = this.key
+//                        console.log(label)
+//                        if(dataCategories.includes(label)){
+//                            label = "Category";
+//                        } else {
+//                            
+//                            "The sum of <b>"+ this.name+ "</b> person day fires is <b>"+ this.value +"person days</b>" 
+//                        }
+//                        
+//                        return label;
+//                    }
+//                },
+//                    pointFormat:
+//                        "The sum of <b>{point.name}</b> person day fires is <b>{point.value} person days</b>" 
+//                },
                      style: {
                         color:'red',
                      }
@@ -157,14 +191,15 @@
 //                }
 //            }
                     ],
+        
         data: [
         //categories
-{name:'8 to 20', id:'8 to 20', color:'#cc3333'},
-{name:'21 to 40', id:'21 to 40', color:'#d9574e'},
-{name:'41 to 60', id:'41 to 60', color:'#e88074'},
-{name:'61 to 80', id:'61 to 80', color:'#f8bcb3'},
-{name:'81 to 100', id:'81 to 100', color:'#fdded9'},
-{name:'over 100', id:'over 100', color:'#fff5f3'},
+{name: dataCategories[0], id:dataCategories[0], color:'#cc3333'},
+{name: dataCategories[1], id:dataCategories[1], color:'#d9574e'},
+{name: dataCategories[2], id:dataCategories[2], color:'#e88074'},
+{name: dataCategories[3], id:dataCategories[3], color:'#f8bcb3'},
+{name: dataCategories[4], id:dataCategories[4], color:'#fdded9'},
+{name: dataCategories[5], id:dataCategories[5], color:'#fff5f3'},
 
 
 
@@ -463,10 +498,22 @@
 //            'Source: <a href="https://snl.no/Norge" target="_blank">SNL</a>'
 //    },
     tooltip: {
-        useHTML: true,
-        pointFormat:
-            "On the <b>{point.name}</b> deployment <b>{point.value} person days</b> were worked." 
-    }
+
+            useHTML: true,
+            formatter: function () {
+                label = this.key
+                if(dataCategories.includes(label)){
+//                    console.log(this.point)
+                    label = "Incidents that had <b>"+ this.key + "</b> person-days worked. <b><br>"+ this.point.node.childrenTotal.toLocaleString() +" person-days total</b>" ;
+                } else {
+//                    console.log(this.point.name)
+                    label = "<b>"+ this.point.name+ "</b> had <b>"+this.point.value.toLocaleString()+ " person-days</b>" 
+                }
+
+                return label;
+          }
+   }
+
 });
     
 
