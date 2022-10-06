@@ -31,7 +31,7 @@
        
 var categoryLabels = [1950, 2020];                  
                     
-Highcharts.chart('container', {
+var popChart = Highcharts.chart('container', {
     
     chart: {
 //        alignTicks: true,
@@ -161,18 +161,55 @@ Highcharts.chart('container', {
         formatter: function () {
             return '<b><span style="color:'+this.series.color+'"; "font-size:50px">'+this.series.name+'</span></b><br>1950: <b>' + this.series.points[0].y + '%</b> <br>2020: <b>' + this.series.points[1].y + '%</b>'
         },
+
         positioner: function () {
-            return { x: 325, y: 84 };
+            var tooltipX = popChart.chartWidth - 180
+            return { x: tooltipX, y: 84 };
         },
-        positioner: function () {
-            return { x: 325, y: 84 };
-        },
+        
+  
+//        positioner: function () {
+//            return { x: 425, y: 84 };
+//        },
         shadow: false,
         borderWidth: 0,
         backgroundColor: 'rgba(255,255,255,0.0)',
 //        enabled: false
 //   
 },
+       
+//    For Mobile 
+    
+//    responsive: {
+//        rules: [{
+//            condition: {
+//                maxWidth: 500
+//            },
+//            chartOptions: {
+//                legend: {
+//                    align: 'center',
+//                    verticalAlign: 'bottom',
+//                    layout: 'horizontal'
+//                },
+//                yAxis: {
+//                    labels: {
+//                        align: 'left',
+//                        x: 0,
+//                        y: -5
+//                    },
+//                    title: {
+//                        text: null
+//                    }
+//                },
+//                subtitle: {
+//                    text: null
+//                },
+//                credits: {
+//                    enabled: false
+//                }
+//            }
+//        }]
+//    },
 
   
     plotOptions: {
