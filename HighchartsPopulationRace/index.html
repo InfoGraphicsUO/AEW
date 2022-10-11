@@ -269,11 +269,12 @@ var popChart = Highcharts.chart('container', {
         name: 'Pacific Northwest',
         data: [2.1, 28.8],
         color: '#196F3D',
+//        opacity: 0.9,
         lineWidth: 5,
-//        zIndex: 10,
+        zIndex: 10,
         marker:{
             enabled:true,
-//            radius: 7,
+            radius: 7,
         }
 
     },  {
@@ -286,18 +287,20 @@ var popChart = Highcharts.chart('container', {
         data: [16.0, 47.7],
         color: '#b3b3b3',
         opacity:1
-    }, {
-        name: 'United States',
-        data: [10.4, 33.4],
-        color: 'black',
-        lineWidth: 3,
-//        dashStyle: 'shortdot',
-        marker:{
-            enabled:true,
-            symbol: 'circle',
-            radius: 4,
-        }
-    },  {
+    }, 
+//         {
+//        name: 'United States',
+//        data: [10.4, 33.4],
+//        color: 'black',
+//        lineWidth: 3,
+////        dashStyle: 'shortdot',
+//        marker:{
+//            enabled:true,
+//            symbol: 'circle',
+//            radius: 4,
+//        }
+//    },  
+         {
         name: 'Southwest',
         data: [6.5, 53.3],
         color: '#b3b3b3',
