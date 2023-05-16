@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link href="index.css" rel="stylesheet">
+       <!-- JS SOURCES -->
+       <script src="https://d3js.org/d3.v4.min.js"></script>
+       <!-- END JS SOURCES -->
+   
+
+</head>
+
+<style>
+#mapImage{
+    height: 100vh;
+    width: 100%;
+    /*max-width: 900px;  match https://bgp.nsrc.org/REN/index.html */
+}
+
+</style>
+
+<body>
+    <div id="mapImage" ><!-- map inserted here via JS --></div>
+
+    <!-- Loads SVG Successfully  -->
+    <!-- <object id="Map_Frame" data="svg\5_9_Piplines.svg" type="image/svg+xml"></object> -->
+ 
+<script>
+    // INSERT SVG 
+
+
+    //d3.text("https://pages.uoregon.edu/infographics/dev/NSRC/REN/REN_MAP.svg" , function(error, externalSVGText) {
+    d3.text("https://infographicsuo.github.io/AEW/svg/5_9_Piplines.svg" , function(error, externalSVGText) {
+                if (error) {
+                    console.log("this error")
+                    console.log(error); return;}
+            else{
+                console.log("SVG Loaded")
+                }
+                document.getElementById('mapImage').innerHTML=externalSVGText;
+                doThings();
+        })
+
+
+
+        // on sucessful load
+    function doThings(){    
+        console.log("doing things")
+
+        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+                   .attr("title","I am a circle!")
+                   .on("mouseover", function(d,i) { 
+                        console.log(this.id)
+                   });
+
+        // Select Elements
+
+
+
+        // When Mouse Hovers on element Add Tool Tip
+
+    }
+
+
+</script>
+</body>
+
+</html>
