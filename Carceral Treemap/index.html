@@ -726,22 +726,27 @@
                         switch(this.key) {
                             case "Maximal":
                                 // code block
-                                labelVal = "(over 500 person-days)<br/><br/>These fires make up <b>52%</b> of total person-days";
+                                labelVal = " <b>52%</b> of total person-days";
                                 break;
                             // case "Extensive":
                             //     labelVal = "(between 230 and 499.5 person-days)<br/><br/>These fires make up <b>19%</b> of total person-days";
                             //     break;
                             case "Significant":
-                                labelVal = "(between 100 person-days and 499.5)<br/><br/>These fires make up <b>33%</b> of total person-days";
+                                labelVal = " <b>33%</b> of total person-days";
                                 break;
                             case "Limited":
-                                labelVal = "(less than 99.5 person-days)<br/><br/>These fires make up <b>15%</b> of total person-days";
+                                labelVal = " <b>15%</b> of total person-days";
                                 break;
                             default:
                             }
-                                                    
-                        
-                        label = "<b>" + this.point.node.children.length.toLocaleString() +"</b> <img src='icons\fire_icon.png' alt='fire icon' width='50px'>fires were in the <b>" + this.key + "</b> range of person-days<br/> "+labelVal;
+                        //Word Only Bin Tool Tips                         
+                            // label = "<b>" + this.point.node.children.length.toLocaleString() +
+                            //     "</b> fires were in the <b>" + this.key + "</b> range of person-days<br/> "+labelVal;
+                        // ICON Bin Tool tips
+                            label = "<b>"  +
+                                    "<img src='https://infographicsuo.github.io/AEW/Carceral Treemap/icons/fire_icon.png' alt='fire icon' height='15px'>" +" "+this.point.node.children.length.toLocaleString() +
+                                    " </b>fires" + "<br/><br/>" + 
+                                    "<img src='https://infographicsuo.github.io/AEW/Carceral Treemap/icons/person_icon.png' alt='fire icon' height='25px'>"+labelVal;
                     }
 
                     //Sets format for tooltips for Fires with More Suppression 
