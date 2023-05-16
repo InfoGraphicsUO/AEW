@@ -1,0 +1,84 @@
+<html>
+
+<head>
+  <style>
+    svg {
+      max-height: calc(100vh - 10px);
+      max-width: calc(100vw - 10px);
+    }
+
+    .selectedProtest{
+            fill:red!important;
+            stroke:black !important;
+            stroke-width:3 !important;
+            fill-opacity:0.7;
+        }
+
+    #tooltip{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+        
+
+
+  </style>
+</head>
+
+<body>
+  <div id="mapDiv"></div>
+  <div id="tooltip">I am the tooltip</div>
+
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- <script src="index.js" defer></script> -->
+
+<script>
+    d3.xml("https://infographicsuo.github.io/AEW/svg/5_16_Piplines_Flattened_Raster.svg")
+    .then(data => {
+        d3.select("#mapDiv").nodes().forEach(n => {
+            n.append(data.documentElement.cloneNode(true))
+        })
+
+        doThings();
+    });
+
+
+     // on sucessful load
+     function doThings(){    
+        console.log("doing things")
+
+        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+                   .attr("title","I am a circle!")
+                   
+                   .on("mouseover", function(d,i) { 
+                        // console.log(this.id)
+                    let thisID = this.id;
+                    // let shortID = thisID.substring(thisID.length-5, thisID.length)
+
+                        d3.select(this)
+                            .classed("selectedProtest", true)
+
+                        d3.select("#toolTip")
+                        .html(thisID)
+                        // .html(shortID)
+                   })
+
+                   .on("mouseout", function(d,i) { 
+                        d3.select(this)
+                            .classed("selectedProtest", false)
+                   });
+
+        // Select Elements
+
+
+
+        // When Mouse Hovers on element Add Tool Tip
+
+    }
+
+</script>
+
+</body>
+
+</html>
