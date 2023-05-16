@@ -37,7 +37,7 @@
   <!-- <script src="index.js" defer></script> -->
 
 <script>
-    d3.xml("https://infographicsuo.github.io/AEW/svg/5_9_Piplines.svg")
+    d3.xml("https://infographicsuo.github.io/AEW/svg/5_16_Piplines_Flatten_Raster.svg")
     .then(data => {
         d3.select("#mapDiv").nodes().forEach(n => {
             n.append(data.documentElement.cloneNode(true))
@@ -55,7 +55,7 @@
                    .attr("title","I am a circle!")
                    
                    .on("mouseover", function(d,i) { 
-                        // console.log(this.id)
+                        console.log(this.id)
                     let thisID = this.id;
                     let shortID = thisID.substring(thisID.length-5, thisID.length)
 
