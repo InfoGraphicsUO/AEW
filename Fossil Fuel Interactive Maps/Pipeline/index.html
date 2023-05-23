@@ -35,6 +35,126 @@
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <!-- <script src="index.js" defer></script> -->
 
+<!-- JSON of Attribute Table -->
+  <script>
+  
+  //JSON banner content array
+  // example data access: protest_data.tooltips["Water-1"].Year
+	var protest_data = {
+		//Tooltips
+		"tooltips" : {
+
+      "Water-1":{"General-Location":"Vancouver, Washington","Year":"2013","Spatial Description":"Protestors rallied together to block a ship from being able to go through the Columbia River: climbers hung from the bridge, kayaktavists formed a barricade in the water, and people surrounded the banks and bridge with more signs."},
+"Water-2":{"General-Location":"Boardman, Oregon","Year":"2014","Spatial Description":"Protestors from the Yakima nation protested the propoosed Morrow Pacific Coal Export Terminal on tradiational boats while casting fish nets across their sacred water. "},
+"Water-3":{"General-Location":"Pacific Ocean","Year":"2015","Spatial Description":"Protestors as climbers scaled the platform of an oil rig and remained roped in on the rig for 6 days."},
+"Water-4":{"General-Location":"Seattle, Washington","Year":"2015","Spatial Description":"Protestors on kayaks, tribal canoes, and other flotation devices surrounded the giant Arctic-bound Royal Dutch Shell oil drilling rig to prevent its movement. "},
+"Water-5":{"General-Location":"Bellingham, Washington","Year":"2015","Spatial Description":"A Protestor whom was a 20 year old female hung from the anchor chains of Shell Oil's Arctic Challenger for 63 hours to prevent its movement."},
+"Water-6":{"General-Location":"Seattle, Washington","Year":"2015","Spatial Description":"Protestors secured themselves in place in kayaks to blockade the Polar Pioneer from leaving Puget Sound. "},
+"Water-7":{"General-Location":"Seattle, Washington","Year":"2015","Spatial Description":"Protestors in kayaks and tribal canoes formed a blockade to delay departure of Shel's Drilling Rig Polar Pioneer."},
+"Water-8":{"General-Location":"Seattle, Washington","Year":"2015","Spatial Description":"Protestors led by Native American women went on traditional canoes for solidarity for native communities in the Alaskan Artic that have been fighting Shell's drilling for years."},
+"Water-9":{"General-Location":"Brstish Columbia, Canada","Year":"2015","Spatial Description":"A protestor stood up on a small boat right in the path of a massive oil rig in the ocean to prevent movement. This stand was called Audrey Vs. The Machine. "},
+"Water-10":{"General-Location":"Portland, Oregon","Year":"2015","Spatial Description":"Protestors as climbers dangling from a bridge and kayaktavist blockading in the water turned around a boat attempting to deliver a key piece of equipment that an oil rig needed to depart."},
+"Water-11":{"General-Location":"Seattle, Washington","Year":"2016","Spatial Description":"Thousands of protestors took to water in kaykas and on land with signs  to protest two major oil refineries."},
+"Water-12":{"General-Location":"Hoquiam, Washington","Year":"2016","Spatial Description":"Protestors from the Coastal Salish canoe families and Quinalt fishing fleet led a flotilla in a water procession protesting again crude oil in Grays Harbor. "},
+"Water-13":{"General-Location":"Burlington, Washington","Year":"2016","Spatial Description":"Protestors in kayaks  floated the river to honor the 100th anniversery of the Skagit River railroad bridge and protest oil-by-rail expansion."},
+"Water-14":{"General-Location":"Seattle, Washington","Year":"2018","Spatial Description":"Protestors as kayaktavists locked themselves to a pier to prevent an oil barge fom entering Kinder Morgan's facility."},
+"Water-15":{"General-Location":"Burnaby, British Columbia, Canada","Year":"2018","Spatial Description":"Protestrs prevented workers from entering the Kinder Morgan Westridge marine termnal by attatching themselves with zip ties to the gates on both land and water. "},
+"Water-16":{"General-Location":"Burnaby, Britih Columbia, Canada","Year":"2018","Spatial Description":"Protestors from Coast Silah territories shutdown Kinder Morgan terminal on land and water. They used chains to attatch themselves to the gates in the water. "},
+"Water-17":{"General-Location":"Seattle, Washington","Year":"2018","Spatial Description":"Protestors as kayatavists locked themselves to the pier to prevet an oil barge from entering Kiner Morgan's facility."},
+"Water-18":{"General-Location":"Seattle, Washington","Year":"2018","Spatial Description":"Protestors in kayaks and canoes swarmed the Kinder Morgan terminal to protest the Trans Mountain Pipeline expansion."},
+"Water-19":{"General-Location":"Vancouver, Washington","Year":"2019","Spatial Description":"Protestors in kayaks got in the way of a cargo ship that was attempting to deliver equipment for the Trans Mountain pipeline."},
+"Water-20":{"General-Location":"Vancouver, Washington","Year":"2019","Spatial Description":"Protestors as kayaktavists positioned themselves at the base of the port to prevent a ship from docking that was carrying pieces of oil pipe."},
+"Water-21":{"General-Location":"Vancouver, Washington","Year":"2019","Spatial Description":"Young protestors chained themselves to the pier to interrupt the delivery of a pipeline to the port. "},
+"Water-22":{"General-Location":"Seattle, Washington","Year":"2021","Spatial Description":"Protestors including Indigenous leaders and kayaktavists held a prayer vigil in the water outside of the home of Puget Soung Energy CEO with globe and salmon lanterns. "},
+"Water-23":{"General-Location":"Portland, Oregon","Year":"2021","Spatial Description":"Protestors surrounded a pier where oil is pumped into ships in kayaks to prevent more fossil fuel movement."},
+"Rail-24":{"General-Location":"Clatskanie, Oregon","Year":"2014","Spatial Description":"Protesters locked themselves to a 30-foot tripod that sat on top of rail road tracks to prevent Bakken Oil trains from passing."},
+"Rail-25":{"General-Location":"Everett, Washington","Year":"2014","Spatial Description":"Protestors locked themselves to the legs of a tripod, with one person locked to the top to prevent an oil train from passing."},
+"Rail-26":{"General-Location":"Anacortes, Washington","Year":"2014","Spatial Description":"Protestors locked themselves to concrete barrels that they put on top of railroad tracks to prevent oil trains from passing."},
+"Rail-27":{"General-Location":"Seattle, Washington","Year":"2015","Spatial Description":"Protestors from the Raging Grannies,an activist group, locked themselves to eachother and rocking chairs that were then chained to the railroad to protest Shell oil drilling."},
+"Rail-28":{"General-Location":"Anacortes, Washington","Year":"2016","Spatial Description":"Protestors put up tents on the railroad tracks and shut down the tracks for two days by putting their bodies on the line."},
+"Rail-29":{"General-Location":"Vancouver, Washington","Year":"2016","Spatial Description":"Protestors blockaded the tracks for a couple of hours before leading a march against oil-by-train."},
+"Rail-30":{"General-Location":"Hood, Oregon","Year":"2016","Spatial Description":"Protestors marched through town and on the tracks to protest oil-by-rail after the train derailment in Mosier, Oregon."},
+"Rail-31":{"General-Location":"Bellingham, Washington","Year":"2016","Spatial Description":"Protestors sat in slings on a 20' metal-legged tripod over railraod tracks."},
+"Rail-32":{"General-Location":"Burnaby, Brtish Columbia, Canada","Year":"2018","Spatial Description":"Protestors stood on top of the railroad yard at Kinder Morgan terminal to stop construction activity from proceeding."},
+"Rail-33":{"General-Location":"Portland, Oregon","Year":"2019","Spatial Description":"Protestors built a garden on top of rail road tracks to ask the city to rezone the space as open space. They also used their bodies and spent the night on the tracks to protest crude oil export from this area. "},
+"Rail-34":{"General-Location":"Portland, Oregon","Year":"2019","Spatial Description":"Protestors built a garden on top of rail road tracks to ask the city to rezone the space as open space instead of fossil fuel transportation."},
+"Rail-35":{"General-Location":"Portland, Oregon","Year":"2019","Spatial Description":"Protestors led a 60-hour vigil protest on top of Zenith railyard to ask the city to stop using it as a transport hub for crude oil."},
+"Rail-36":{"General-Location":"Portland, Oregon","Year":"2019","Spatial Description":"Protestors halted oil shipments for the day by sitting on rail tracks to prevent oil trains from reaching the terminal."},
+"Rail-37":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2020","Spatial Description":"Protestors blockaded the Vancouver ports by being on top of rail road tracks."},
+"Rail-38":{"General-Location":"Portland, Oregon","Year":"2021","Spatial Description":"Protestors gathered on top of the area that oil trains enter Portland to demand an air quality permit."},
+"Rail-39":{"General-Location":"Portland, Oregon","Year":"2021","Spatial Description":"Protestors rallied in Zenith rail yard to prevent the unloading of tar sands from rail cars."},
+"Rail-40":{"General-Location":"Portland, Oregon","Year":"2021","Spatial Description":"Protestors stood on the rail road tracks to rally against oil-by-train."},
+"Rail-41":{"General-Location":"Portland, Oregon","Year":"2022","Spatial Description":"Protestors rallied on the rail road tracks against transport of oil through the city. "},
+"Pipeline-42":{"General-Location":"Tacoma, Washington","Year":"2013","Spatial Description":"Protestors set up chairs for 2,300 people for the last of five public “scoping” hearings on the proposed $643 million Millennium Coal Dock."},
+"Civic-43":{"General-Location":"Spokane, Washington","Year":"2014","Spatial Description":"Protestors rallied against fossil fuel transportation within their city."},
+"Pipeline-44":{"General-Location":"Mount Vernon, Washington","Year":"2015","Spatial Description":"Protestors rallied against an oil-by-rail project at the Shell Puget Sound Refinery."},
+"Civic-45":{"General-Location":"Oregon, Washington, and British Columbia, Canada","Year":"2016","Spatial Description":"Protestors from the PNW Tribe (Lummi Nation) embarked on a totem journey to try to create a unified front among tribes across North America in protest against coal terminals and crude oil pipelines in their back yard. This totem journey involved a 3,000 pound totem pole on a flatbed truck."},
+"Corporation-46":{"General-Location":"Burnaby, British Columbia, Canada","Year":"2018","Spatial Description":"Protestors blocked the front gate of Kinder Morgan for hours."},
+"Pipeline-47":{"General-Location":"Clearwater, British Columbia, Canada","Year":"2018","Spatial Description":"Protestors known as tiny house warriors  built tiny homes and put them in the path of a proposed pipeline to protect their land."},
+"Pipeline-48":{"General-Location":"British Columbia, Canada","Year":"2019","Spatial Description":"Protestors from the Wet'suwe'ten land defenders created a blockade using a school bus and a variety of materials including their own bodies to prevent a pipeline from being built. "},
+"Pipeline-49":{"General-Location":"British Columbia, Canada","Year":"2020","Spatial Description":"Protestors from the Wet'suwe'ten land defenders created a blockade using a school bus, huge sharpened trees, and a tower built atop the bus to provide a lookout for police. "},
+"Civic-50":{"General-Location":"Tacoma, Washington","Year":"2020","Spatial Description":"Protestors led by students walked in a march for 4 miles protesting fossil fuel projects."},
+"Pipeline-51":{"General-Location":"Blue River, British Columbia, Canada","Year":"2020","Spatial Description":"Protestors from Indigenous clans  built tiny houses on the proposed route of the Trans Mountain pipeline expansion project to protect their land."},
+"Pipeline-52":{"General-Location":"Burnaby, British Columbia, Canada","Year":"2020","Spatial Description":"Protestors named the burnaby tree sitters camped in tents hanging from trees to prevent the Trans Mountain pipeline from being built."},
+"Pipeline-53":{"General-Location":"British Columbia, Canada","Year":"2021","Spatial Description":"Protestors named the land defenders created a bloackade using a pile of metal on an access road to a construction site for a pipeline."},
+"Pipeline-54":{"General-Location":"British Columbia, Canada","Year":"2021","Spatial Description":"Protestors named the land defenders created a bloackade using a pile of metal on an access road to a construction site for a pipeline."},
+"Pipeline-55":{"General-Location":"British Columbia, Canada","Year":"2021","Spatial Description":"Protestors named the land defenders created a bloackade using a pile of metal on an access road to a construction site for a pipeline."},
+"Pipeline-56":{"General-Location":"British Columbia, Canada","Year":"2021","Spatial Description":"Protestors blocked the bridge into their land using metal, barbed wires, and their own bodies. They chained themsleves to the blockade as RMCP tried to climb over and enter their land without a permit."},
+"Pipeline-57":{"General-Location":"Houston, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors called the Wet'suwe'ten land defenders lived in Coyote Camp that is located where a proposed pipeline would go through for a 70 day blockade."},
+"Pipeline-58":{"General-Location":"Houston, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors called the Wet'suwe'ten land defenders lived in Coyote Camp that is located where a proposed pipeline would go through for a 53 day blockade."},
+"Corporation-59":{"General-Location":"Seattle, Washignton","Year":"2017","Spatial Description":"Protestors shut down 13 branches of JP Morgan Chase bank with a large amount of bodies protesting new tar sands projects."},
+"Civic-60":{"General-Location":"Olympia, Washington","Year":"2017","Spatial Description":"Protestors  delivered boxes of 1.5 million petitions about coal and oil export terminals to fill up a government officials office."},
+"Corporation-61":{"General-Location":"Seattle, Washington","Year":"2017","Spatial Description":"Protestors put up tripods outside of banks with tribal drums sounding the urgency of their message. 103 banks nation-wide were protested on this day."},
+"Corporation-62":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2017","Spatial Description":"Protestors passed out flyers urging people to close their accounts with Chase."},
+"Corporation-63":{"General-Location":"Seattle, Washington","Year":"2017","Spatial Description":"Protestors blocked traffic on 2nd Avenue with multiple teepees protesting tar sands pipeline financing. "},
+"Civic-64":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2018","Spatial Description":"Protestors marched between banks to call awareness on their funding of fossil fuels."},
+"Civic-65":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors from many schools walked out of school demanding climate action."},
+"Corporation-66":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors hosted a funeral for the planet outside of the corporate buildings that are funding fossil ffuels."},
+"Corporation-67":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors staged a die-in outside of a company, laying their bodies across the ground to show the reality of climate change."},
+"Civic-68":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2019","Spatial Description":"Over 100,000 protestors took to the streets demanding leaders take more action on climate change."},
+"Civic-69":{"General-Location":"Prince George, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors rallied against climate change."},
+"Civic-70":{"General-Location":"Victoria, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors rallied against climate change."},
+"Civic-71":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors rallied against climate change with the leadership of Greta Thunberg."},
+"Civic-72":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors carried a climate crisis casket through the mall on black Friday and staged a die-in outside of the building."},
+"Civic-73":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors staged a funeral and die-in in front of the government building."},
+"Civic-74":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2020","Spatial Description":"Protestors used signs and put their bodies on the street to protest climate change. "},
+"Civic-75":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2020","Spatial Description":"Protestors used signs and put their bodies on the street to protest climate change. "},
+"Civic-76":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2020","Spatial Description":"Protestors used signs and put their bodies on the street to protest climate change. "},
+"Civic-77":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2020","Spatial Description":"Protestors used signs and put their bodies on the street to protest climate change. "},
+"Corporation-78":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors led an anti-pipeline demonstration in front of corporations that are funding it. "},
+"Corporation-79":{"General-Location":"Portland, Oregon","Year":"2021","Spatial Description":"Protestors faced guns pulled on them as as they tried to enter the bank and continue their call to action against oil pipeline expansion."},
+"Corporation-80":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors named Braided Warriors among other activists called for an end to Trans Mountain pipeline expansion through a rally."},
+"Corporation-81":{"General-Location":"Portland, Oregon","Year":"2021","Spatial Description":"Protestors shut Chase bank down while demanding the end of financing fossil fuel projects. "},
+"Corporation-82":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors held a blockade to keep people from entering the insurance building and in turn funding fossil fuels. "},
+"Civic-83":{"General-Location":"Seattle, Washington","Year":"2021","Spatial Description":"Protestors staged a die-in and created a mural calling on Liberty Mutual to stop funding fossilfuel projects."},
+"Corporation-84":{"General-Location":"Portland, Oregon","Year":"2021","Spatial Description":"Protestors shut down three banks while rallying and marching against the funding of fossil fuels."},
+"Corporation-85":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors called out major banks for their use of greenwashing while still funding fossil fuels. "},
+"Corporation-86":{"General-Location":"Seattle, Washington","Year":"2021","Spatial Description":"Protestors shut down 4th avenue in Seattle using their bodies to call upon the de-funding of fossil fuels."},
+"Civic-87":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2021","Spatial Description":"Youth-led protestors organized a rally with chants and speeches against inaction on climate change."},
+"Corporation-88":{"General-Location":"Seattle, Washington","Year":"2021","Spatial Description":"Protestors staged a die-in laying on the floor to emulate with cooporations are doing to society."},
+"Corporation-89":{"General-Location":"Duncan, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors swarmed the outside of the bank to protest investments in the fossil fuel industry."},
+"Corporation-90":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2021","Spatial Description":"Protestors rallied agains banks funding fossil fuels."},
+"Corporation-91":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2022","Spatial Description":"Protestors from UBC glued their hands to the doors of a RBC bank demanding RBC to stop funding fossil fuels."},
+"Corporation-92":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2022","Spatial Description":"Hundreds of protestors marched from the art gallery to the bank to call on it to stop funding fossil fuels."},
+"Corporation-93":{"General-Location":"Portland, Oregon","Year":"2022","Spatial Description":"Protestors rallied outside and within the lobby of the corporation protesting inaction by the government."},
+"Corporation-94":{"General-Location":"Nanaimo, BC, Canada","Year":"2022","Spatial Description":"Protestors glued and chained themselves to the doors of RBC demanding divestment from a pipeline project."},
+"Corporation-95":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2022","Spatial Description":"Protestors put on a rally outside of RBC  to call for a halt to fossil fuel investments."},
+"Civic-96":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2022","Spatial Description":"Protestors rallied and wrote in chalk to defend the land defenders who had been arrested."},
+"Civic-97":{"General-Location":"Qualicum Beach, British Columbia, Canada","Year":"2022","Spatial Description":"Protestors put on a rally calling to defund a pipeline."},
+"Corporation-98":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2022","Spatial Description":"Protestors put on a rally calling to defund a pipeline."},
+"Civic-99":{"General-Location":"Vancouver, British Columbia, Canada","Year":"2022","Spatial Description":"Protestors joined a march and block party calling for action on climate change."},
+"Corporation-100":{"General-Location":"Seattle, Washington","Year":"2022","Spatial Description":"Protestors used their bodies to create a blockade in the path of people trying to access and use their private jets."},
+"Pipeline-101":{"General-Location":"Coos Bay, Oregon","Year":"2020","Spatial Description":"Protestors created a blockade with their bodies to block a highway that is close to where a proposed pipeline project is."},
+"Civic-102":{"General-Location":"Salem, Oregon","Year":"2019","Spatial Description":"Protestors stagesd a sit-in in Governor Kate Brown's office and refused to leave."},
+"Civic-103":{"General-Location":"Eugene, Oregon","Year":"2012","Spatial Description":"Protestors rallied outside the city council hearing on coal exports."},
+"Civic-104":{"General-Location":"Kamloops, British Columbia, Canada","Year":"2018","Spatial Description":"Protestors rallied at a roundtable against fossil fuels. "},
+"Pipeline-105":{"General-Location":"Thompson-Nicola, British Columbia, Canada","Year":"2019","Spatial Description":"Protestors from Tiny house warriors built tiny homes and yurts on land that a proposed pipeline was supposed to go through."},
+"Corporation-106":{"General-Location":"Eugene, Oregon","Year":"2019","Spatial Description":"Protestors staged a die-in in front of Chase bank to demonstrate what their investments are doing to our planet."},
+
+      }}
+
+  </script>
+
 <script>
     d3.xml("https://infographicsuo.github.io/AEW/svg/5_16_Piplines_Flattened_Raster.svg")
     .then(data => {
@@ -55,14 +175,27 @@
                    
                    .on("mouseover", function(d,i) { 
                         // console.log(this.id)
-                    let thisID = this.id;
+
+                   //Attempt to load Data from JSON File to Tool Tip     
+                      //Get the ID of the current tooltip
+                        let active_tooltip = this.id;
+                        console.log(active_tooltip)
+                        let thisID = this.id;
+
+                        
+                        // let thisData = protest_data.tooltips["active_tooltip"]
+                        let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention
+                        let thisYear = protest_data.tooltips[thisData].Year
+
+
+
                     // let shortID = thisID.substring(thisID.length-5, thisID.length)
 
                         d3.select(this)
                             .classed("selectedProtest", true)
 
                         d3.select("#toolTip")
-                        .html(thisID)
+                        .html(thisData + "<br> Year: " + thisYear )
                         // .html(shortID)
                    })
 
