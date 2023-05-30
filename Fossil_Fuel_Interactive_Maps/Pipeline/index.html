@@ -1,6 +1,8 @@
 <html>
 
 <head>
+
+
   <style>
     /* Adobe Fonts (McClean Gonzalez's account */
     @import url("https://use.typekit.net/uye5etk.css");
@@ -27,27 +29,28 @@
         max-width: 25%;
         font-family: "freight-sans-pro", sans-serif;
     }
-        
-
-
   </style>
+
+
 </head>
 
 <body>
+
+<!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
   <div id="mapDiv"></div>
   <div id="tooltip">Hover on each dot for description of Protest</div>
 
-
+<!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <!-- <script src="index.js" defer></script> -->
 
-<!-- JSON of Attribute Table -->
+
+
+  <!-- JSON of Attribute Table -->
   <script>
   
-  //JSON banner content array
-  // example data access: protest_data.tooltips["Water-1"].Year
+        // example data access: protest_data.tooltips["Water-1"].Year
+
 	var protest_data = {
-		//Tooltips
 		"tooltips" : {
 
       "Water-1":{"General-Location":"Vancouver, Washington","Year":"2013","Description":"Protestors rallied together to block a ship from being able to go through the Columbia River: climbers hung from the bridge, kayaktavists formed a barricade in the water, and people surrounded the banks and bridge with more signs.","Protesting":"Fossil Fuel Exports"},
@@ -161,7 +164,11 @@
 
   </script>
 
+
+<!-- REPOPULATE TOOL TIPS WITH PROTEST DATA -->
 <script>
+
+  //-----LOAD SVG----- 
     d3.xml("https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Pipeline/5_16_Piplines_Flattened_Raster_Linked.svg") 
         .then(data => {
         d3.select("#mapDiv").nodes().forEach(n => {
@@ -182,10 +189,11 @@
         d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
                   //  .attr("title","I am a circle!")
                    
+                  //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
                    .on("mouseover", function(d,i) { 
                         // console.log(this.id)
 
-                      //Get the ID (i.e. Pipeline_48) of the current Shape being hovered on and Assign it to thisID
+                      //Get the ID (i.e. Pipeline_48) of the current protest being hovered on and Assign it to thisID
                         let active_tooltip = this.id;
                         console.log(active_tooltip)
                         let thisID = this.id;
@@ -194,18 +202,18 @@
                       // Replace the _ in Protest ID with a - 
                         let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention
 
-                      // Pull data from JSON Loacted Above
+                      // Get data from JSON 
                         let thisYear = protest_data.tooltips[thisData].Year
                         let thisDescription = protest_data.tooltips[thisData].Description
                         let thisProtestTarget = protest_data.tooltips[thisData].Protesting
 
 
 
-                    // let shortID = thisID.substring(thisID.length-5, thisID.length)
+                          // let shortID = thisID.substring(thisID.length-5, thisID.length)
 
                         d3.select(this)
                             .classed("selectedProtest", true)
-
+                    //Defines Text which will populate Tooltip when a protest is hovered on  
                         d3.select("#toolTip")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
                         .html("<b>Protest Target:</b> "+ thisProtestTarget +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
@@ -216,18 +224,6 @@
                         d3.select(this)
                             .classed("selectedProtest", false)
                    });
-
-
-
-
-
-
-        // Select Elements
-
-
-
-        // When Mouse Hovers on element Add Tool Tip
-
     }
 
 </script>
