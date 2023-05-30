@@ -5,7 +5,12 @@
     max-width: 600px;
 */
     margin: 0em auto;
+    
 }
+
+.highcharts-container {
+    margin: 0 auto;
+  }
 
 .highcharts-data-table table {
     font-family: Verdana, sans-serif;
