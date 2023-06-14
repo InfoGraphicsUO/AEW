@@ -29,11 +29,42 @@
     <!-- for heatmap legend - not currently working. Due to levels? see  https://www.highcharts.com/docs/chart-and-series-types/treemap#use-with-coloraxis -->
     <script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
     <script src="https://code.highcharts.com/modules/coloraxis.js"></script>
+    <script>
+        // Plugin to allow Click on Color Axis Legend to be disabled in coloraxis.dataclasses (Solution found at: https://github.com/highcharts/highcharts/issues/9246)
+        (function(H) {
+                H.wrap(H.Legend.prototype, 'renderItem', function(proceed, item) {
+                    var ret,
+                    chart = this.chart,
+                    colorAxis = chart.colorAxis,
+                    legendItem = item.legendItem;
 
+                    ret = proceed.apply(this, Array.prototype.slice.call(arguments, 1));
 
+                    if (
+                    item.isDataClass &&
+                    // Created new item, add event:
+                    !legendItem &&
+                    item.legendItem &&
+                    item.events
+                    ) {
 
+                    H.objectEach(item.events, function(value, key) {
+                        H.addEvent(item, key, value);
+                    });
+                    }
+
+                    return ret;
+                });
+                })(Highcharts)
+    </script>                                                                                                                                                       
+
+    
+    <!-- START OF CHART -->
+    
+    
     <script>
 
+        
 
         //            Highcharts.chart('container', {
         //
@@ -67,7 +98,9 @@
                 //Color Key with Stops: https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/coloraxis/color-key-with-stops/
                 // minColor: '#cc3333',
                 // maxColor: Highcharts.getOptions().colors[0]
-                
+                events: {
+            	legendItemClick: function (e) { return false; }
+            },
                 min: 1,
                 max: 3,
                 stops: [
@@ -88,19 +121,34 @@
                             to: 3,
                             color: '#cc3333',
                             // color: '#fff5f3',
-                            name: '<b>Maximal</b><br>500 to 3969 person-days'
+                            name: '<b>Maximal</b><br>500 to 3969 person-days',
+                         // Disables Click on Color Axis Legend for Limited
+                            events: {
+                                legendItemClick: function(e) {
+                                    return false;
+                                }}
                         }, {
                             from: 1.1,
                             to: 2,
                             color: '#e88074',
                             // color: '#e88074',
-                            name: '<b>Significant</b><br>101 to 499.5 person-days'
+                            name: '<b>Significant</b><br>101 to 499.5 person-days',
+                        // Disables Click on Color Axis Legend for Significant
+                            events: {
+                                legendItemClick: function(e) {
+                                    return false;
+                                }}                            
                         },{
                             from: 0,
                             to: 1,
                             color: '#fff5f3',
                             // color: '#cc3333',
-                            name: '<b>Limited</b><br>1 to 99.5 person-days'
+                            name: '<b>Limited</b><br>1 to 99.5 person-days',
+                         // Disables Click on Color Axis Legend for Limited
+                            events: {
+                                    legendItemClick: function(e) {
+                                        return false;
+                                    }}
                         }],        
 
                 // dataClasses: [{
