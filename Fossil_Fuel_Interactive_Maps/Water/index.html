@@ -167,9 +167,9 @@
 
 <!-- REPOPULATE TOOL TIPS WITH PROTEST DATA -->
 <script>
-
+"C:\Users\mccleang\Documents\GitHub\AEW\Fossil_Fuel_Interactive_Maps\Water\WATER_SVG-01.svg"
   //-----LOAD SVG----- 
-    d3.xml("https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Pipeline/5_16_Piplines_Flattened_Raster_Linked.svg") 
+    d3.xml("https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Water/WATER_SVG-01.svg") 
         .then(data => {
         d3.select("#mapDiv").nodes().forEach(n => {
             n.append(data.documentElement.cloneNode(true))
@@ -186,8 +186,10 @@
         // ---- CREATE TOOLTIP FOR EACH PROTEST ----
 
         // Select all Protests based on ID and object type 
-        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
-                  //  .attr("title","I am a circle!")
+        // d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+        d3.selectAll("#ProtestData_For_All_Data>circle,#Water>path,#Water>ellipse")
+
+                   .attr("title","I am a circle!")
                    
                   //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
                    .on("mouseover", function(d,i) { 
