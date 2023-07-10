@@ -13,7 +13,13 @@
       max-width: calc(100vw - 10px);
     }
 
+    .objectInvisible {
+            visibility: hidden;
+            
+        }
+
     .selectedProtest{
+            /* visibility: hidden; */
             fill:red!important;
             stroke:black !important;
             stroke-width:3 !important;
@@ -29,6 +35,24 @@
         max-width: 25%;
         font-family: "freight-sans-pro", sans-serif;
     }
+    #yearButtons{
+      position:absolute;
+      bottom: 50px;
+      left: 50px;
+      padding: 10px;
+      font-family: "freight-sans-pro", sans-serif;
+
+
+    }
+
+    #d3Buttons{
+      position:absolute;
+      bottom: 50px;
+      right: 50px;
+      padding: 10px;
+      font-family: "freight-sans-pro", sans-serif;
+
+    }
   </style>
 
 
@@ -39,7 +63,8 @@
 <!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
   <div id="mapDiv"></div>
   <div id="tooltip">Hover on each dot for description of Protest</div>
-
+  <div id="yearButtons"><button class="filterButton" id="2021" onclick="makeVisible(2021)">2021</button> <br> <button class="filterButton" id="2016" onclick="makeVisible(2016)">2016</button></div>
+  <div id="d3Buttons"></div>
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
@@ -168,15 +193,30 @@
 <!-- REPOPULATE TOOL TIPS WITH PROTEST DATA -->
 <script>
 
+
+
+
   //-----LOAD SVG----- 
     d3.xml("https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Pipeline/5_16_Piplines_Flattened_Raster_Linked.svg") 
         .then(data => {
-        d3.select("#mapDiv").nodes().forEach(n => {
+          var theMapData =  d3.select("#mapDiv").nodes().forEach(n => {
             n.append(data.documentElement.cloneNode(true))
         })
 
         doThings();
     });
+
+
+   
+
+   d3.selectAll(".filterButton") 
+         .on("click", function(d,i) {
+             var year = this.id;
+             }
+         )  
+
+    d3.select(this)
+          .classed("selectedYear", true)
 
 
      // on sucessful load 
@@ -188,7 +228,67 @@
         
 
         // Select all Protests based on ID and object type 
-        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+       d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+        
+        // Add Class invisible
+            // .classed("objectInvisible", true)
+
+
+
+        //MAKE DROP DOWN MENU FOR YEARS
+
+            var allGroup = ["2021", "2016","2018"]
+          
+            // Initialize the button
+            var dropdownButton = d3.select("#d3Buttons")
+              .append('select')
+
+              // add the options to the button
+                    dropdownButton // Add a button
+              .selectAll('myOptions') // Next 4 lines add 6 options = 6 colors
+              .data(allGroup)
+              .enter()
+              .append('option')
+              .text(function (d) { return d; }) // text showed in the menu
+              .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+            function updateChart (myYear) {
+              theMapData
+              d3.selectAll() 
+              
+              // .classed("objectInvisible", true)
+            }
+
+
+            // When the button is changed, run the updateChart function
+            dropdownButton.on("change", function(d) {
+              
+              // recover the option that has been chosen
+                var selectedOption = d3.select(this).property("value")
+
+                // run the updateChart function with this selected option
+                updateChart(selectedOption)
+            })
+
+
+
+//         function makeVisible(selectedYear) {
+
+//           d3.select(thisYear=year); {
+//             d3.classed("objectInvisible", false)
+//           }
+        
+//         }
+// console.log(year)
+//         d3.select(".filterButton").on("click", makeVisible)   
+          
+
+
+        // Create data = list of groups
+
+
+
+
 
         // let selectedYear = protest_data.tooltips[].Year
 
@@ -218,18 +318,24 @@
 
                         d3.select(this)
                             .classed("selectedProtest", true)
-                    //Defines Text which will populate Tooltip when a protest is hovered on  
+                      //Defines Text which will populate Tooltip when a protest is hovered on
                         d3.select("#toolTip")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
                         .html("<b>Protest Target:</b> "+ thisProtestTarget +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
                         // .html(shortID)
                    })
 
+                                     //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
+
                    .on("mouseout", function(d,i) { 
                         d3.select(this)
                             .classed("selectedProtest", false)
                    });
     }
+
+    // function filterYear() {
+    //     console.log("clicked!"); 
+    // }
 
 </script>
 
