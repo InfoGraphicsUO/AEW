@@ -169,7 +169,7 @@
 <script>
 
   //-----LOAD SVG----- 
-    d3.xml("https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Pipeline/5_16_Piplines_Flattened_Raster_Linked.svg") 
+    d3.xml("https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Rail/20230711_Rail_Flattened.svg") 
         .then(data => {
         d3.select("#mapDiv").nodes().forEach(n => {
             n.append(data.documentElement.cloneNode(true))
@@ -188,7 +188,7 @@
         
 
         // Select all Protests based on ID and object type 
-        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+        d3.selectAll("#Rail_Project>circle,#Rail_Project>path,#Rail_Project>ellipse")
 
         // let selectedYear = protest_data.tooltips[].Year
 
