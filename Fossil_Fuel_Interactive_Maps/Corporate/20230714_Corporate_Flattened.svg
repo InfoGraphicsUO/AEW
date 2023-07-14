@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 921.6 651.36">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #c38ac0;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 1.38px;
+      }
+    </style>
+  </defs>
+  <g id="Raster_Base">
+    <image width="922" height="652" transform="translate(-.2 -.32)" xlink:href="20230714_Corporate_Basemap.png"/>
+  </g>
+  <g id="ProtestData_For_All_Data">
+    <g id="Corporation">
+      <circle id="Corporate-98" class="cls-2" cx="325.29" cy="138.22" r="4" transform="translate(-28.13 135.01) rotate(-22.5)"/>
+      <circle id="Corporate-100" class="cls-2" cx="339.12" cy="231.15" r="4" transform="translate(-62.64 147.37) rotate(-22.5)"/>
+      <circle id="Corporate-88" class="cls-2" cx="339.12" cy="225.86" r="4" transform="translate(-60.62 146.97) rotate(-22.5)"/>
+      <circle id="Corporate-95" class="cls-2" cx="325.29" cy="133.2" r="4" transform="translate(27.03 319.21) rotate(-54.22)"/>
+      <circle id="Corporate-86" class="cls-2" cx="339.12" cy="220.56" r="4"/>
+      <path id="Corporate-92" class="cls-1" d="m325.29,124.19c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Corporate-91" class="cls-1" d="m325.29,119.18c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <circle id="Corporate-90" class="cls-2" cx="325.29" cy="118.17" r="4" transform="translate(-20.46 133.48) rotate(-22.5)"/>
+      <path id="Corporate-93" class="cls-1" d="m317.56,347.17c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Corporate-85" class="cls-1" d="m325.29,109.15c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Corporate-84" class="cls-1" d="m317.56,341.77c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Corporate-82" class="cls-1" d="m325.29,104.14c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Corporate-81" class="cls-1" d="m317.64,336.37c2.21.04,3.97,1.86,3.93,4.07s-1.86,3.97-4.07,3.93-3.97-1.86-3.93-4.07,1.86-3.97,4.07-3.93Z"/>
+      <circle id="Corporate-80" class="cls-2" cx="325.29" cy="103.13" r="4" transform="translate(-14.7 132.33) rotate(-22.5)"/>
+      <circle id="Corporate-63" class="cls-2" cx="339.12" cy="215.27" r="4" transform="translate(-56.57 146.16) rotate(-22.5)"/>
+      <circle id="Corporate-61" class="cls-2" cx="339.12" cy="209.97" r="4" transform="translate(-29.5 362.31) rotate(-54.22)"/>
+      <path id="Corporate-89" class="cls-1" d="m295.38,156.8c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <circle id="Corporate-78" class="cls-2" cx="325.29" cy="98.12" r="4" transform="translate(-12.79 131.95) rotate(-22.5)"/>
+      <circle id="Corporate-67" class="cls-2" cx="325.29" cy="93.1" r="4" transform="translate(59.56 302.56) rotate(-54.22)"/>
+      <path id="Corporate-66" class="cls-1" d="m325.29,84.09c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <circle id="Corporate-79" class="cls-2" cx="317.56" cy="334.97" r="4" transform="translate(-104.01 147.02) rotate(-22.5)"/>
+      <circle id="Corporate-94" class="cls-2" cx="287.44" cy="135.95" r="4" transform="translate(9.08 289.65) rotate(-54.22)"/>
+      <circle id="Corporate-62" class="cls-2" cx="325.29" cy="83.08" r="4" transform="translate(-7.03 130.81) rotate(-22.5)"/>
+      <circle id="Corporate-46" class="cls-2" cx="325.29" cy="78.07" r="4" transform="translate(71.76 296.31) rotate(-54.22)"/>
+      <path id="Corporate-59" class="cls-1" d="m339.12,200.68c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Corporate-106" class="cls-1" d="m295.88,429.73c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+    </g>
+  </g>
+</svg>
