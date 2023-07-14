@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 921.6 651.36">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: #73af48;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 1.38px;
+      }
+
+      .cls-3 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="Raster_Base">
+    <image width="922" height="652" transform="translate(1.95 -.32)" xlink:href="20230714_Civic_Basemap-01.png"/>
+  </g>
+  <g id="ProtestData_For_All_Data">
+    <g id="Civic">
+      <path id="Civic-72" class="cls-3" d="m339.78,278.01c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-71" class="cls-3" d="m339.78,273.3c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-74" class="cls-3" d="m339.78,268.59c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-96" class="cls-3" d="m339.78,263.89c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-68" class="cls-3" d="m339.78,259.18c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-65" class="cls-3" d="m339.78,254.47c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-64" class="cls-3" d="m339.78,249.76c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-73" class="cls-3" d="m339.78,245.06c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <circle id="Civic-43" class="cls-2" cx="466.95" cy="350.53" r="4"/>
+      <path id="Civic-83" class="cls-3" d="m347.2,332.49c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-50" class="cls-3" d="m347.24,347.72c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-60" class="cls-3" d="m334,354.59c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-87" class="cls-3" d="m339.78,240.35c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <circle id="Civic-69" class="cls-1" cx="368.88" cy="116.75" r="4" transform="translate(-16.6 150.05) rotate(-22.5)"/>
+      <circle id="Civic-70" class="cls-2" cx="329.54" cy="308.78" r="4" transform="translate(-113.64 395.57) rotate(-54.22)"/>
+      <path id="Civic-99" class="cls-3" d="m339.78,235.64c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-45" class="cls-3" d="m347.2,327.37c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-76" class="cls-3" d="m339.78,230.93c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-77" class="cls-3" d="m339.78,226.22c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-97" class="cls-3" d="m309.19,268.74c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-75" class="cls-3" d="m339.78,221.52c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-102" class="cls-3" d="m321.26,427.12c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <path id="Civic-103" class="cls-3" d="m315.54,457.72c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+      <circle id="Civic-104" class="cls-2" cx="407.9" cy="237.77" r="4" transform="translate(-23.49 429.65) rotate(-54.22)"/>
+    </g>
+  </g>
+</svg>
