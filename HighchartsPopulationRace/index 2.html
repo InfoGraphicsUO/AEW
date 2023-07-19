@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+         <link href="index.css" rel="stylesheet">
+    
+    </head>
+    
+    <body>
+        
+<!--The Excel File is located at:"\\cas-fs-geog\InfoGraphics\Projects\JustFutures\Essential_Workers_Atlas\Topics\Carceral Firefighting\Data Files\infographics_persondaycount_Tree_Diagram(8_16_2022).xlsx" -->
+        
+        <figure class="highcharts-figure">
+            <div id="container" ></div>
+            <p class="highcharts-description" style="width:600px;">
+            </p>
+<!--
+                        <p class="highcharts-description" style="width:600px;">
+                This chart shows the percent of the Population defined by the US Census as non-white within 4 regions of the US and within the US itself. Non-White is used to address changing definintions of people of color over time within the US Census and for the purpose of this chart includes all people who do not identify as white and only white within the US Census. As a reference we are using this line chart <a href="https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/line-basic">here.</a> 
+            </p>
+-->
+        </figure>
+        
+        <script src="https://code.highcharts.com/10.2.1/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+<!--        <script src="https://code.highcharts.com/modules/exporting.js"></script>-->
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        
+                <script>
+       
+var categoryLabels = [1950, 2020];                  
+                    
+var popChart = Highcharts.chart('container', {
+    
+    chart: {
+//        alignTicks: true,
+        type: 'line',
+//        width: 600,
+        height: 600,
+//        spacingRight: 0,
+        events: {
+          load: function() {
+            var chart = this,
+              legend = chart.legend;
+            //alert('legend');
+            for (var i = 0, len = legend.allItems.length; i < len; i++) {
+              (function(i) {
+                var item = legend.allItems[i].legendItem;
+                item.on('mouseover', function(e) {
+                   // console.log(i)
+                  chart.tooltip.refresh(chart.series[i].data[0]);
+                }).on('mouseout', function(e) {
+                  //console.log("mouseout" + i);
+                });
+              })(i);
+            }
+          }
+        },
+     },
+    
+    title: {
+        text: '',
+        
+    },
+     credits: {
+            enabled: false
+            },
+
+//    subtitle: {
+//        text: 'Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">US CE</a>'
+//    },
+
+    yAxis: {
+                
+            
+        labels: {
+            format: '{text}%',
+            style: {
+                fontSize: 12
+            }            
+        },
+        title: {
+//            text: 'percent change'
+            enabled: false
+        },
+         tickInterval: 10,
+        ceiling: 80,
+        
+    },
+
+    xAxis: {
+        accessibility: {
+            rangeDescription: 'Range: 1950 to 2020'
+        },
+         type: 'linear',
+        
+//        categories: [1950, 2020],
+//                tickPosition: 'on',
+        alignTicks:false,
+        tickInterval: 1,
+        tickLength: 0,
+//        startOnTick: true,
+//        endOnTick:true,
+//        tickPixelInterval: 1000,
+//        tickPosition: 'on',
+//         uniqueNames: false
+//        max: 2019,
+//        min: 1951
+//        max: 0,
+//        min: 1
+        labels: {
+            formatter: function(){
+              return categoryLabels[this.value];
+            },
+                    
+            style: {
+                fontSize: 12
+            }
+        
+        }   
+    },
+
+    legend: {
+//        layout: 'vertical',
+//        verticalAlign: 'middle',
+        enabled: true,
+        layout: 'proximate',
+        align: 'right',
+        margin: 0,
+        padding: 0,
+        symbolHeight: 0.1,
+        symbolWidth: 0.1,
+        symbolRadius: 0.1,
+        labelFormatter: function() {
+            // set larger size for PNW label only
+            var fontSizeStyle = "" // start with empty string
+            if (this.name.includes("Pacific") || this.name.includes("United")){
+                fontSizeStyle = " font-size: larger; font-weight: bold;"
+            }
+        return '<span style="color:'+this.color+';'+fontSizeStyle+'">'+this.name+'</span>';
+    
+            
+
+      },
+//         title: {
+//            text: 'Regions<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
+//            style: {
+//                fontStyle: 'italic'
+//            }
+//        },
+        itemStyle: {
+            fontWeight: 200,
+            fontSize: '8'
+            
+            
+        }
+    },
+
+    tooltip: {
+        formatter: function () {
+            return '<b><span style="color:'+this.series.color+'"; "font-size:50px">'+this.series.name+'</span></b><br>1950: <b>' + this.series.points[0].y + '%</b> <br>2020: <b>' + this.series.points[1].y + '%</b>'
+        },
+
+        positioner: function () {
+            var tooltipX = popChart.chartWidth - 180
+            return { x: tooltipX, y: 84 };
+        },
+        
+  
+//        positioner: function () {
+//            return { x: 425, y: 84 };
+//        },
+        shadow: false,
+        borderWidth: 0,
+        backgroundColor: 'rgba(255,255,255,0.0)',
+//        enabled: false
+//   
+},
+       
+//    For Mobile 
+    
+//    responsive: {
+//        rules: [{
+//            condition: {
+//                maxWidth: 500
+//            },
+//            chartOptions: {
+//                legend: {
+//                    align: 'center',
+//                    verticalAlign: 'bottom',
+//                    layout: 'horizontal'
+//                },
+//                yAxis: {
+//                    labels: {
+//                        align: 'left',
+//                        x: 0,
+//                        y: -5
+//                    },
+//                    title: {
+//                        text: null
+//                    }
+//                },
+//                subtitle: {
+//                    text: null
+//                },
+//                credits: {
+//                    enabled: false
+//                }
+//            }
+//        }]
+//    },
+
+  
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false,
+                enabled:false,
+                crop: false,
+                inside: true,
+                
+            },
+              events: {
+                  legendItemClick: function(e) {
+                    e.preventDefault();
+                            }   
+                        },
+            linecap: 'square',
+            dataLabels:{
+                enabled:false,
+                crop: false,
+                overflow: 'none',
+                align: 'left',
+                verticalAlign: 'middle',
+                formatter: function () {
+                    // Only label data points in 2020, using the series name instead of drawing a legend
+                    if (categoryLabels[this.x]== 2020){
+                    return '<b><span style="color:'+this.color+'">'+this.series.name + '</span></b>' ;
+                    } 
+                }
+                
+                
+            },
+            marker: {
+                enabled: true,
+                radius: 4,
+                symbol: 'circle',
+                states: {
+                    hover: {
+                        radius: 2,
+                        symbol: 'circle'
+//                        enabled: false
+                    }
+                }
+            },
+//            tooltip:{
+//            formatter: function () {
+//                console.log(this)
+////                return '<b><span style="color:'+this.color+'">'+this.name+'</span></b><br> US BIPOC Population: <b>' + '%</b>' ;
+//            },
+//                enabled:true,
+//        },
+        }
+    },
+
+    
+    series: [{
+        name: 'Pacific Northwest',
+        data: [2.1, 28.8],
+        color: '#196F3D',
+//        opacity: 0.9,
+        lineWidth: 5,
+        zIndex: 10,
+        marker:{
+            enabled:true,
+            radius: 7,
+        }
+
+    },  {
+        name: 'North Central',
+        data: [2.8, 32.4],
+        color: '#b3b3b3',
+        opacity:1
+    }, {
+        name: 'South Central',
+        data: [16.0, 47.7],
+        color: '#b3b3b3',
+        opacity:1
+    }, 
+//         {
+//        name: 'United States',
+//        data: [10.4, 33.4],
+//        color: 'black',
+//        lineWidth: 3,
+////        dashStyle: 'shortdot',
+//        marker:{
+//            enabled:true,
+//            symbol: 'circle',
+//            radius: 4,
+//        }
+//    },  
+         {
+        name: 'Southwest',
+        data: [6.5, 53.3],
+        color: '#b3b3b3',
+        opacity:1
+    }, {
+        name: 'Midwest',
+        data: [5.5, 28.2],
+        color: '#b3b3b3',
+        opacity:1
+    }, {
+        name: 'Southeast',
+        data: [28.5, 39.6],
+        color: '#b3b3b3',
+        opacity:1
+    },{
+        name: 'Northeast',
+        data: [7.5, 35.9],
+        color: '#b3b3b3',
+        opacity:1
+    }, {
+        name: 'Alaska',
+        data: [27.9, 40.6],
+        color: '#b3b3b3',
+        opacity:1
+    }, {
+        name: 'Hawaii',
+        data: [77.0, 77.1],
+        color: '#b3b3b3',
+        opacity:1
+    },
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            ],
+    
+
+
+        // not using responsive?
+//    responsive: {
+//        rules: [{
+//            condition: {
+////                maxWidth: 500
+//            },
+//            chartOptions: {
+//                legend: {
+////                    layout: 'horizontal',
+////                    align: 'center',
+////                    verticalAlign: 'bottom'
+//                }
+//            }
+//        }]
+//    }
+
+});
+
+        </script>
+
+    </body>
+            
+</html>
+<!--
+ data: {
+        googleAPIKey: 'AIzaSyCIZXVMIq7dDMwcfIb4cMOen1oLEQjsWHI',
+        googleSpreadsheetKey: '1NudaZTf3hneu_wK9OkW35SxYpUFFRHaUjlGu8niv63A',
+        error: console.error 
+    }
+-->
+<!--https://docs.google.com/spreadsheets/d/e/2PACX-1vTaG03Htnsk5AgIxTW6mqBORkXKRW-_QqDfZqqAtgzN_m2rRiKRVtNeOoYXpEjqU2DrlJxB3Tcr73Y4/pubhtml-->
