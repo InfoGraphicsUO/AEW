@@ -29,6 +29,7 @@
         max-width: 25%;
         font-family: "freight-sans-pro", sans-serif;
     }
+
   </style>
 
 
@@ -188,7 +189,7 @@
         
 
         // Select all Protests based on ID and object type 
-        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+        d3.selectAll("#Outlines>circle,#Outlines>path,#Outlines>ellipse")
 
         // let selectedYear = protest_data.tooltips[].Year
 
@@ -196,21 +197,21 @@
                    
                   //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
                    .on("mouseover", function(d,i) { 
-                        // console.log(this.id)
+                        console.log(this.id)
 
                       //Get the ID (i.e. Pipeline_48) of the current protest being hovered on and Assign it to thisID
-                        let active_tooltip = this.id;
-                        console.log(active_tooltip)
-                        let thisID = this.id;
+                      //   let active_tooltip = this.id;
+                      //   console.log(active_tooltip)
+                      //   let thisID = this.id;
 
                         
-                      // Replace the _ in Protest ID with a - 
-                        let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention
+                      // // Replace the _ in Protest ID with a - 
+                      //   let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention
 
-                      // Get data from JSON 
-                        let thisYear = protest_data.tooltips[thisData].Year
-                        let thisDescription = protest_data.tooltips[thisData].Description
-                        let thisProtestTarget = protest_data.tooltips[thisData].Protesting
+                      // // Get data from JSON 
+                      //   let thisYear = protest_data.tooltips[thisData].Year
+                      //   let thisDescription = protest_data.tooltips[thisData].Description
+                      //   let thisProtestTarget = protest_data.tooltips[thisData].Protesting
 
 
 
@@ -221,7 +222,7 @@
                     //Defines Text which will populate Tooltip when a protest is hovered on  
                         d3.select("#toolTip")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
-                        .html("<b>Protest Target:</b> "+ thisProtestTarget +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
+                        .html("<b>Protest Target:</b> "+ this +"<br><b>Year:</b> " + this.id + "<br> <b>Description:</b> " + this.id)
                         // .html(shortID)
                    })
 

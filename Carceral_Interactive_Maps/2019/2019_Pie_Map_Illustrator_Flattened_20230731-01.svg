@@ -451,11 +451,11 @@
   </g>
   <g id="Interactive_Pie_Outlines" data-name="Interactive Pie Outlines">
     <g id="Outlines">
-      <circle class="cls-20" cx="420.84" cy="265.21" r="12.13"/>
-      <circle class="cls-20" cx="339.05" cy="184.65" r="18.75"/>
-      <circle class="cls-20" cx="296.56" cy="151.95" r="18.75" transform="translate(109.52 427.72) rotate(-82.98)"/>
-      <circle class="cls-20" cx="375.55" cy="259.41" r="8.82"/>
-      <circle class="cls-20" cx="407.61" cy="221.58" r="7.17"/>
+      <circle id="fire-1" class="cls-20" cx="420.84" cy="265.21" r="12.13"/>
+      <circle id="fire-2" class="cls-20" cx="339.05" cy="184.65" r="18.75"/>
+      <circle id="fire-3" class="cls-20" cx="296.56" cy="151.95" r="18.75" transform="translate(109.52 427.72) rotate(-82.98)"/>
+      <circle id="fire-4" class="cls-20" cx="375.55" cy="259.41" r="8.82"/>
+      <circle id="fire-5" class="cls-20" cx="407.61" cy="221.58" r="7.17"/>
       <circle class="cls-20" cx="371.82" cy="287.22" r="15.44"/>
       <circle class="cls-20" cx="214.59" cy="411.85" r="18.58"/>
       <circle class="cls-20" cx="390.72" cy="86.69" r="30" transform="translate(242.56 458.48) rotate(-80.78)"/>
