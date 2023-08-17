@@ -30,6 +30,13 @@
         max-width: 25%;
         font-family: "freight-sans-pro", sans-serif;
     }
+      
+    #minimizeButton{
+       position: absolute;
+       top: 0.25em;
+       right: 0.25em;
+       cursor: pointer;
+    }
   </style>
 
 
@@ -39,7 +46,10 @@
 
 <!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
   <div id="mapDiv"></div>
-  <div id="tooltip">Hover on each dot for description of Protest</div>
+  <div id="tooltip">
+      <span id="minimizeButton" hidden onclick="minimizeInfoWindow();"><b>—</b></span>
+      <div id="tooltipText">Hover on each dot for description of Protest</div>
+  </div>
 
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -220,10 +230,12 @@
                         d3.select(this)
                             .classed("selectedProtest", true)
                     //Defines Text which will populate Tooltip when a protest is hovered on  
-                        d3.select("#toolTip")
+                        d3.select("#tooltipText")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
                         .html("<b>Protest Target:</b> "+ thisProtestTarget +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
                         // .html(shortID)
+            
+                        d3.select("#minimizeButton").attr("hidden",null); // show the button
                    })
 
                    .on("mouseout", function(d,i) { 
@@ -231,6 +243,11 @@
                             .classed("selectedProtest", false)
                    });
     }
+    
+     function minimizeInfoWindow(){
+         d3.select("#tooltipText").html("Hover on each dot for description of Protest")
+         d3.select("#minimizeButton").attr("hidden",true); // hide the button when info is minimized
+     }
 
 </script>
 
