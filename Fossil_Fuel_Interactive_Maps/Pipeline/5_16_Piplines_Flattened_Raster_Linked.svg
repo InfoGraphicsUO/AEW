@@ -1,42 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 921.6 651.36">
-  <defs>
-    <style>
-      .cls-1, .cls-2 {
-        fill-rule: evenodd;
-      }
-
-      .cls-1, .cls-2, .cls-3, .cls-4 {
-        fill: #D95A2A;
-      }
-
-      .cls-2, .cls-3 {
-        stroke: #fff;
-        stroke-miterlimit: 10;
-        stroke-width: .5px;
-      }
-    </style>
-  </defs>
-  <g id="Raster_Base">
-    <image width="3840" height="2714" transform="scale(.24)" xlink:href="https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Pipeline/Piplines_Map_July18-02.jpg"/>
-  </g>
-  <g id="ProtestData_For_All_Data">
-    <g id="Pipeline_Project" data-name="Pipeline Project">
-      <circle id="Pipeline_42" class="cls-4" cx="341.05" cy="356.63" r="5.6"/>
-      <circle id="Pipeline_44" class="cls-4" cx="346.05" cy="335.95" r="5.6" transform="translate(-128.82 420.25) rotate(-54.22)"/>
-      <path id="Pipeline_47" class="cls-1" d="m412.36,192.92c3.09,0,5.6,2.51,5.6,5.6s-2.51,5.6-5.6,5.6-5.6-2.51-5.6-5.6,2.51-5.6,5.6-5.6Z"/>
-      <circle id="Pipeline_51" class="cls-4" cx="432.72" cy="180.78" r="5.6" transform="translate(100.1 511.38) rotate(-67.5)"/>
-      <path id="Pipeline_52" class="cls-1" d="m335.21,274.22c3.09,0,5.6,2.51,5.6,5.6s-2.51,5.6-5.6,5.6-5.6-2.51-5.6-5.6,2.51-5.6,5.6-5.6Z"/>
-      <path id="Pipeline_101" class="cls-1" d="m277.3,488.85c3.09,0,5.6,2.51,5.6,5.6s-2.51,5.6-5.6,5.6-5.6-2.51-5.6-5.6,2.51-5.6,5.6-5.6Z"/>
-      <circle id="Pipeline_105" class="cls-4" cx="435.52" cy="171.59" r="5.6" transform="translate(110.32 508.3) rotate(-67.5)"/>
-      <circle id="Pipeline_58" class="cls-3" cx="260.14" cy="82.12" r="5.6"/>
-      <path id="Pipeline_57" class="cls-2" d="m260.14,73.02c3.09,0,5.6,2.51,5.6,5.6s-2.51,5.6-5.6,5.6-5.6-2.51-5.6-5.6,2.51-5.6,5.6-5.6Z"/>
-      <circle id="Pipeline_56" class="cls-3" cx="260.14" cy="75.12" r="5.6" transform="translate(-8.95 105.27) rotate(-22.5)"/>
-      <circle id="Pipeline_55" class="cls-3" cx="260.14" cy="71.62" r="5.6" transform="translate(69.64 262.71) rotate(-60.48)"/>
-      <path id="Pipeline_54" class="cls-2" d="m260.14,62.52c3.09,0,5.6,2.51,5.6,5.6s-2.51,5.6-5.6,5.6-5.6-2.51-5.6-5.6,2.51-5.6,5.6-5.6Z"/>
-      <circle id="Pipeline_53" class="cls-3" cx="260.14" cy="64.63" r="5.6"/>
-      <path id="Pipeline_49" class="cls-2" d="m260.14,55.53c3.09,0,5.6,2.51,5.6,5.6s-2.51,5.6-5.6,5.6-5.6-2.51-5.6-5.6,2.51-5.6,5.6-5.6Z"/>
-      <path id="Pipeline_48" class="cls-2" d="m260.14,52.03c3.09,0,5.6,2.51,5.6,5.6s-2.51,5.6-5.6,5.6-5.6-2.51-5.6-5.6,2.51-5.6,5.6-5.6Z"/>
+    <defs>
+        <style>
+            .cls-1,.cls-2{fill-rule:evenodd}.cls-1,.cls-2,.cls-3,.cls-4{fill:#d95a2a}.cls-2,.cls-3{stroke:#fff;stroke-miterlimit:10;stroke-width:.5px}
+        </style>
+    </defs>
+    <image width="3840" height="2714" transform="scale(.24)" xlink:href="https://infographicsuo.github.io/AEW/Fossil_Fuel_Interactive_Maps/Pipeline/Pipelines_Aug18_v3" id="Raster_Base"/>
+    <g id="ProtestData_For_All_Data">
+        <g id="Pipeline_Project" data-name="Pipeline Project">
+            <circle id="Pipeline_42" class="cls-4" cx="341.05" cy="356.63" r="5.6"/>
+            <circle id="Pipeline_44" class="cls-4" cx="346.05" cy="335.95" r="5.6" transform="rotate(-54.22 346.034 335.939)"/>
+            <path id="Pipeline_47" class="cls-1" d="M412.36 192.92c3.09 0 5.6 2.51 5.6 5.6s-2.51 5.6-5.6 5.6-5.6-2.51-5.6-5.6 2.51-5.6 5.6-5.6Z"/>
+            <circle id="Pipeline_51" class="cls-4" cx="432.72" cy="180.78" r="5.6" transform="rotate(-67.5 432.717 180.785)"/>
+            <path id="Pipeline_52" class="cls-1" d="M335.21 274.22c3.09 0 5.6 2.51 5.6 5.6s-2.51 5.6-5.6 5.6-5.6-2.51-5.6-5.6 2.51-5.6 5.6-5.6Z"/>
+            <path id="Pipeline_101" class="cls-1" d="M277.3 488.85c3.09 0 5.6 2.51 5.6 5.6s-2.51 5.6-5.6 5.6-5.6-2.51-5.6-5.6 2.51-5.6 5.6-5.6Z"/>
+            <circle id="Pipeline_105" class="cls-4" cx="435.52" cy="171.59" r="5.6" transform="rotate(-67.5 435.522 171.597)"/>
+            <circle id="Pipeline_58" class="cls-3" cx="260.14" cy="82.12" r="5.6"/>
+            <path id="Pipeline_57" class="cls-2" d="M260.14 73.02c3.09 0 5.6 2.51 5.6 5.6s-2.51 5.6-5.6 5.6-5.6-2.51-5.6-5.6 2.51-5.6 5.6-5.6Z"/>
+            <circle id="Pipeline_56" class="cls-3" cx="260.14" cy="75.12" r="5.6" transform="rotate(-22.5 260.139 75.132)"/>
+            <circle id="Pipeline_55" class="cls-3" cx="260.14" cy="71.62" r="5.6" transform="rotate(-60.48 260.148 71.624)"/>
+            <path id="Pipeline_54" class="cls-2" d="M260.14 62.52c3.09 0 5.6 2.51 5.6 5.6s-2.51 5.6-5.6 5.6-5.6-2.51-5.6-5.6 2.51-5.6 5.6-5.6Z"/>
+            <circle id="Pipeline_53" class="cls-3" cx="260.14" cy="64.63" r="5.6"/>
+            <path id="Pipeline_49" class="cls-2" d="M260.14 55.53c3.09 0 5.6 2.51 5.6 5.6s-2.51 5.6-5.6 5.6-5.6-2.51-5.6-5.6 2.51-5.6 5.6-5.6Z"/>
+            <path id="Pipeline_48" class="cls-2" d="M260.14 52.03c3.09 0 5.6 2.51 5.6 5.6s-2.51 5.6-5.6 5.6-5.6-2.51-5.6-5.6 2.51-5.6 5.6-5.6Z"/>
+        </g>
     </g>
-  </g>
 </svg>
