@@ -4,16 +4,24 @@
     <style>
       .cls-1, .cls-2, .cls-3 {
         fill: #006F45;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
       }
 
       .cls-2, .cls-3 {
         stroke: #fff;
         stroke-miterlimit: 10;
-        stroke-width: 1.38px;
+        stroke-width: 2px;
       }
 
       .cls-3 {
         fill-rule: evenodd;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        fill: #006F45;
+
+        stroke-width: 2px;
       }
     </style>
   </defs>
