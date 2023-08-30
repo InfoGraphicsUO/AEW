@@ -20,14 +20,14 @@
             stroke-width:3 !important;
             fill-opacity:0.7;
         }
-/* #Water_10 {
+.sectionProtest {
   fill:red!important;
             stroke:black !important;
-            stroke-width:3 !important;
+            stroke-width:5 !important;
             fill-opacity:0.7;
             z-index: 1000;
 
-} */
+}
     #tooltip{
         position: absolute;
         top: 50px;
@@ -197,7 +197,7 @@
     });
 
 
-     // on sucessful load 
+     // on sucessful load
      function doThings(){    
         console.log("doing things")
 
@@ -205,9 +205,17 @@
 
         // Select all Protests based on ID and object type 
         // d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+        
+        let sectionProtestPoint = "#Water_10"
+        d3.select(sectionProtestPoint)
+        .classed("sectionProtest",true)
+       
+       
+        
         d3.selectAll("#Water_Project>circle,#Water_Project>path,#Water_Project>ellipse")
 
                   //  .attr("title","I am a circle!")
+
                    
                   //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
                    .on("mouseover", function(d,i) { 
@@ -217,7 +225,8 @@
                         let active_tooltip = this.id;
                         console.log(active_tooltip)
                         let thisID = this.id;
-
+                  d3.select(sectionProtestPoint)
+                      .classed("sectionProtest",false)
                         
                       // Replace the _ in Protest ID with a - 
                         let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention

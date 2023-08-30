@@ -19,32 +19,32 @@
   </g>
   <g id="ProtestData_For_All_Data">
     <g id="Corporation">
-      <circle id="Corporation-46" class="cls-2" cx="332.54" cy="139.64" r="4" transform="translate(-28.13 137.89) rotate(-22.5)"/>
-      <circle id="Corporation-100" class="cls-2" cx="340.19" cy="232.53" r="4" transform="translate(-63.09 147.89) rotate(-22.5)"/>
-      <circle id="Corporation-88" class="cls-2" cx="340.19" cy="227.36" r="4" transform="translate(-61.11 147.49) rotate(-22.5)"/>
-      <circle id="Corporation-98" class="cls-2" cx="332.54" cy="134.77" r="4" transform="translate(28.77 325.74) rotate(-54.22)"/>
-      <circle id="Corporation-86" class="cls-2" cx="340.19" cy="222.18" r="4"/>
-      <path id="Corporation-95" class="cls-1" d="m332.54,125.89c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <path id="Corporation-92" class="cls-1" d="m332.54,121.02c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <circle id="Corporation-91" class="cls-2" cx="332.54" cy="120.14" r="4" transform="translate(-20.66 136.4) rotate(-22.5)"/>
-      <path id="Corporation-93" class="cls-1" d="m320.16,345.7c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <path id="Corporation-90" class="cls-1" d="m332.54,111.27c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <path id="Corporation-84" class="cls-1" d="m320.16,340.27c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <path id="Corporation-85" class="cls-1" d="m332.54,106.39c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <path id="Corporation-81" class="cls-1" d="m320.16,334.84c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <circle id="Corporation-82" class="cls-2" cx="332.54" cy="105.51" r="4" transform="translate(-15.07 135.29) rotate(-22.5)"/>
-      <circle id="Corporation-63" class="cls-2" cx="340.19" cy="217" r="4" transform="translate(-57.15 146.7) rotate(-22.5)"/>
-      <circle id="Corporation-61" class="cls-2" cx="340.19" cy="211.83" r="4" transform="translate(-30.56 363.95) rotate(-54.22)"/>
-      <path id="Corporation-89" class="cls-1" d="m295.38,156.8c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <circle id="Corporation-80" class="cls-2" cx="332.54" cy="100.64" r="4" transform="translate(-13.2 134.92) rotate(-22.5)"/>
-      <circle id="Corporation-78" class="cls-2" cx="332.54" cy="95.76" r="4" transform="translate(60.41 309.54) rotate(-54.22)"/>
-      <path id="Corporation-67" class="cls-1" d="m332.54,86.89c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <circle id="Corporation-79" class="cls-2" cx="320.16" cy="333.4" r="4" transform="translate(-103.22 147.9) rotate(-22.5)"/>
-      <circle id="Corporation-94" class="cls-2" cx="287.44" cy="135.95" r="4" transform="translate(9.08 289.65) rotate(-54.22)"/>
-      <circle id="Corporation-66" class="cls-2" cx="332.54" cy="86.01" r="4" transform="translate(-7.6 133.81) rotate(-22.5)"/>
-      <circle id="Corporation-62" class="cls-2" cx="332.54" cy="81.14" r="4" transform="translate(72.28 303.47) rotate(-54.22)"/>
-      <path id="Corporation-59" class="cls-1" d="m340.19,202.65c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
-      <path id="Corporation-106" class="cls-1" d="m295.88,429.73c2.21,0,4,1.79,4,4s-1.79,4-4,4-4-1.79-4-4,1.79-4,4-4Z"/>
+       <circle id="Corporation-100" class="cls-2" cx="340.19" cy="232.53" r="8.64" transform="translate(-63.09 147.89) rotate(-22.5)"/>
+      <circle id="Corporation-88" class="cls-2" cx="340.19" cy="225.76" r="8.64" transform="translate(-60.5 147.37) rotate(-22.5)"/>
+      <circle id="Corporation-86" class="cls-2" cx="340.19" cy="218.98" r="8.64"/>
+      <path id="Corporation-93" class="cls-1" d="m320.16,341.06c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <path id="Corporation-84" class="cls-1" d="m320.16,333.3c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <path id="Corporation-81" class="cls-1" d="m320.16,325.53c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <circle id="Corporation-63" class="cls-2" cx="340.19" cy="212.2" r="8.64" transform="translate(-55.31 146.34) rotate(-22.5)"/>
+      <circle id="Corporation-61" class="cls-2" cx="340.19" cy="205.43" r="8.64" transform="translate(-25.37 361.29) rotate(-54.22)"/>
+      <path id="Corporation-89" class="cls-1" d="m295.38,152.16c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <circle id="Corporation-79" class="cls-2" cx="320.16" cy="326.4" r="8.64" transform="translate(-100.54 147.37) rotate(-22.5)"/>
+      <circle id="Corporation-94" class="cls-2" cx="287.44" cy="135.95" r="8.64" transform="translate(9.08 289.65) rotate(-54.22)"/>
+      <circle id="Corporation-46" class="cls-2" cx="332.54" cy="139.64" r="8.64" transform="translate(-28.13 137.89) rotate(-22.5)"/>
+      <circle id="Corporation-98" class="cls-2" cx="332.54" cy="133.17" r="8.64" transform="translate(30.07 325.08) rotate(-54.22)"/>
+      <path id="Corporation-95" class="cls-1" d="m332.54,118.05c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <path id="Corporation-92" class="cls-1" d="m332.54,111.58c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <circle id="Corporation-91" class="cls-2" cx="332.54" cy="113.74" r="8.64" transform="translate(-18.21 135.92) rotate(-22.5)"/>
+      <path id="Corporation-90" class="cls-1" d="m332.54,98.63c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <path id="Corporation-85" class="cls-1" d="m332.54,92.15c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <circle id="Corporation-82" class="cls-2" cx="332.54" cy="94.31" r="8.64" transform="translate(-10.78 134.44) rotate(-22.5)"/>
+      <circle id="Corporation-80" class="cls-2" cx="332.54" cy="87.84" r="8.64" transform="translate(-8.3 133.94) rotate(-22.5)"/>
+      <circle id="Corporation-78" class="cls-2" cx="332.54" cy="81.36" r="8.64" transform="translate(72.1 303.56) rotate(-54.22)"/>
+      <path id="Corporation-67" class="cls-1" d="m332.54,66.25c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <circle id="Corporation-66" class="cls-2" cx="332.54" cy="68.41" r="8.64" transform="translate(-.87 132.47) rotate(-22.5)"/>
+      <circle id="Corporation-62" class="cls-2" cx="332.54" cy="61.94" r="8.64" transform="translate(87.86 295.5) rotate(-54.22)"/>
+      <path id="Corporation-59" class="cls-1" d="m340.19,190.01c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
+      <path id="Corporation-106" class="cls-1" d="m295.88,425.09c4.77,0,8.64,3.87,8.64,8.64s-3.87,8.64-8.64,8.64-8.64-3.87-8.64-8.64,3.87-8.64,8.64-8.64Z"/>
     </g>
   </g>
 </svg>
