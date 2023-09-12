@@ -19,11 +19,11 @@
   </g>
   <g id="ProtestData_For_All_Data">
     <g id="Rail">
-      <circle id="Rail-28" class="cls-2" cx="335.66" cy="190.41" r="6.4" transform="translate(-15.07 351.38) rotate(-54.22)"/>
+      <path id="Rail-26" class="cls-3" d="m335.66,196.81c-3.53,0-6.4-2.87-6.4-6.4s2.87-6.4,6.4-6.4,6.4,2.87,6.4,6.4-2.87,6.4-6.4,6.4Z"/>
+      <circle id="Rail-28" class="cls-2" cx="335.66" cy="184.01" r="6.4" transform="translate(-9.88 348.72) rotate(-54.22)"/>
       <path id="Rail-30" class="cls-3" d="m370.54,342.03c3.53,0,6.4,2.87,6.4,6.4s-2.87,6.4-6.4,6.4-6.4-2.87-6.4-6.4,2.87-6.4,6.4-6.4Z"/>
       <path id="Rail-24" class="cls-3" d="m292.22,307.07c3.53,0,6.4,2.87,6.4,6.4s-2.87,6.4-6.4,6.4-6.4-2.87-6.4-6.4,2.87-6.4,6.4-6.4Z"/>
       <circle id="Rail-25" class="cls-2" cx="347.55" cy="212.9" r="6.4" transform="translate(-55.02 149.21) rotate(-22.5)"/>
-      <path id="Rail-26" class="cls-3" d="m335.66,177.61c3.53,0,6.4,2.87,6.4,6.4s-2.87,6.4-6.4,6.4-6.4-2.87-6.4-6.4,2.87-6.4,6.4-6.4Z"/>
       <circle id="Rail-27" class="cls-1" cx="339.49" cy="236.99" r="6.4" transform="translate(-64.85 147.96) rotate(-22.5)"/>
       <circle id="Rail-31" class="cls-2" cx="337.34" cy="169.73" r="6.4" transform="translate(-39.27 142.01) rotate(-22.5)"/>
       <circle id="Rail-32" class="cls-2" cx="326.69" cy="134.45" r="6.4" transform="translate(-26.58 135.25) rotate(-22.5)"/>
