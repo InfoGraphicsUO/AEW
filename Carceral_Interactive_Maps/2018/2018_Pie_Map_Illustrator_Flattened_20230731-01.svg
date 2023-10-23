@@ -299,27 +299,9 @@
       }
     </style>
   </defs>
-
-  <!-- Embedded PNG Base Map -->
   <g id="Flat_Base_Map" data-name="Flat Base Map">
     <image width="3840" height="2715" transform="translate(0 1.15) scale(.24)" xlink:href="https://infographicsuo.github.io/AEW/Carceral_Interactive_Maps/2018/Interactive_Basemap_20230731-01.png"/>
   </g>
-
-<!-- Text in legend to be filled with Number of Person Days and Fire Name -->
-  <g id="Interactive_Text" data-name="Interactive Text">
-    <text id="legend_sci" class="cls-58" transform="translate(125.28 127.4)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_srci" class="cls-58" transform="translate(125.28 150.87)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_sffc" class="cls-58" transform="translate(125.28 139.13)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_trci" class="cls-58" transform="translate(125.28 162.61)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_wccf" class="cls-58" transform="translate(125.28 174.35)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_cccf" class="cls-58" transform="translate(30.92 127.4)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_mccf" class="cls-58" transform="translate(30.92 150.87)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_drci" class="cls-58" transform="translate(30.92 139.13)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_prcf" class="cls-58" transform="translate(30.92 162.61)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_scci" class="cls-58" transform="translate(30.92 174.35)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text id="legend_fire_name" class="cls-59" transform="translate(69.49 76.55)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
-  </g>
-
   <g id="Legend_Frame_to_Highlight" data-name="Legend Frame to Highlight">
     <g id="Map_Frames" data-name="Map Frames">
       <polygon class="cls-52" points="22.34 288.94 22.34 47.85 22.34 42.65 31.75 42.65 207.72 42.65 217.12 42.65 217.12 47.85 217.12 288.94 217.12 294.14 207.72 294.14 31.75 294.14 22.34 294.14 22.34 288.94"/>
@@ -338,8 +320,19 @@
       </g>
     </g>
   </g>
-
-  <!-- Institution names in Legend, to be highlighted when fire includes that institution -->
+  <g id="Legend_Items_Non_Interactive" data-name="Legend Items Non Interactive">
+    <text class="cls-56" transform="translate(36.89 433.75)"><tspan x="0" y="0">Preposition Deployments</tspan></text>
+    <text class="cls-56" transform="translate(49.07 330.5)"><tspan x="0" y="0">Deployments to Fires </tspan><tspan x="-2.26" y="12">Without Location Data</tspan></text>
+    <text class="cls-56" transform="translate(52.59 198.72)"><tspan x="0" y="0">Total Incarcerated Person</tspan><tspan x="11.04" y="11">Days Per Deployment</tspan></text>
+    <text class="cls-56" transform="translate(49.89 109.75)"><tspan x="0" y="0">Person Days per Institution</tspan></text>
+    <text class="cls-61" transform="translate(64.09 61.65)"><tspan x="0" y="0">Deployment Name: </tspan></text>
+    <path class="cls-32" d="m116.31,221.69c16.57,0,30,13.43,30,30,0,5.27-1.39,10.44-4.02,15-5.36,9.28-15.26,15-25.98,15s-20.62-5.72-25.98-15c-2.63-4.56-4.02-9.73-4.02-15,0-16.57,13.43-30,30-30Z"/>
+    <path class="cls-32" d="m116.22,243.57c10.52,0,19.05,8.53,19.05,19.05,0,3.34-.88,6.63-2.55,9.52-3.4,5.89-9.69,9.52-16.5,9.52s-13.09-3.63-16.5-9.52c-1.67-2.9-2.55-6.18-2.55-9.52,0-10.52,8.53-19.05,19.05-19.05Z"/>
+    <path class="cls-32" d="m116.31,266.26c4.1,0,7.42,3.32,7.42,7.42,0,1.3-.34,2.58-.99,3.71-1.33,2.3-3.78,3.71-6.43,3.71s-5.1-1.42-6.43-3.71c-.65-1.13-.99-2.41-.99-3.71,0-4.1,3.32-7.42,7.42-7.42Z"/>
+    <text class="cls-57" transform="translate(112.17 276.15)"><tspan x="0" y="0">10</tspan></text>
+    <text class="cls-60" transform="translate(111.17 261.54)"><tspan x="0" y="0">80</tspan></text>
+    <text class="cls-57" transform="translate(109.24 237.91)"><tspan class="cls-84" x="0" y="0">1</tspan><tspan class="cls-82" x="4.51" y="0">5</tspan><tspan x="9.34" y="0">0</tspan></text>
+  </g>
   <g id="Legend_Text_to_Highlight" data-name="Legend Text to Highlight">
     <text class="cls-57" transform="translate(84.5 140.92)"><tspan class="cls-66" x="0" y="0">D</tspan><tspan class="cls-80" x="7.03" y="0">RC</tspan><tspan x="19.34" y="0">I</tspan></text>
     <text class="cls-57" transform="translate(84.5 152.62)"><tspan class="cls-66" x="0" y="0">M</tspan><tspan class="cls-81" x="8.56" y="0">C</tspan><tspan class="cls-65" x="14.53" y="0">C</tspan><tspan x="20.66" y="0">F</tspan></text>
@@ -352,86 +345,18 @@
     <text class="cls-57" transform="translate(180.5 163.87)"><tspan class="cls-78" x="0" y="0">T</tspan><tspan class="cls-65" x="5.82" y="0">RC</tspan><tspan x="18.13" y="0">I</tspan></text>
     <text class="cls-57" transform="translate(180.5 175.57)"><tspan class="cls-86" x="0" y="0">W</tspan><tspan class="cls-81" x="8.76" y="0">C</tspan><tspan class="cls-65" x="14.72" y="0">C</tspan><tspan x="20.86" y="0">F</tspan></text>
   </g>
-<!-- Institution boxes in Legend, to be highlighted with fire includes that institution -->
-    <g id="Legend_Boxes_to_Fade" data-name="Legend Boxes to Fade">
-    <rect class="cls-41" x="59.19" y="121.15" width="20.6" height="9.8"/>
-    <rect class="cls-48" x="59.19" y="132.85" width="20.6" height="9.8"/>
-    <rect class="cls-26" x="59.19" y="144.55" width="20.6" height="9.8"/>
-    <rect class="cls-23" x="59.19" y="156.25" width="20.6" height="9.8"/>
-    <rect class="cls-43" x="59.19" y="167.95" width="20.6" height="9.8"/>
-    <rect class="cls-46" x="153.19" y="120.7" width="20.6" height="9.8"/>
-    <rect class="cls-29" x="153.19" y="132.4" width="20.6" height="9.8"/>
-    <rect class="cls-38" x="153.19" y="144.1" width="20.6" height="9.8"/>
-    <rect class="cls-46" x="153.19" y="155.8" width="20.6" height="9.8"/>
-    <rect class="cls-47" x="153.19" y="167.5" width="20.6" height="9.8"/>
-  </g>
-
-  <!-- Outlines of Fires, to be highlighted on hover, to trigger legend, (id Contains IGL_Fire_id) -->
-<g id="Interactive_Pie_Outlines" data-name="Interactive Pie Outlines">
-    <g id="Outlines">
-      <circle id="2018_23" class="cls-20" cx="420.84" cy="265.21" r="12.13"/>
-      <circle id="2018_56" class="cls-20" cx="339.05" cy="184.65" r="18.75"/>
-      <circle id="2018_30" class="cls-20" cx="296.56" cy="151.95" r="18.75" transform="translate(109.52 427.72) rotate(-82.98)"/>
-      <circle id="2018_35" class="cls-20" cx="375.55" cy="259.41" r="8.82"/>
-      <circle id="2018_11" class="cls-20" cx="407.61" cy="221.58" r="7.17"/>
-      <circle class="cls-20" cx="371.82" cy="287.22" r="15.44"/>
-      <circle class="cls-20" cx="214.59" cy="411.85" r="18.58"/>
-      <circle class="cls-20" cx="390.72" cy="86.69" r="30" transform="translate(242.56 458.48) rotate(-80.78)"/>
-      <circle class="cls-20" cx="288.47" cy="223.7" r="22.06" transform="translate(21.45 472.61) rotate(-80.78)"/>
-      <circle class="cls-20" cx="474.24" cy="288.43" r="30" transform="translate(60.76 658.73) rotate(-73.15)"/>
-      <circle class="cls-20" cx="345.92" cy="119.52" r="18.75" transform="translate(-19.41 141.48) rotate(-22.5)"/>
-      <circle class="cls-20" cx="240.82" cy="492.78" r="30" transform="translate(-34.33 18.31) rotate(-4.07)"/>
-      <circle class="cls-20" cx="331.72" cy="152.28" r="7.17" transform="translate(-33.02 138.53) rotate(-22.5)"/>
-      <circle class="cls-20" cx="483.32" cy="558.28" r="10.47" transform="translate(-217.42 791.17) rotate(-67.5)"/>
-      <circle class="cls-20" cx="380.37" cy="205.88" r="8.82"/>
-      <circle class="cls-20" cx="415.85" cy="151.69" r="30" transform="translate(-26.4 170.69) rotate(-22.5)"/>
-      <circle class="cls-20" cx="362.48" cy="564.91" r="30" transform="translate(-85.81 65.36) rotate(-9.22)"/>
-      <path class="cls-20" d="m442.3,548.69c3.96,0,7.17,3.21,7.17,7.17s-3.21,7.17-7.17,7.17-7.17-3.21-7.17-7.17,3.21-7.17,7.17-7.17Z"/>
-      <circle class="cls-20" cx="280.43" cy="545.17" r="30" transform="translate(-103.89 67.52) rotate(-11.6)"/>
-      <circle class="cls-20" cx="636.05" cy="249.06" r="30" transform="translate(213.36 785.65) rotate(-73.15)"/>
-      <circle class="cls-20" cx="286.05" cy="446.75" r="23.71"/>
-      <circle class="cls-20" cx="257.09" cy="425.34" r="7.17"/>
-      <circle class="cls-20" cx="407.61" cy="240.91" r="7.17"/>
-      <circle class="cls-20" cx="296.57" cy="293.13" r="28.35" transform="translate(-109.82 199.69) rotate(-31.72)"/>
-      <circle class="cls-20" cx="489.41" cy="192.38" r="30" transform="translate(189.73 624.5) rotate(-76.72)"/>
-      <circle class="cls-20" cx="373.69" cy="153.74" r="7.17" transform="translate(-19.8 61.84) rotate(-9.22)"/>
-      <circle class="cls-20" cx="670.3" cy="158.43" r="10.81" transform="translate(84.3 520.38) rotate(-45)"/>
-      <circle class="cls-20" cx="648.23" cy="202.92" r="11.14" transform="translate(-9.87 371.1) rotate(-31.72)"/>
-      <circle class="cls-20" cx="580.98" cy="238.63" r="20.07"/>
-      <path class="cls-20" d="m673.94,174.24c3.96,0,7.17,3.21,7.17,7.17s-3.21,7.17-7.17,7.17-7.17-3.21-7.17-7.17,3.21-7.17,7.17-7.17Z"/>
-      <circle class="cls-20" cx="716.4" cy="211.18" r="12.13" transform="translate(207.13 757.5) rotate(-63.43)"/>
-      <circle class="cls-20" cx="673.19" cy="202.43" r="8.82"/>
-      <circle class="cls-20" cx="757.22" cy="158.57" r="30" transform="translate(386.02 837.35) rotate(-73.15)"/>
-      <circle class="cls-20" cx="345.43" cy="499.91" r="30" transform="translate(-75.62 61.79) rotate(-9.22)"/>
-      <circle class="cls-20" cx="324.35" cy="242.53" r="8.82" transform="translate(-76.49 300.38) rotate(-45)"/>
-      <circle class="cls-20" cx="403.01" cy="195.51" r="8.82" transform="translate(68.15 493.03) rotate(-67.5)"/>
-      <circle class="cls-20" cx="331.77" cy="375.36" r="25.37" transform="translate(-55.84 57.99) rotate(-9.22)"/>
-      <circle class="cls-20" cx="369.97" cy="173.07" r="7.17" transform="translate(68.49 448.65) rotate(-67.5)"/>
-      <circle class="cls-20" cx="236.27" cy="438.27" r="8.65"/>
-      <circle class="cls-20" cx="694.93" cy="172.23" r="8.82"/>
-      <circle class="cls-20" cx="398.84" cy="330.29" r="30"/>
-      <circle class="cls-20" cx="352.7" cy="152.09" r="8.82"/>
-      <circle class="cls-20" cx="300.17" cy="482.44" r="10.31"/>
-      <circle class="cls-20" cx="368.95" cy="234.31" r="7.17" transform="translate(11.28 485.51) rotate(-67.5)"/>
-      <circle class="cls-20" cx="273.63" cy="358.07" r="7.17" transform="translate(-116.2 131.97) rotate(-22.5)"/>
-      <circle class="cls-20" cx="388.28" cy="226.86" r="7.17" transform="translate(-46.69 341) rotate(-45)"/>
-      <circle class="cls-20" cx="309.79" cy="116.32" r="10.47" transform="translate(125.4 391.1) rotate(-76.72)"/>
-      <circle class="cls-20" cx="222.57" cy="453.35" r="8.49"/>
-      <circle class="cls-20" cx="556.9" cy="540.08" r="12.46" transform="translate(-164.29 254.23) rotate(-22.5)"/>
-      <circle class="cls-20" cx="247.64" cy="401.38" r="11.8"/>
-      <circle class="cls-20" cx="396.54" cy="263.64" r="7.17" transform="translate(-70.28 357.61) rotate(-45)"/>
-      <circle class="cls-20" cx="301.09" cy="186.17" r="10.47"/>
-      <circle class="cls-20" cx="144.23" cy="493.52" r="15.44" transform="translate(-177.88 92.76) rotate(-22.5)"/>
-      <circle class="cls-20" cx="103.76" cy="532.67" r="12.13"/>
-      <circle class="cls-20" cx="126.99" cy="519.53" r="7"/>
-      <circle class="cls-20" cx="133.99" cy="462.7" r="11.8"/>
-      <circle class="cls-20" cx="145.26" cy="528.02" r="7.17"/>
-      <circle class="cls-20" cx="103.76" cy="487.47" r="21.73" transform="translate(-76.74 22.91) rotate(-9.22)"/>
-      <circle class="cls-20" cx="77.59" cy="463.52" r="7.17"/>
-      <circle class="cls-20" cx="70.68" cy="517.32" r="17.09" transform="translate(-451.28 504.22) rotate(-80.78)"/>
-      <circle class="cls-20" cx="64.25" cy="482.52" r="8.82"/>
-      <circle class="cls-20" cx="102.59" cy="377.45" r="18.42" transform="translate(-286.42 418.25) rotate(-80.78)"/>
-    </g>
+  <g id="Interactive_Text" data-name="Interactive Text">
+    <text class="cls-58" transform="translate(125.28 127.4)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(125.28 150.87)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(125.28 139.13)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(125.28 162.61)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(125.28 174.35)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(30.92 127.4)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(30.92 150.87)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(30.92 139.13)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(30.92 162.61)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-58" transform="translate(30.92 174.35)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text class="cls-59" transform="translate(69.49 76.55)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
   </g>
   <g id="Pies_to_Fade" data-name="Pies to Fade">
     <g id="Pies">
@@ -524,7 +449,72 @@
       <circle class="cls-19" cx="102.67" cy="377.45" r="18.42" transform="translate(-286.35 418.33) rotate(-80.78)"/>
     </g>
   </g>
-
+  <g id="Interactive_Pie_Outlines" data-name="Interactive Pie Outlines">
+    <g id="Outlines">
+      <circle id="2018_23" class="cls-20" cx="420.84" cy="265.21" r="12.13"/>
+      <circle id="2018_56" class="cls-20" cx="339.05" cy="184.65" r="18.75"/>
+      <circle id="2018_30" class="cls-20" cx="296.56" cy="151.95" r="18.75" transform="translate(109.52 427.72) rotate(-82.98)"/>
+      <circle id="2018_35" class="cls-20" cx="375.55" cy="259.41" r="8.82"/>
+      <circle id="2018_11" class="cls-20" cx="407.61" cy="221.58" r="7.17"/>
+      <circle class="cls-20" cx="371.82" cy="287.22" r="15.44"/>
+      <circle class="cls-20" cx="214.59" cy="411.85" r="18.58"/>
+      <circle class="cls-20" cx="390.72" cy="86.69" r="30" transform="translate(242.56 458.48) rotate(-80.78)"/>
+      <circle class="cls-20" cx="288.47" cy="223.7" r="22.06" transform="translate(21.45 472.61) rotate(-80.78)"/>
+      <circle class="cls-20" cx="474.24" cy="288.43" r="30" transform="translate(60.76 658.73) rotate(-73.15)"/>
+      <circle class="cls-20" cx="345.92" cy="119.52" r="18.75" transform="translate(-19.41 141.48) rotate(-22.5)"/>
+      <circle class="cls-20" cx="240.82" cy="492.78" r="30" transform="translate(-34.33 18.31) rotate(-4.07)"/>
+      <circle class="cls-20" cx="331.72" cy="152.28" r="7.17" transform="translate(-33.02 138.53) rotate(-22.5)"/>
+      <circle class="cls-20" cx="483.32" cy="558.28" r="10.47" transform="translate(-217.42 791.17) rotate(-67.5)"/>
+      <circle class="cls-20" cx="380.37" cy="205.88" r="8.82"/>
+      <circle class="cls-20" cx="415.85" cy="151.69" r="30" transform="translate(-26.4 170.69) rotate(-22.5)"/>
+      <circle class="cls-20" cx="362.48" cy="564.91" r="30" transform="translate(-85.81 65.36) rotate(-9.22)"/>
+      <path class="cls-20" d="m442.3,548.69c3.96,0,7.17,3.21,7.17,7.17s-3.21,7.17-7.17,7.17-7.17-3.21-7.17-7.17,3.21-7.17,7.17-7.17Z"/>
+      <circle class="cls-20" cx="280.43" cy="545.17" r="30" transform="translate(-103.89 67.52) rotate(-11.6)"/>
+      <circle class="cls-20" cx="636.05" cy="249.06" r="30" transform="translate(213.36 785.65) rotate(-73.15)"/>
+      <circle class="cls-20" cx="286.05" cy="446.75" r="23.71"/>
+      <circle class="cls-20" cx="257.09" cy="425.34" r="7.17"/>
+      <circle class="cls-20" cx="407.61" cy="240.91" r="7.17"/>
+      <circle class="cls-20" cx="296.57" cy="293.13" r="28.35" transform="translate(-109.82 199.69) rotate(-31.72)"/>
+      <circle class="cls-20" cx="489.41" cy="192.38" r="30" transform="translate(189.73 624.5) rotate(-76.72)"/>
+      <circle class="cls-20" cx="373.69" cy="153.74" r="7.17" transform="translate(-19.8 61.84) rotate(-9.22)"/>
+      <circle class="cls-20" cx="670.3" cy="158.43" r="10.81" transform="translate(84.3 520.38) rotate(-45)"/>
+      <circle class="cls-20" cx="648.23" cy="202.92" r="11.14" transform="translate(-9.87 371.1) rotate(-31.72)"/>
+      <circle class="cls-20" cx="580.98" cy="238.63" r="20.07"/>
+      <path class="cls-20" d="m673.94,174.24c3.96,0,7.17,3.21,7.17,7.17s-3.21,7.17-7.17,7.17-7.17-3.21-7.17-7.17,3.21-7.17,7.17-7.17Z"/>
+      <circle class="cls-20" cx="716.4" cy="211.18" r="12.13" transform="translate(207.13 757.5) rotate(-63.43)"/>
+      <circle class="cls-20" cx="673.19" cy="202.43" r="8.82"/>
+      <circle class="cls-20" cx="757.22" cy="158.57" r="30" transform="translate(386.02 837.35) rotate(-73.15)"/>
+      <circle class="cls-20" cx="345.43" cy="499.91" r="30" transform="translate(-75.62 61.79) rotate(-9.22)"/>
+      <circle class="cls-20" cx="324.35" cy="242.53" r="8.82" transform="translate(-76.49 300.38) rotate(-45)"/>
+      <circle class="cls-20" cx="403.01" cy="195.51" r="8.82" transform="translate(68.15 493.03) rotate(-67.5)"/>
+      <circle class="cls-20" cx="331.77" cy="375.36" r="25.37" transform="translate(-55.84 57.99) rotate(-9.22)"/>
+      <circle class="cls-20" cx="369.97" cy="173.07" r="7.17" transform="translate(68.49 448.65) rotate(-67.5)"/>
+      <circle class="cls-20" cx="236.27" cy="438.27" r="8.65"/>
+      <circle class="cls-20" cx="694.93" cy="172.23" r="8.82"/>
+      <circle class="cls-20" cx="398.84" cy="330.29" r="30"/>
+      <circle class="cls-20" cx="352.7" cy="152.09" r="8.82"/>
+      <circle class="cls-20" cx="300.17" cy="482.44" r="10.31"/>
+      <circle class="cls-20" cx="368.95" cy="234.31" r="7.17" transform="translate(11.28 485.51) rotate(-67.5)"/>
+      <circle class="cls-20" cx="273.63" cy="358.07" r="7.17" transform="translate(-116.2 131.97) rotate(-22.5)"/>
+      <circle class="cls-20" cx="388.28" cy="226.86" r="7.17" transform="translate(-46.69 341) rotate(-45)"/>
+      <circle class="cls-20" cx="309.79" cy="116.32" r="10.47" transform="translate(125.4 391.1) rotate(-76.72)"/>
+      <circle class="cls-20" cx="222.57" cy="453.35" r="8.49"/>
+      <circle class="cls-20" cx="556.9" cy="540.08" r="12.46" transform="translate(-164.29 254.23) rotate(-22.5)"/>
+      <circle class="cls-20" cx="247.64" cy="401.38" r="11.8"/>
+      <circle class="cls-20" cx="396.54" cy="263.64" r="7.17" transform="translate(-70.28 357.61) rotate(-45)"/>
+      <circle class="cls-20" cx="301.09" cy="186.17" r="10.47"/>
+      <circle class="cls-20" cx="144.23" cy="493.52" r="15.44" transform="translate(-177.88 92.76) rotate(-22.5)"/>
+      <circle class="cls-20" cx="103.76" cy="532.67" r="12.13"/>
+      <circle class="cls-20" cx="126.99" cy="519.53" r="7"/>
+      <circle class="cls-20" cx="133.99" cy="462.7" r="11.8"/>
+      <circle class="cls-20" cx="145.26" cy="528.02" r="7.17"/>
+      <circle class="cls-20" cx="103.76" cy="487.47" r="21.73" transform="translate(-76.74 22.91) rotate(-9.22)"/>
+      <circle class="cls-20" cx="77.59" cy="463.52" r="7.17"/>
+      <circle class="cls-20" cx="70.68" cy="517.32" r="17.09" transform="translate(-451.28 504.22) rotate(-80.78)"/>
+      <circle class="cls-20" cx="64.25" cy="482.52" r="8.82"/>
+      <circle class="cls-20" cx="102.59" cy="377.45" r="18.42" transform="translate(-286.42 418.25) rotate(-80.78)"/>
+    </g>
+  </g>
   <g id="Leading_Lines_to_Fade" data-name="Leading Lines to Fade">
     <g id="Leadling_Lines" data-name="Leadling Lines">
       <g class="cls-1">
@@ -635,19 +625,6 @@
           <polygon class="cls-27" points="376.03 204.35 376.03 197.65 370.38 192.71 364.74 197.65 364.74 204.35 376.03 204.35"/>
         </g>
       </g>
-      <g id="Legend_Items_Non_Interactive" data-name="Legend Items Non Interactive">
-    <text class="cls-56" transform="translate(36.89 433.75)"><tspan x="0" y="0">Preposition Deployments</tspan></text>
-    <text class="cls-56" transform="translate(49.07 330.5)"><tspan x="0" y="0">Deployments to Fires </tspan><tspan x="-2.26" y="12">Without Location Data</tspan></text>
-    <text class="cls-56" transform="translate(52.59 198.72)"><tspan x="0" y="0">Total Incarcerated Person</tspan><tspan x="11.04" y="11">Days Per Deployment</tspan></text>
-    <text class="cls-56" transform="translate(49.89 109.75)"><tspan x="0" y="0">Person Days per Institution</tspan></text>
-    <text class="cls-61" transform="translate(64.09 61.65)"><tspan x="0" y="0">Deployment Name: </tspan></text>
-    <path class="cls-32" d="m116.31,221.69c16.57,0,30,13.43,30,30,0,5.27-1.39,10.44-4.02,15-5.36,9.28-15.26,15-25.98,15s-20.62-5.72-25.98-15c-2.63-4.56-4.02-9.73-4.02-15,0-16.57,13.43-30,30-30Z"/>
-    <path class="cls-32" d="m116.22,243.57c10.52,0,19.05,8.53,19.05,19.05,0,3.34-.88,6.63-2.55,9.52-3.4,5.89-9.69,9.52-16.5,9.52s-13.09-3.63-16.5-9.52c-1.67-2.9-2.55-6.18-2.55-9.52,0-10.52,8.53-19.05,19.05-19.05Z"/>
-    <path class="cls-32" d="m116.31,266.26c4.1,0,7.42,3.32,7.42,7.42,0,1.3-.34,2.58-.99,3.71-1.33,2.3-3.78,3.71-6.43,3.71s-5.1-1.42-6.43-3.71c-.65-1.13-.99-2.41-.99-3.71,0-4.1,3.32-7.42,7.42-7.42Z"/>
-    <text class="cls-57" transform="translate(112.17 276.15)"><tspan x="0" y="0">10</tspan></text>
-    <text class="cls-60" transform="translate(111.17 261.54)"><tspan x="0" y="0">80</tspan></text>
-    <text class="cls-57" transform="translate(109.24 237.91)"><tspan class="cls-84" x="0" y="0">1</tspan><tspan class="cls-82" x="4.51" y="0">5</tspan><tspan x="9.34" y="0">0</tspan></text>
-  </g>
       <g id="Correctional_institutions_outlineNotHalo_-_WCCF" data-name="Correctional_institutions_outlineNotHalo - WCCF">
         <polygon class="cls-49" points="579.39 507.47 579.89 513.67 582.09 513.67 586.19 504.97 583.79 504.97 581.49 511.07 581.09 504.97 578.59 504.97 575.79 511.07 575.89 504.97 573.49 504.97 574.19 513.67 576.39 513.67 579.39 507.47"/>
         <path class="cls-49" d="m590.38,509.88c-2.96-.2-4.27.88-4.27,2.2,0,.93.71,1.8,1.84,1.8.88,0,1.49-.47,1.95-1.02h.02c.08.65.7,1.12,2.17.98l.49-1.56c-.42-.03-.49-.17-.41-.6l.34-1.57c.4-1.74-.25-3.08-2.98-3.08-.95,0-1.92.21-2.55.48l.18,1.64c.59-.25,1.37-.48,2.05-.48.93,0,1.35.36,1.21,1.05l-.02.15v.02Zm-.44,2.19c-.22.21-.6.41-.99.41-.46,0-.78-.28-.78-.71,0-.62.69-.92,2.02-.95l-.21,1.25h-.04Z"/>
@@ -885,5 +862,17 @@
         <path class="cls-51" d="m383.84,184.17c-.91-.35-1.78-.55-2.59-.55-1.93,0-2.96,1.33-2.96,2.97s1.02,2.38,2.45,2.38c.71,0,1.46-.21,2.12-.49l.36,1.86c-.88.39-1.81.53-2.61.53-2.8,0-4.58-1.57-4.58-4.02,0-2.72,1.81-5.15,5.25-5.15,1.02,0,2,.18,2.94.5l-.39,1.96Zm3.6,6.71c-1.92,0-3.28-1.18-3.28-3.1,0-2.1,1.54-3.84,3.82-3.84,1.93,0,3.25,1.26,3.25,3.11,0,2.1-1.51,3.82-3.8,3.82Zm.49-5.36c-1.08,0-1.62,1.34-1.62,2.4,0,.88.43,1.41,1.18,1.41.98,0,1.58-1.15,1.58-2.4,0-.88-.42-1.41-1.13-1.41Zm6.4,5.15h-2.16l.94-4.73-1.13-.07.07-1.37,1.37-.31.13-.59c.32-1.53,1.09-2.54,2.84-2.54.77,0,1.48.24,1.93.53,0,.01-.76,1.67-.76,1.67-.41-.27-.74-.39-1.11-.39-.6,0-.8.5-.87.84l-.1.53h2.69l.15-.78c.32-1.53,1.11-2.54,2.84-2.54.78,0,1.5.24,1.95.53,0,.01-.76,1.67-.76,1.67-.42-.27-.74-.39-1.11-.39-.62,0-.8.5-.87.84l-.14.67h1.65l-.04,1.69h-1.85l-.92,4.73h-2.16l.94-4.73h-2.62l-.92,4.73Zm9.87-2.7c0,.91.77,1.33,1.62,1.33.69,0,1.4-.25,1.83-.48l.27,1.64c-.53.24-1.44.42-2.28.42-2.13,0-3.56-1.12-3.56-3.11,0-2.12,1.64-3.82,3.85-3.82,1.65,0,2.72.81,2.72,2.33,0,.48-.13,1.12-.31,1.55l-4.15.04v.1Zm2.34-1.15c.06-.15.1-.45.1-.62,0-.53-.31-.84-.83-.84-.66,0-1.19.55-1.39,1.47h2.12Zm4.95,1.13c0,.91.77,1.33,1.62,1.33.69,0,1.4-.25,1.84-.48l.27,1.64c-.53.24-1.44.42-2.28.42-2.13,0-3.56-1.12-3.56-3.11,0-2.12,1.64-3.82,3.85-3.82,1.65,0,2.72.81,2.72,2.33,0,.48-.13,1.12-.31,1.55l-4.15.04v.1Zm2.34-1.15c.06-.15.1-.45.1-.62,0-.53-.31-.84-.83-.84-.66,0-1.19.55-1.39,1.47h2.12Zm14.07-2.66c-.91-.35-1.78-.55-2.59-.55-1.93,0-2.96,1.33-2.96,2.97s1.02,2.38,2.45,2.38c.71,0,1.46-.21,2.12-.49l.36,1.86c-.88.39-1.81.53-2.61.53-2.8,0-4.58-1.57-4.58-4.02,0-2.72,1.81-5.15,5.25-5.15,1.02,0,2,.18,2.94.5l-.39,1.96Zm2.46,6.5h-2.16l1.25-6.4,2.21-.27-.18.95c.43-.63,1.04-1.01,1.64-1.01.35,0,.67.1.95.29l-.46,1.93c-.29-.17-.63-.27-1.01-.27-.56,0-1.04.25-1.46.78l-.78,3.98Zm5.75-2.7c0,.91.77,1.33,1.62,1.33.69,0,1.4-.25,1.83-.48l.27,1.64c-.53.24-1.44.42-2.28.42-2.13,0-3.56-1.12-3.56-3.11,0-2.12,1.64-3.82,3.85-3.82,1.65,0,2.72.81,2.72,2.33,0,.48-.13,1.12-.31,1.55l-4.15.04v.1Zm2.34-1.15c.06-.15.1-.45.1-.62,0-.53-.31-.84-.83-.84-.66,0-1.19.55-1.39,1.47h2.12Zm4.95,1.13c0,.91.77,1.33,1.62,1.33.69,0,1.4-.25,1.83-.48l.27,1.64c-.53.24-1.44.42-2.28.42-2.13,0-3.56-1.12-3.56-3.11,0-2.12,1.64-3.82,3.85-3.82,1.65,0,2.72.81,2.72,2.33,0,.48-.13,1.12-.31,1.55l-4.15.04v.1Zm2.34-1.15c.06-.15.1-.45.1-.62,0-.53-.31-.84-.83-.84-.66,0-1.19.55-1.39,1.47h2.12Zm5.37.67l-.6,3.17h-2.16l1.82-9.34,2.2-.18-1.12,5.67h.03l2.34-2.66h2.56l-2.94,3.05,1.76,3.46h-2.38l-1.48-3.17h-.03Z"/>
       </g>
     </g>
+  </g>
+  <g id="Legend_Boxes_to_Fade" data-name="Legend Boxes to Fade">
+    <rect class="cls-41" x="59.19" y="121.15" width="20.6" height="9.8"/>
+    <rect class="cls-48" x="59.19" y="132.85" width="20.6" height="9.8"/>
+    <rect class="cls-26" x="59.19" y="144.55" width="20.6" height="9.8"/>
+    <rect class="cls-23" x="59.19" y="156.25" width="20.6" height="9.8"/>
+    <rect class="cls-43" x="59.19" y="167.95" width="20.6" height="9.8"/>
+    <rect class="cls-46" x="153.19" y="120.7" width="20.6" height="9.8"/>
+    <rect class="cls-29" x="153.19" y="132.4" width="20.6" height="9.8"/>
+    <rect class="cls-38" x="153.19" y="144.1" width="20.6" height="9.8"/>
+    <rect class="cls-46" x="153.19" y="155.8" width="20.6" height="9.8"/>
+    <rect class="cls-47" x="153.19" y="167.5" width="20.6" height="9.8"/>
   </g>
 </svg>
