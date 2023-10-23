@@ -276,6 +276,8 @@
 
       .cls-20 {
         stroke: #e5e5e5;
+        fill: rgb(181,181,181,0.1);
+        z-index: 500;
       }
 
       .cls-85 {
