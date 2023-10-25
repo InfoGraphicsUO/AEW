@@ -462,7 +462,7 @@
       <circle class="cls-20" cx="214.59" cy="411.85" r="18.58"/>
       <circle class="cls-20" cx="390.72" cy="86.69" r="30" transform="translate(242.56 458.48) rotate(-80.78)"/>
       <circle class="cls-20" cx="288.47" cy="223.7" r="22.06" transform="translate(21.45 472.61) rotate(-80.78)"/>
-      <circle class="2018_31" cx="474.24" cy="288.43" r="30" transform="translate(60.76 658.73) rotate(-73.15)"/>
+      <circle id = "2018_31" class="cls-20" cx="474.24" cy="288.43" r="30" transform="translate(60.76 658.73) rotate(-73.15)"/>
       <circle class="cls-20" cx="345.92" cy="119.52" r="18.75" transform="translate(-19.41 141.48) rotate(-22.5)"/>
       <circle class="cls-20" cx="240.82" cy="492.78" r="30" transform="translate(-34.33 18.31) rotate(-4.07)"/>
       <circle class="cls-20" cx="331.72" cy="152.28" r="7.17" transform="translate(-33.02 138.53) rotate(-22.5)"/>
