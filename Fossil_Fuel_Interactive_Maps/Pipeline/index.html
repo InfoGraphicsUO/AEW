@@ -53,6 +53,16 @@
         max-height: calc(100vh - 10px);
       max-width: calc(100vw - 10px);
   }}
+  #caption{
+        position: relative;
+        top: 10px;
+        right: 0px !important;
+        padding-top: 0px;
+        padding-left: 0px;        
+        font-family: "freight-sans-pro", sans-serif;
+        max-height: calc(100vh - 10px);
+      max-width: calc(100vw - 10px);
+    }
   </style>
 
 
@@ -66,7 +76,7 @@
       <span id="minimizeButton" hidden onclick="minimizeInfoWindow();"><b>X</b></span>
       <div id="tooltipText">Hover on each dot for description of Protest</div>
   </div>
-
+  <div id="caption">Interactive Map of Pipeline Protests</div>
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
