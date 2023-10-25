@@ -263,7 +263,8 @@
                     //Defines Text which will populate Tooltip when a protest is hovered on  
                         d3.select("#tooltipText")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
-                        .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription+"<div><img width='100%' style='padding-top:5px' src='../Water/Water.jpg'></div>"+"<br><a href='https://blogs.uoregon.edu/essentialworkatlasdev/project/home-care-work/#urban'>Urban Scale</a>")
+                        .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription+"<div><img width='100%' style='padding-top:5px' src='../Water/Water.jpg'></div>"+"<br><a href='https://blogs.uoregon.edu/essentialworkatlasdev/project/home-care-work/#urban' target='_blank'>_blank Urban Scale</a>"
+                        +"<br><a href='https://blogs.uoregon.edu/essentialworkatlasdev/project/home-care-work/#urban' target='_self'>_Self Urban Scale</a>" +"<br><a href='https://blogs.uoregon.edu/essentialworkatlasdev/project/home-care-work/#urban' target='_parent'>_parent Urban Scale</a>")
                         // .html(shortID)
 
                         d3.select("#minimizeButton").attr("hidden",null); // show the button
