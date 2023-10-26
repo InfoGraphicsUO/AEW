@@ -336,16 +336,16 @@
     <text class="cls-57" transform="translate(109.24 237.91)"><tspan class="cls-84" x="0" y="0">1</tspan><tspan class="cls-82" x="4.51" y="0">5</tspan><tspan x="9.34" y="0">0</tspan></text>
   </g>
   <g id="Legend_Text_to_Highlight" data-name="Legend Text to Highlight">
-    <text class="cls-57" transform="translate(84.5 140.92)"><tspan class="cls-66" x="0" y="0">D</tspan><tspan class="cls-80" x="7.03" y="0">RC</tspan><tspan x="19.34" y="0">I</tspan></text>
-    <text class="cls-57" transform="translate(84.5 152.62)"><tspan class="cls-66" x="0" y="0">M</tspan><tspan class="cls-81" x="8.56" y="0">C</tspan><tspan class="cls-65" x="14.53" y="0">C</tspan><tspan x="20.66" y="0">F</tspan></text>
-    <text class="cls-57" transform="translate(84.5 164.32)"><tspan class="cls-73" x="0" y="0">P</tspan><tspan class="cls-65" x="6.21" y="0">RC</tspan><tspan x="18.52" y="0">F</tspan></text>
-    <text class="cls-57" transform="translate(84.5 129.22)"><tspan class="cls-81" x="0" y="0">CC</tspan><tspan class="cls-83" x="11.93" y="0">C</tspan><tspan x="18.07" y="0">F</tspan></text>
-    <text class="cls-57" transform="translate(84.5 176.02)"><tspan class="cls-87" x="0" y="0">S</tspan><tspan class="cls-81" x="5.67" y="0">C</tspan><tspan class="cls-65" x="11.64" y="0">C</tspan><tspan x="17.77" y="0">I</tspan></text>
-    <text class="cls-57" transform="translate(180.5 128.77)"><tspan class="cls-87" x="0" y="0">S</tspan><tspan class="cls-65" x="5.67" y="0">C</tspan><tspan x="11.81" y="0">I</tspan></text>
-    <text class="cls-57" transform="translate(180.5 140.47)"><tspan class="cls-87" x="0" y="0">S</tspan><tspan class="cls-88" x="5.67" y="0">F</tspan><tspan class="cls-85" x="11.38" y="0">F</tspan><tspan class="cls-79" x="16.98" y="0">C</tspan></text>
-    <text class="cls-57" transform="translate(180.5 152.17)"><tspan class="cls-87" x="0" y="0">S</tspan><tspan class="cls-65" x="5.67" y="0">RC</tspan><tspan x="17.98" y="0">I</tspan></text>
-    <text class="cls-57" transform="translate(180.5 163.87)"><tspan class="cls-78" x="0" y="0">T</tspan><tspan class="cls-65" x="5.82" y="0">RC</tspan><tspan x="18.13" y="0">I</tspan></text>
-    <text class="cls-57" transform="translate(180.5 175.57)"><tspan class="cls-86" x="0" y="0">W</tspan><tspan class="cls-81" x="8.76" y="0">C</tspan><tspan class="cls-65" x="14.72" y="0">C</tspan><tspan x="20.86" y="0">F</tspan></text>
+    <text id="title_drci" class="cls-57" transform="translate(84.5 140.92)"><tspan class="cls-66" x="0" y="0">DRCI</tspan></text>
+    <text id="title_mccf" class="cls-57" transform="translate(84.5 152.62)"><tspan class="cls-66" x="0" y="0">MCCF</tspan></text>
+    <text id="title_prcf" class="cls-57" transform="translate(84.5 164.32)"><tspan class="cls-73" x="0" y="0">PRCF</tspan></text>
+    <text id="title_cccf" class="cls-57" transform="translate(84.5 129.22)"><tspan class="cls-81" x="0" y="0">CCCF</tspan></text>
+    <text id="title_scci" class="cls-57" transform="translate(84.5 176.02)"><tspan class="cls-87" x="0" y="0">SCCI</tspan></text>
+    <text id="title_sci" class="cls-57" transform="translate(180.5 128.77)"><tspan class="cls-87" x="0" y="0">SCI</tspan></text>
+    <text id="title_sfci" class="cls-57" transform="translate(180.5 140.47)"><tspan class="cls-87" x="0" y="0">SFCI</tspan></text>
+    <text id="title_srci" class="cls-57" transform="translate(180.5 152.17)"><tspan class="cls-87" x="0" y="0">SRCI</tspan></text>
+    <text id="title_trci" class="cls-57" transform="translate(180.5 163.87)"><tspan class="cls-78" x="0" y="0">TRCI</tspan></text>
+    <text id="title_wccf" class="cls-57" transform="translate(180.5 175.57)"><tspan class="cls-86" x="0" y="0">WCCF</tspan></text>
   </g>
   <g id="Interactive_Text" data-name="Interactive Text">
     <text id="legend_sci" class="cls-58" transform="translate(125.28 127.4)"><tspan x="0" y="0"></tspan></text>

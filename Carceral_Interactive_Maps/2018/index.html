@@ -34,6 +34,11 @@
       pointer-events: none;
     }
 
+    .selectedIsnt{
+      font-weight: 900;
+      fill: red;
+    }
+
   </style>
 
 
@@ -144,9 +149,6 @@
         console.log("doing things")
 
         // ---- CREATE TOOLTIP FOR EACH PROTEST ----
-
-        // properties we want from each data
-        var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
         
         // Select all Protests based on ID and object type 
         d3.selectAll("#Outlines>circle,#Outlines>path,#Outlines>ellipse")
@@ -172,31 +174,35 @@
                         var prcfText = d3.select("#legend_prcf")
                         var scciText = d3.select("#legend_scci")
 
-                        sciText.text(fire_data.fireData[this.id].SCI);
-                        srciText.text(fire_data.fireData[this.id].SRCI);
-                        sffcText.text(fire_data.fireData[this.id].SFFC);
-                        trciText.text(fire_data.fireData[this.id].TRCI);
-                        wccfText.text(fire_data.fireData[this.id].WCCF);
-                        cccfText.text(fire_data.fireData[this.id].CCCF);
-                        mccfText.text(fire_data.fireData[this.id].MCCF);
-                        drciText.text(fire_data.fireData[this.id].DRCI);
-                        prcfText.text(fire_data.fireData[this.id].PRCF);
-                        scciText.text(fire_data.fireData[this.id].SCCI);
+                        // properties we want from each data
+                        var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
+                        var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
 
-                        // text properties
-                        var instututionProperties = [sciText, srciText, sffcText, trciText, wccfText, cccfText, mccfText, drciText, prcfText, scciText]
+                        // if value for institution = 0, set to blank text. Otherwise display number on legend
+                        for(var i = 0; i < propertiesToCapture.length; i++){
+                          // console.log(fire_data.fireData[this.id][propertiesToCapture[i]])
+                          // console.log(institutionsToCapture[i].text("buns"))
+                          if(fire_data.fireData[this.id][propertiesToCapture[i]] == 0){
+                            fire_data.fireData[this.id][propertiesToCapture[i]] = ""
 
+                            // for this given institution 
+                            // get the institution code (strip after underscore or above) 
+                            // search the DOM for the tspan with the institution code just identiffied
+                            // remove class .selectedIsnt
+                            // myFoundSpan.classed("selectedInst", false)
+                          }
+                          else{
+                            institutionsToCapture[i].text(fire_data.fireData[this.id][propertiesToCapture[i]])
+                            // for this given institution 
+                            // get the institution code (strip after underscore or above) 
+                            // search the DOM for the tspan with the institution code just identiffied
+                            // add class .selectedIsnt
 
-                        // If value is 0, set to blank
-                        console.log("test =", sciText)
-                        
-                        for(var i = 0; i < instututionProperties.length; i++){
-                          if (instututionProperties[i].text == 0){
-                            instututionProperties[i].text("")
+                            // myFoundSpan.classed("selectedInst", true)
+
                           }
                         }
-                
-
+                      
 
                         d3.select(this)
                             .classed("selectedProtest", true)
