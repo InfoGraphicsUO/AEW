@@ -149,17 +149,19 @@
         console.log("doing things")
 
         // ---- CREATE TOOLTIP FOR EACH PROTEST ----
-        
+      
         // Select all Protests based on ID and object type 
         d3.selectAll("#Outlines>circle,#Outlines>path,#Outlines>ellipse")
 
+                  
         // let selectedYear = protest_data.tooltips[].Year
 
                   //  .attr("title","I am a circle!")
                    
                   //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
                    .on("mouseover", function(d,i) { 
-                        console.log(this.id)
+                        console.log("this =", this)
+                        // need below to match this.
                         console.log(fire_data.fireData[this.id])
 
                         // Capture institutional tabs
@@ -178,32 +180,21 @@
                         var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
                         var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
 
-                        // if value for institution = 0, set to blank text. Otherwise display number on legend
+                        // if value for institution = 0, set to blank text. Else display number on legend and highlight institution
                         for(var i = 0; i < propertiesToCapture.length; i++){
+                          var id_str = "#title_" + propertiesToCapture[i].toLowerCase()
                           // console.log(fire_data.fireData[this.id][propertiesToCapture[i]])
-                          // console.log(institutionsToCapture[i].text("buns"))
+                          // console.log(institutionsToCapture[i].text("test"))
                           if(fire_data.fireData[this.id][propertiesToCapture[i]] == 0){
                             fire_data.fireData[this.id][propertiesToCapture[i]] = ""
-
-                            // for this given institution 
-                            // get the institution code (strip after underscore or above) 
-                            // search the DOM for the tspan with the institution code just identiffied
-                            // remove class .selectedIsnt
-                            // myFoundSpan.classed("selectedInst", false)
+                            d3.select(id_str).classed("selectedIsnt", false)                            
                           }
                           else{
                             institutionsToCapture[i].text(fire_data.fireData[this.id][propertiesToCapture[i]])
-                            // for this given institution 
-                            // get the institution code (strip after underscore or above) 
-                            // search the DOM for the tspan with the institution code just identiffied
-                            // add class .selectedIsnt
-
-                            // myFoundSpan.classed("selectedInst", true)
-
+                            d3.select(id_str).classed("selectedIsnt", true)
+                            // console.log(id_str)
                           }
-                        }
-                      
-
+                        }                      
                         d3.select(this)
                             .classed("selectedProtest", true)
                         //Defines Text which will populate Tooltip when a protest is hovered on  
@@ -214,13 +205,38 @@
                    })
 
                    .on("mouseout", function(d,i) { 
+                        // console.log("mouse is out!")
                         d3.select(this)
                             .classed("selectedProtest", false)
-
                         // Blank values on mouseout
-                        d3.select("#Interactive_Text").selectAll(".cls-58").text("")
-
+                        d3.select("#Interactive_Text").selectAll(".cls-58")
+                              .text("")
+                        // Unbold all bolded institution tiles
+                        d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
+                              .classed("selectedIsnt", false)
                    });
+
+        d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
+                // console.log("TEST =", d3.select("#Outlines>circle").selectAll("2018_23"))
+
+                // on mouse hover of legend institution titles
+                .on("mouseover", function(d, i){
+                    console.log(this)
+                    console.log(this.id.split("_")[1])
+                    inst_str = this.id.split("_")[1].toUpperCase()
+
+                    for(var i in fire_data.fireData){
+                      //  console.log(fire_data.fireData[i][inst_str])
+                       if(fire_data.fireData[i][inst_str] != 0){
+                        // console.log(fire_data.fireData[i][inst_str])
+                        // console.log(fire_data.fireData[i])
+                      }
+                    }
+
+
+          
+                  });
+
     }
 
 </script>
