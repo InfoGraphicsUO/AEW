@@ -230,11 +230,19 @@
         console.log("doing things")
 
                 // change SVG View Box for Mobile 
-                  // var mySVG = document.getElementById('svg');
-                  // mySVG.setAttribute("viewBox", "0 0 540 580");
+    
                   if (window.innerWidth < 600) {
                     d3.select("svg").attr("viewBox", "0 0 540 580");                    
                   }
+
+                  window.onresize = function() {
+                    
+                    if (window.innerWidth < 600) {
+                    d3.select("svg").attr("viewBox", "0 0 540 580");                    
+                  } else{
+                    d3.select("svg").attr("viewBox", "0 0 921.6 651.36");
+                  }
+                };
                  
 
 

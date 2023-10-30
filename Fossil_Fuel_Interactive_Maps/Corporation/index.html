@@ -210,6 +210,26 @@
      function doThings(){    
         console.log("doing things")
 
+
+
+        // ---- Adjust SVG View Box for Mobile and Desktop ----
+
+           
+              // On Load if Mobile Change SVG View Box to Narrower view port width 
+    
+              if (window.innerWidth < 600) {
+                    d3.select("svg").attr("viewBox", "0 0 540 580");                    
+                  }
+              // When Window resizes Change SVG View Box to Mobile or Desktop View
+                  window.onresize = function() {
+                    
+                    if (window.innerWidth < 600) {
+                    d3.select("svg").attr("viewBox", "0 0 540 580");                    
+                  } else{
+                    d3.select("svg").attr("viewBox", "0 0 921.6 651.36");
+                  }
+                };
+                 
         // ---- CREATE TOOLTIP FOR EACH PROTEST ----
 
         
