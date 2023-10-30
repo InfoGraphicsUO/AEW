@@ -299,6 +299,7 @@
       .cls-88 {
         letter-spacing: .09em;
       }
+
     </style>
   </defs>
   <g id="Flat_Base_Map" data-name="Flat Base Map">
@@ -348,16 +349,16 @@
     <text id="title_wccf" class="cls-57" transform="translate(180.5 175.57)">WCCF</text>
   </g>
   <g id="Interactive_Text" data-name="Interactive Text">
-    <text id="legend_sci" class="cls-58" transform="translate(125.28 127.4)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_srci" class="cls-58" transform="translate(125.28 150.87)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_sffc" class="cls-58" transform="translate(125.28 139.13)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_trci" class="cls-58" transform="translate(125.28 162.61)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_wccf" class="cls-58" transform="translate(125.28 174.35)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_cccf" class="cls-58" transform="translate(30.92 127.4)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_mccf" class="cls-58" transform="translate(30.92 150.87)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_drci" class="cls-58" transform="translate(30.92 139.13)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_prcf" class="cls-58" transform="translate(30.92 162.61)"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_scci" class="cls-58" transform="translate(30.92 174.35)"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_sci" class="cls-58" transform="translate(145.28 127.4)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_srci" class="cls-58" transform="translate(145.28 150.87)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_sffc" class="cls-58" transform="translate(145.28 139.13)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_trci" class="cls-58" transform="translate(145.28 162.61)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_wccf" class="cls-58" transform="translate(145.28 174.35)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_cccf" class="cls-58" transform="translate(50.92 127.4)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_mccf" class="cls-58" transform="translate(50.92 150.87)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_drci" class="cls-58" transform="translate(50.92 139.13)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_prcf" class="cls-58" transform="translate(50.92 162.61)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
+    <text id="legend_scci" class="cls-58" transform="translate(50.92 174.35)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
     <text id="legend_fire_name" class="cls-59" transform="translate(69.49 76.55)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
   </g>
   <g id="Pies_to_Fade" data-name="Pies to Fade">
