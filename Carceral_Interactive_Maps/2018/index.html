@@ -147,6 +147,7 @@
      // on sucessful load 
      function doThings(){    
         console.log("doing things")
+        // d3.select(document.getElementById("2018_11")).classed("selectedProtest", true)
 
         // ---- CREATE TOOLTIP FOR EACH PROTEST ----
       
@@ -161,8 +162,6 @@
                   //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
                    .on("mouseover", function(d,i) { 
                         console.log("this =", this)
-                        // need below to match this.
-                        console.log(fire_data.fireData[this.id])
 
                         // Capture institutional tabs
                         var sciText = d3.select("#legend_sci")
@@ -218,26 +217,30 @@
 
         d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
                 // console.log("TEST =", d3.select("#Outlines>circle").selectAll("2018_23"))
-
                 // on mouse hover of legend institution titles
                 .on("mouseover", function(d, i){
-                    console.log(this)
-                    console.log(this.id.split("_")[1])
+                    // console.log(this)
+                    // console.log(this.id.split("_")[1])
                     inst_str = this.id.split("_")[1].toUpperCase()
-
                     for(var i in fire_data.fireData){
                       //  console.log(fire_data.fireData[i][inst_str])
                        if(fire_data.fireData[i][inst_str] != 0){
                         // console.log(fire_data.fireData[i][inst_str])
-                        // console.log(fire_data.fireData[i])
+                        // console.log(i.toString())   
+                        d3.select(document.getElementById(i.toString())).classed("selectedProtest", true)                        
                       }
                     }
-
-
-          
-                  });
-
-    }
+                  })
+                
+                .on("mouseout", function(d, i){
+                    // Take away all highlights from institution hover
+                    for(var i in fire_data.fireData){
+                      if(fire_data.fireData[i][inst_str] != 0){
+                        d3.select(document.getElementById(i.toString())).classed("selectedProtest", false)                        
+                      }
+                    }
+                })
+      };
 
 </script>
 
