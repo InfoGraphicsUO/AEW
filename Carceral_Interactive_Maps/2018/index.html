@@ -20,6 +20,13 @@
             fill-opacity:0.7;
         }
 
+    .selectedHouse{
+      fill: red !important;
+      fill-opacity: 0.7;
+      stroke: black !important;
+      stroke-width: 3 !important;
+    }
+
     #tooltip{
         position: absolute;
         top: 50px;
@@ -48,7 +55,7 @@
 
 <!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
   <div id="mapDiv"></div>
-  <div id="tooltip">Hover on each dot for description of Protest</div>
+  <!-- <div id="tooltip">Hover on each dot for description of Protest</div> -->
 
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -58,7 +65,7 @@
   <!-- JSON of Attribute Table -->
   <script>
   
-        // example data access: protest_data.tooltips["Water-1"].Year
+    // example data access: fire_data.fireData["2018_1"].CCCF
 
     var fire_data = {
       "fireData": {
@@ -149,58 +156,62 @@
         console.log("doing things")
         // d3.select(document.getElementById("2018_11")).classed("selectedProtest", true)
 
-        // ---- CREATE TOOLTIP FOR EACH PROTEST ----
-      
-        // Select all Protests based on ID and object type 
+        // Capture institutional tabs
+        var sciText = d3.select("#legend_sci")
+        var srciText = d3.select("#legend_srci")
+        var sffcText = d3.select("#legend_sffc")
+        var trciText = d3.select("#legend_trci")
+        var wccfText = d3.select("#legend_wccf")
+        var cccfText = d3.select("#legend_cccf")
+        var mccfText = d3.select("#legend_mccf")
+        var drciText = d3.select("#legend_drci")
+        var prcfText = d3.select("#legend_prcf")
+        var scciText = d3.select("#legend_scci")
+
+        // properties we want from each data
+        var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
+        var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
+        
+        // Select all Fires based on ID and object type 
         d3.selectAll("#Outlines>circle,#Outlines>path,#Outlines>ellipse")
-
-                  
-        // let selectedYear = protest_data.tooltips[].Year
-
-                  //  .attr("title","I am a circle!")
                    
-                  //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
+                  //Function which highlights the hovered on fire, and populates the legend with the fire's details
                    .on("mouseover", function(d,i) { 
                         console.log("this =", this)
-
-                        // Capture institutional tabs
-                        var sciText = d3.select("#legend_sci")
-                        var srciText = d3.select("#legend_srci")
-                        var sffcText = d3.select("#legend_sffc")
-                        var trciText = d3.select("#legend_trci")
-                        var wccfText = d3.select("#legend_wccf")
-                        var cccfText = d3.select("#legend_cccf")
-                        var mccfText = d3.select("#legend_mccf")
-                        var drciText = d3.select("#legend_drci")
-                        var prcfText = d3.select("#legend_prcf")
-                        var scciText = d3.select("#legend_scci")
-
-                        // properties we want from each data
-                        var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
-                        var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
+                        // console.log("fire details =", d3.select("#legend_fire_name"))
+                        // testing for grabbing house objects
+                        // console.log("SRCI house object =", d3.select("#SRCI"))
+                        // d3.select("#SRCI").select("polygon")
+                        //     .classed("selectedHouse", true)
 
                         // if value for institution = 0, set to blank text. Else display number on legend and highlight institution
                         for(var i = 0; i < propertiesToCapture.length; i++){
                           var id_str = "#title_" + propertiesToCapture[i].toLowerCase()
                           // console.log(fire_data.fireData[this.id][propertiesToCapture[i]])
                           // console.log(institutionsToCapture[i].text("test"))
+                          
+                          // if the cccf, drci...data value is 0, display blank text on legend
                           if(fire_data.fireData[this.id][propertiesToCapture[i]] == 0){
                             fire_data.fireData[this.id][propertiesToCapture[i]] = ""
                             d3.select(id_str).classed("selectedIsnt", false)                            
                           }
+                          // else the cccf, drci...data value is NOT 0, display that value in legend
                           else{
                             institutionsToCapture[i].text(fire_data.fireData[this.id][propertiesToCapture[i]])
                             d3.select(id_str).classed("selectedIsnt", true)
-                            // console.log(id_str)
+
+                            // Highlight all of the house icons that are involved in this fire
+                            d3.select("#"+propertiesToCapture[i]).select("polygon")
+                                  .classed("selectedHouse", true)
                           }
-                        }                      
+                        }
+
+                        // Set deployment name in legend
+                        d3.select("#legend_fire_name")
+                            .text(fire_data.fireData[this.id].LabelName)
+
                         d3.select(this)
                             .classed("selectedProtest", true)
-                        //Defines Text which will populate Tooltip when a protest is hovered on  
-                        d3.select("#toolTip")
-                        // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
-                        .html("<b>Protest Target:</b> "+ this +"<br><b>Year:</b> " + this.id + "<br> <b>Description:</b> " + this.id)
-                        // .html(shortID)
                    })
 
                    .on("mouseout", function(d,i) { 
@@ -213,13 +224,19 @@
                         // Unbold all bolded institution tiles
                         d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
                               .classed("selectedIsnt", false)
+                        // Clear deployment name legend text
+                        d3.select("#legend_fire_name")
+                              .text("HOVER FOR DETAILS")
+                        // Clear highlighted houses
+                        d3.selectAll(".selectedHouse")
+                              .classed("selectedHouse", false)
+                        
                    });
 
         d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
-                // console.log("TEST =", d3.select("#Outlines>circle").selectAll("2018_23"))
                 // on mouse hover of legend institution titles
                 .on("mouseover", function(d, i){
-                    // console.log(this)
+                    // console.log("this =", this)
                     // console.log(this.id.split("_")[1])
                     inst_str = this.id.split("_")[1].toUpperCase()
                     for(var i in fire_data.fireData){
@@ -230,15 +247,27 @@
                         d3.select(document.getElementById(i.toString())).classed("selectedProtest", true)                        
                       }
                     }
+
+                    // set deployment name in legend
+                    d3.select("#legend_fire_name")
+                            .text(inst_str)
+
+                    // console.log(inst_str)
+                    // Highlight the house of selected institution
+                    d3.select("#"+inst_str.toString()).select("polygon")
+                            .classed("selectedHouse", true)
                   })
                 
                 .on("mouseout", function(d, i){
-                    // Take away all highlights from institution hover
-                    for(var i in fire_data.fireData){
-                      if(fire_data.fireData[i][inst_str] != 0){
-                        d3.select(document.getElementById(i.toString())).classed("selectedProtest", false)                        
-                      }
-                    }
+                    // Take away all highlighted fires from the institution
+                    d3.selectAll(".selectedProtest")
+                              .classed("selectedProtest", false)
+                    // Clear deployment name in legend
+                    d3.select("#legend_fire_name")
+                              .text("HOVER FOR DETAILS")
+                    // clear house highlights on map
+                    d3.selectAll(".selectedHouse")
+                              .classed("selectedHouse", false)
                 })
       };
 
