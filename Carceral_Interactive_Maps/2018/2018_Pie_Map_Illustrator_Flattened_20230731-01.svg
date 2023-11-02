@@ -184,7 +184,7 @@
       }
 
       .cls-57, .cls-58, .cls-60 {
-        font-size: 9px;
+        font-size: 11px;
       }
 
       .cls-31 {
@@ -213,12 +213,14 @@
 
       .cls-58, .cls-81 {
         letter-spacing: .05em;
+        <!-- font-size: 12px; -->
       }
 
       .cls-59 {
         font-family: FreightSansProSemibold-Regular, 'FreightSans Pro';
-        font-size: 11px;
+        font-size: 15px;
         letter-spacing: -.04em;
+        font-weight: 700;
       }
 
       .cls-35 {
@@ -359,7 +361,7 @@
     <text id="legend_drci" class="cls-58" transform="translate(50.92 139.13)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
     <text id="legend_prcf" class="cls-58" transform="translate(50.92 162.61)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
     <text id="legend_scci" class="cls-58" transform="translate(50.92 174.35)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_fire_name" class="cls-59" transform="translate(69.49 76.55)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
+    <text id="legend_fire_name" class="cls-59" transform="translate(115.49 79.55)" text-anchor="middle"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
   </g>
   <g id="Pies_to_Fade" data-name="Pies to Fade">
     <g id="Pies">
