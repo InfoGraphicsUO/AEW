@@ -33,7 +33,7 @@
 
       .cls-56 {
         font-size: 12.6px;
-        letter-spacing: -.03em;
+        letter-spacing: 1;
       }
 
       .cls-56, .cls-57, .cls-58, .cls-59, .cls-60, .cls-61 {
@@ -69,11 +69,11 @@
       }
 
       .cls-65 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-66 {
-        letter-spacing: .1em;
+        letter-spacing: 1;
       }
 
       .cls-4, .cls-67, .cls-38, .cls-50 {
@@ -124,7 +124,7 @@
       }
 
       .cls-73 {
-        letter-spacing: .1em;
+        letter-spacing: 1;
       }
 
       .cls-24, .cls-31 {
@@ -180,7 +180,7 @@
       }
 
       .cls-78 {
-        letter-spacing: .04em;
+        letter-spacing: 1;
       }
 
       .cls-57, .cls-58, .cls-60 {
@@ -200,7 +200,7 @@
       }
 
       .cls-79 {
-        letter-spacing: 0em;
+        letter-spacing: 1;
       }
 
       .cls-34 {
@@ -208,18 +208,18 @@
       }
 
       .cls-80 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-58, .cls-81 {
-        letter-spacing: .05em;
+        letter-spacing: 1;
         <!-- font-size: 12px; -->
       }
 
       .cls-59 {
         font-family: FreightSansProSemibold-Regular, 'FreightSans Pro';
         font-size: 15px;
-        letter-spacing: -.04em;
+        letter-spacing: 1;
         font-weight: 700;
       }
 
@@ -236,7 +236,7 @@
       }
 
       .cls-60 {
-        letter-spacing: .04em;
+        letter-spacing: 1;
       }
 
       .cls-40 {
@@ -244,7 +244,7 @@
       }
 
       .cls-82 {
-        letter-spacing: .05em;
+        letter-spacing: 1;
       }
 
       .cls-44 {
@@ -256,16 +256,16 @@
       }
 
       .cls-83 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-61 {
         font-size: 14px;
-        letter-spacing: -.04em;
+        letter-spacing: 1;
       }
 
       .cls-84 {
-        letter-spacing: .11em;
+        letter-spacing: 1;
       }
 
       .cls-70 {
@@ -283,11 +283,11 @@
       }
 
       .cls-85 {
-        letter-spacing: .08em;
+        letter-spacing: 1;
       }
 
       .cls-86 {
-        letter-spacing: .02em;
+        letter-spacing: 1;
       }
 
       .cls-71 {
@@ -295,11 +295,11 @@
       }
 
       .cls-87 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-88 {
-        letter-spacing: .09em;
+        letter-spacing: 1;
       }
 
     </style>
