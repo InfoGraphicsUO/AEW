@@ -2,6 +2,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 921.6 651.6">
   <defs>
     <style>
+       @import url("https://use.typekit.net/uye5etk.css");
+      @import url("https://use.typekit.net/ttx2mek.css");
+
       .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-16, .cls-17, .cls-18, .cls-19, .cls-20 {
         opacity: .85;
       }
@@ -33,7 +36,7 @@
 
       .cls-56 {
         font-size: 12.6px;
-        letter-spacing: -.03em;
+        letter-spacing: 1;
       }
 
       .cls-56, .cls-57, .cls-58, .cls-59, .cls-60, .cls-61 {
@@ -41,7 +44,7 @@
       }
 
       .cls-56, .cls-57, .cls-58, .cls-60, .cls-61 {
-        font-family: FreightSansProBold-Regular, 'FreightSans Pro';
+        font-family: FreightSansProBold-Regular, 'FreightSans Pro', sans-serif;
       }
 
       .cls-21, .cls-22, .cls-24, .cls-25, .cls-27, .cls-30, .cls-37, .cls-39, .cls-42, .cls-50 {
@@ -69,11 +72,11 @@
       }
 
       .cls-65 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-66 {
-        letter-spacing: .1em;
+        letter-spacing: 1;
       }
 
       .cls-4, .cls-67, .cls-38, .cls-50 {
@@ -124,7 +127,7 @@
       }
 
       .cls-73 {
-        letter-spacing: .1em;
+        letter-spacing: 1;
       }
 
       .cls-24, .cls-31 {
@@ -180,11 +183,11 @@
       }
 
       .cls-78 {
-        letter-spacing: .04em;
+        letter-spacing: 1;
       }
 
       .cls-57, .cls-58, .cls-60 {
-        font-size: 9px;
+        font-size: 11px;
       }
 
       .cls-31 {
@@ -200,7 +203,7 @@
       }
 
       .cls-79 {
-        letter-spacing: 0em;
+        letter-spacing: 1;
       }
 
       .cls-34 {
@@ -208,17 +211,19 @@
       }
 
       .cls-80 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-58, .cls-81 {
-        letter-spacing: .05em;
+        letter-spacing: 1;
+        <!-- font-size: 12px; -->
       }
 
       .cls-59 {
         font-family: FreightSansProSemibold-Regular, 'FreightSans Pro';
-        font-size: 11px;
-        letter-spacing: -.04em;
+        font-size: 15px;
+        letter-spacing: 1;
+        font-weight: 700;
       }
 
       .cls-35 {
@@ -234,7 +239,7 @@
       }
 
       .cls-60 {
-        letter-spacing: .04em;
+        letter-spacing: 1;
       }
 
       .cls-40 {
@@ -242,7 +247,7 @@
       }
 
       .cls-82 {
-        letter-spacing: .05em;
+        letter-spacing: 1;
       }
 
       .cls-44 {
@@ -254,16 +259,16 @@
       }
 
       .cls-83 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-61 {
         font-size: 14px;
-        letter-spacing: -.04em;
+        letter-spacing: 1;
       }
 
       .cls-84 {
-        letter-spacing: .11em;
+        letter-spacing: 1;
       }
 
       .cls-70 {
@@ -281,11 +286,11 @@
       }
 
       .cls-85 {
-        letter-spacing: .08em;
+        letter-spacing: 1;
       }
 
       .cls-86 {
-        letter-spacing: .02em;
+        letter-spacing: 1;
       }
 
       .cls-71 {
@@ -293,11 +298,11 @@
       }
 
       .cls-87 {
-        letter-spacing: .07em;
+        letter-spacing: 1;
       }
 
       .cls-88 {
-        letter-spacing: .09em;
+        letter-spacing: 1;
       }
 
     </style>
@@ -359,7 +364,7 @@
     <text id="legend_drci" class="cls-58" transform="translate(50.92 139.13)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
     <text id="legend_prcf" class="cls-58" transform="translate(50.92 162.61)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
     <text id="legend_scci" class="cls-58" transform="translate(50.92 174.35)" text-anchor="end"><tspan x="0" y="0"></tspan></text>
-    <text id="legend_fire_name" class="cls-59" transform="translate(69.49 76.55)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
+    <text id="legend_fire_name" class="cls-59" transform="translate(115.49 79.55)" text-anchor="middle"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
   </g>
   <g id="Pies_to_Fade" data-name="Pies to Fade">
     <g id="Pies">
@@ -518,7 +523,7 @@
       <circle id="2018_20" class="cls-20" cx="102.59" cy="377.45" r="18.42" transform="translate(-286.42 418.25) rotate(-80.78)"/>
     </g>
   </g>
-  <g id="Leading_Lines_to_Fade" data-name="Leading Lines to Fade">
+  <!-- <g id="Leading_Lines_to_Fade" data-name="Leading Lines to Fade">
     <g id="Leadling_Lines" data-name="Leadling Lines">
       <g class="cls-1">
         <g>
@@ -593,7 +598,7 @@
         </g>
       </g>
     </g>
-  </g>
+  </g> -->
   <g id="Institutions_to_Fade" data-name="Institutions to Fade">
     <g id="Labels">
       <g id="Correctional_institutions_outlineNotHalo">
