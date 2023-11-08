@@ -872,15 +872,15 @@
     </g>
   </g>
   <g id="Legend_Boxes_to_Fade" data-name="Legend Boxes to Fade">
-    <rect class="cls-41" x="59.19" y="121.15" width="20.6" height="9.8"/>
-    <rect class="cls-48" x="59.19" y="132.85" width="20.6" height="9.8"/>
-    <rect class="cls-26" x="59.19" y="144.55" width="20.6" height="9.8"/>
-    <rect class="cls-23" x="59.19" y="156.25" width="20.6" height="9.8"/>
-    <rect class="cls-43" x="59.19" y="167.95" width="20.6" height="9.8"/>
-    <rect class="cls-46" x="153.19" y="120.7" width="20.6" height="9.8"/>
-    <rect class="cls-29" x="153.19" y="132.4" width="20.6" height="9.8"/>
-    <rect class="cls-38" x="153.19" y="144.1" width="20.6" height="9.8"/>
-    <rect class="cls-46" x="153.19" y="155.8" width="20.6" height="9.8"/>
-    <rect class="cls-47" x="153.19" y="167.5" width="20.6" height="9.8"/>
+    <rect id="box_CCCF" class="cls-41" x="59.19" y="121.15" width="20.6" height="9.8"/>
+    <rect id="box_DRCI" class="cls-48" x="59.19" y="132.85" width="20.6" height="9.8"/>
+    <rect id="box_MCCF" class="cls-26" x="59.19" y="144.55" width="20.6" height="9.8"/>
+    <rect id="box_PRCF" class="cls-23" x="59.19" y="156.25" width="20.6" height="9.8"/>
+    <rect id="box_SCCI" class="cls-43" x="59.19" y="167.95" width="20.6" height="9.8"/>
+    <rect id="box_SCI" class="cls-46" x="153.19" y="120.7" width="20.6" height="9.8"/>
+    <rect id="box_SFFC" class="cls-29" x="153.19" y="132.4" width="20.6" height="9.8"/>
+    <rect id="box_SRCI" class="cls-38" x="153.19" y="144.1" width="20.6" height="9.8"/>
+    <rect id="box_TRCI" class="cls-46" x="153.19" y="155.8" width="20.6" height="9.8"/>
+    <rect id="box_WCCF" class="cls-47" x="153.19" y="167.5" width="20.6" height="9.8"/>
   </g>
 </svg>
