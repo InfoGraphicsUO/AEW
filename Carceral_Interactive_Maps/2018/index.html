@@ -27,6 +27,12 @@
       stroke-width: 2 !important;
     }
 
+    .greyMask{
+      fill: gray!important;
+      stroke: gray!important;
+      fill-opacity: 0.9;
+    }
+
     #tooltip{
         position: absolute;
         top: 50px;
@@ -59,8 +65,6 @@
 
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
-
-
 
   <!-- JSON of Attribute Table -->
   <script>
@@ -156,6 +160,17 @@
         console.log("doing things")
         // d3.select(document.getElementById("2018_11")).classed("selectedProtest", true)
 
+        // Testing for grabbing an institution name on the map (next to the houses)
+        // console.log(
+        //   d3.select("#Correctional_institutions_outlineNotHalo_-_WCCF")
+        // )
+
+        // d3.select("#Correctional_institutions_outlineNotHalo_-_WCCF").selectAll(".cls-49,.cls-64")
+        //     .classed("greyMask", true)
+        // d3.select("#Correctional_institutions_outlineNotHalo_-_WCCF").selectAll("path,polygon")
+        //     .classed("greyMask", true)
+
+
         // Capture institutional tabs
         var sciText = d3.select("#legend_sci")
         var srciText = d3.select("#legend_srci")
@@ -174,37 +189,49 @@
         
         // Select all Fires based on ID and object type 
         d3.selectAll("#Outlines>circle,#Outlines>path,#Outlines>ellipse")
-                   
                   //Function which highlights the hovered on fire, and populates the legend with the fire's details
                    .on("mouseover", function(d,i) { 
-                        console.log("this =", this)
+                        // console.log("this =", this)
                         // console.log("fire details =", d3.select("#legend_fire_name"))
                         // testing for grabbing house objects
                         // console.log("SRCI house object =", d3.select("#SRCI"))
                         // d3.select("#SRCI").select("polygon")
                         //     .classed("selectedHouse", true)
-
-                        // if value for institution = 0, set to blank text. Else display number on legend and highlight institution
+                            
                         for(var i = 0; i < propertiesToCapture.length; i++){
-                          var id_str = "#title_" + propertiesToCapture[i].toLowerCase()
+                          var id_str = "#title_"+propertiesToCapture[i].toLowerCase()
+                          var box_str = "#box_"+propertiesToCapture[i]
                           // console.log(fire_data.fireData[this.id][propertiesToCapture[i]])
                           // console.log(institutionsToCapture[i].text("test"))
                           
                           // if the cccf, drci...data value is 0, display blank text on legend
                           if(fire_data.fireData[this.id][propertiesToCapture[i]] == 0){
                             fire_data.fireData[this.id][propertiesToCapture[i]] = ""
-                            d3.select(id_str).classed("selectedIsnt", false)                            
+                            d3.select(id_str)
+                                  .classed("selectedIsnt", false)
+                                  .classed("greyMask", true)
+                            d3.select("#"+propertiesToCapture[i]).select("polygon")
+                                  .classed("greyMask", true)                                 
+                            d3.select("#Correctional_institutions_outlineNotHalo_-_"+propertiesToCapture[i]).selectAll("path,polygon")
+                                  .classed("greyMask", true)
+                            d3.select(box_str)
+                                  .classed("greyMask", true)
                           }
+                          
                           // else the cccf, drci...data value is NOT 0, display that value in legend
                           else{
                             institutionsToCapture[i].text(fire_data.fireData[this.id][propertiesToCapture[i]])
-                            d3.select(id_str).classed("selectedIsnt", true)
-
+                            d3.select(id_str)
+                                  .classed("selectedIsnt", true)
                             // Highlight all of the house icons that are involved in this fire
                             d3.select("#"+propertiesToCapture[i]).select("polygon")
                                   .classed("selectedHouse", true)
                           }
                         }
+
+                        // Grey out all other circles that are not the current circle that's hovered
+                        d3.selectAll(".cls-20")
+                            .classed("greyMask", true)
 
                         // Set deployment name in legend
                         d3.select("#legend_fire_name")
@@ -212,6 +239,7 @@
 
                         d3.select(this)
                             .classed("selectedProtest", true)
+                            .classed("greyMask", false)
                    })
 
                    .on("mouseout", function(d,i) { 
@@ -230,32 +258,67 @@
                         // Clear highlighted houses
                         d3.selectAll(".selectedHouse")
                               .classed("selectedHouse", false)
-                        
+                        // Clear all grey masks
+                        d3.selectAll(".greyMask")
+                              .classed("greyMask", false)                       
                    });
 
+        // Following code is for hover actions of an institution in the legend
         d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
-                // on mouse hover of legend institution titles
                 .on("mouseover", function(d, i){
                     // console.log("this =", this)
                     // console.log(this.id.split("_")[1])
                     inst_str = this.id.split("_")[1].toUpperCase()
+
+                    // Grey out institution homes, text, non-selected institution legend labels here
+                    for(var i in propertiesToCapture){
+                      var id_str = "#title_" + propertiesToCapture[i].toLowerCase()
+                      var box_str = "#box_"+propertiesToCapture[i]
+                      d3.select("#"+propertiesToCapture[i]).select("polygon")
+                            .classed("greyMask", true)
+                      d3.select("#Correctional_institutions_outlineNotHalo_-_"+propertiesToCapture[i]).selectAll("path,polygon")
+                            .classed("greyMask", true)
+                      d3.select(id_str)
+                            .classed("greyMask", true)
+                      d3.select(box_str)
+                            .classed("greyMask", true)
+                    }
+
                     for(var i in fire_data.fireData){
                       //  console.log(fire_data.fireData[i][inst_str])
-                       if(fire_data.fireData[i][inst_str] != 0){
+                      if(fire_data.fireData[i][inst_str] != 0){
                         // console.log(fire_data.fireData[i][inst_str])
                         // console.log(i.toString())   
-                        d3.select(document.getElementById(i.toString())).classed("selectedProtest", true)                        
+                        d3.select(document.getElementById(i.toString()))
+                            .classed("selectedProtest", true)
+                      }
+                      else{
+                        // Apply grey masks to circles and homes that aren't a part of current fire
+                        d3.select(document.getElementById(i.toString()))
+                            .classed("greyMask", true)
                       }
                     }
 
+                    // highlight institution label
+                    d3.select(this)
+                          .classed("selectedIsnt", true)
+                          .classed("greyMask", false)
+
                     // set deployment name in legend
                     d3.select("#legend_fire_name")
-                            .text(inst_str)
+                          .text(inst_str)
 
-                    // console.log(inst_str)
-                    // Highlight the house of selected institution
+                    // Highlight the home and text of selected institution
                     d3.select("#"+inst_str.toString()).select("polygon")
                             .classed("selectedHouse", true)
+                            .classed("greyMask", false)
+                    d3.select("#Correctional_institutions_outlineNotHalo_-_"+inst_str.toString()).selectAll("path,polygon")
+                          .classed("greyMask", false)
+
+                    // highlight legend box of institution
+                    d3.select("#box_"+inst_str)
+                          .classed("greyMask", false)
+
                   })
                 
                 .on("mouseout", function(d, i){
@@ -268,6 +331,11 @@
                     // clear house highlights on map
                     d3.selectAll(".selectedHouse")
                               .classed("selectedHouse", false)
+                    // clear all grey masks
+                    d3.selectAll(".greyMask")
+                              .classed("greyMask", false)
+                    d3.selectAll(".selectedIsnt")
+                              .classed("selectedIsnt", false)
                 })
       };
 
