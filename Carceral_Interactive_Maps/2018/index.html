@@ -33,6 +33,10 @@
       fill-opacity: 0.9;
     }
 
+    .linePath{
+      display: none!important;
+    }
+
     #tooltip{
         position: absolute;
         top: 50px;
@@ -170,6 +174,11 @@
         // d3.select("#Correctional_institutions_outlineNotHalo_-_WCCF").selectAll("path,polygon")
         //     .classed("greyMask", true)
 
+        
+        console.log(d3.select("#line2018_19"))
+        d3.select("#line2018_19")
+            .classed("linePath", false)
+
 
         // Capture institutional tabs
         var sciText = d3.select("#legend_sci")
@@ -191,7 +200,8 @@
         d3.selectAll("#Outlines>circle,#Outlines>path,#Outlines>ellipse")
                   //Function which highlights the hovered on fire, and populates the legend with the fire's details
                    .on("mouseover", function(d,i) { 
-                        // console.log("this =", this)
+                        console.log("this =", this)
+                        console.log("id =", this.id)
                         // console.log("fire details =", d3.select("#legend_fire_name"))
                         // testing for grabbing house objects
                         // console.log("SRCI house object =", d3.select("#SRCI"))
@@ -240,6 +250,9 @@
                         d3.select(this)
                             .classed("selectedProtest", true)
                             .classed("greyMask", false)
+
+                        // Display the path of the fire, if available
+                        // console.log("line object =", d3.select("#line2018_23"))
                    })
 
                    .on("mouseout", function(d,i) { 
@@ -266,7 +279,7 @@
         // Following code is for hover actions of an institution in the legend
         d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
                 .on("mouseover", function(d, i){
-                    // console.log("this =", this)
+                  //   console.log("this =", this)
                     // console.log(this.id.split("_")[1])
                     inst_str = this.id.split("_")[1].toUpperCase()
 
