@@ -523,7 +523,7 @@
       <circle id="2018_20" class="cls-20" cx="102.59" cy="377.45" r="18.42" transform="translate(-286.42 418.25) rotate(-80.78)"/>
     </g>
   </g>
-  <g id="Leading_Lines_to_Fade" data-name="Leading Lines to Fade">
+  <!-- <g id="Leading_Lines_to_Fade" data-name="Leading Lines to Fade">
     <g id="Leadling_Lines" data-name="Leadling Lines">
       <g id="line2018_23" class="cls-1" display="none">
         <g>
@@ -597,7 +597,7 @@
         </g>
       </g>
     </g>
-  </g>
+  </g> -->
   <g id="Institutions_to_Fade" data-name="Institutions to Fade">
     <g id="Labels">
       <g id="Correctional_institutions_outlineNotHalo">
