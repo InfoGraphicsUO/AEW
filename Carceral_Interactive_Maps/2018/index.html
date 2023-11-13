@@ -34,7 +34,7 @@
     }
 
     .linePath{
-      display: none!important;
+      display: inline!important;
     }
 
     #tooltip{
@@ -175,9 +175,9 @@
         //     .classed("greyMask", true)
 
         
-        console.log(d3.select("#line2018_19"))
-        d3.select("#line2018_19")
-            .classed("linePath", false)
+        // console.log(d3.select("#line2018_19"))
+        // d3.select("#line2018_19")
+        //     .classed("linePath", true)
 
 
         // Capture institutional tabs
@@ -202,6 +202,7 @@
                    .on("mouseover", function(d,i) { 
                         console.log("this =", this)
                         console.log("id =", this.id)
+                        var lineID = "#line" + this.id
                         // console.log("fire details =", d3.select("#legend_fire_name"))
                         // testing for grabbing house objects
                         // console.log("SRCI house object =", d3.select("#SRCI"))
@@ -253,7 +254,11 @@
 
                         // Display the path of the fire, if available
                         // console.log("line object =", d3.select("#line2018_23"))
-                   })
+                        if(lineID){
+                          d3.select(lineID)
+                              .classed("linePath", true)
+                        }
+                      })
 
                    .on("mouseout", function(d,i) { 
                         // console.log("mouse is out!")
@@ -273,7 +278,10 @@
                               .classed("selectedHouse", false)
                         // Clear all grey masks
                         d3.selectAll(".greyMask")
-                              .classed("greyMask", false)                       
+                              .classed("greyMask", false)
+                        // Clear line path
+                        d3.selectAll(".linePath")
+                              .classed("linePath", false)                       
                    });
 
         // Following code is for hover actions of an institution in the legend
