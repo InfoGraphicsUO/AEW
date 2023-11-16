@@ -513,6 +513,7 @@
                       // Replace the _ in Protest ID with a - 
                         // let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention
                         let thisData = thisID.replace(/[^0-9]/g, '') // required if JSON data and map data use a different naming convention
+                        thisData-=1;
                         let linkFinder = "Link"
                         // Get data from JSON 
                         let thisYear = protest_data.tooltips[thisData].Year
@@ -521,6 +522,7 @@
                         let thisDescription = protest_data.tooltips[thisData].Summary
                         let thisInterviewee = protest_data.tooltips[thisData].Interviewee
                         let thisLink = protest_data.tooltips[thisData].Link
+                        let thisInterviewId= protest_data.tooltips[thisData].ID
 
 
 
