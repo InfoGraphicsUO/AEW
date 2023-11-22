@@ -59,14 +59,16 @@
     .slidecontainer {
       width: 100%; /* Width of the outside container */
       position: absolute;
+      margin: auto;
     }
 
     .slideText{
       color: white;
-      margin-left: 650px;
-      margin-top: 30px;
       display: inline;
       position: absolute;
+      right: 0;
+      margin-right: 96px;
+      margin-top: 20px;
       font-family: FreightSansProBold-Regular, 'FreightSans Pro', sans-serif;
     }
 
@@ -81,7 +83,7 @@
 
     <div class="slidecontainer">
       <text id="sliderText" class="slideText"></text>
-      <input id="sliderRange" type="range" style="margin-left: 600px; margin-top: 60px;" min="0" max="60" value="1" step="10" oninput="slider()">
+      <input id="sliderRange" type="range" style="margin: auto; float: right; margin-right: 50px; margin-top: 50px;" min="2015" max="2021" value="2018" step="1" oninput="slider()">
     </div>
 
   </div>
@@ -448,35 +450,14 @@
         doThings();
     });
     
-    // Starting slider at 2015
+    // Starting slider at 2018
     let yearText = document.getElementById("sliderText")
-    yearText.innerHTML = "2015"
+    yearText.innerHTML = "2018"
 
     // Function to update slider text
     function slider(){
       const sliderValue = document.getElementById("sliderRange").value
-      // console.log("slide val", sliderValue)
-      if(sliderValue == 0){
-        yearText.innerHTML = "2015"
-      }
-      else if(sliderValue == 10){
-        yearText.innerHTML = "2016"
-      }
-      else if(sliderValue == 20){
-        yearText.innerHTML = "2017"
-      }
-      else if(sliderValue == 30){
-        yearText.innerHTML = "2018"
-      }
-      else if(sliderValue == 40){
-        yearText.innerHTML = "2019"
-      }
-      else if(sliderValue == 50){
-        yearText.innerHTML = "2020"
-      }
-      else if(sliderValue == 60){
-        yearText.innerHTML = "2021"
-      }    
+      yearText.innerHTML = sliderValue.toString()
   }
     
      // on sucessful load 
@@ -540,7 +521,6 @@
                    .on("mouseover", function(d,i) {
 
                         // const yearJson = yearText.innerHTML
-                        console.log("yeatre in .on(mouseover) =", yearText.innerHTML.toString())
 
                         // console.log("this =", this)
                         // console.log("id =", this.id)
@@ -648,7 +628,7 @@
                     }
 
                     for(var i in fire_data.fireData[yearText.innerHTML.toString()]){
-                      console.log("i=",i)
+                      // console.log("i=",i)
                       //  console.log(fire_data.fireData[i][inst_str])
                       if(fire_data.fireData[yearText.innerHTML.toString()][i][inst_str] != 0){
                         // console.log(fire_data.fireData[i][inst_str])
