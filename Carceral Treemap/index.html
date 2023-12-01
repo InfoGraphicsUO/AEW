@@ -28,7 +28,7 @@
     <scrript src="https://code.highcharts.com/modules/heatmap.js"></scrript>
     <!-- for heatmap legend - not currently working. Due to levels? see  https://www.highcharts.com/docs/chart-and-series-types/treemap#use-with-coloraxis -->
     <script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
-    <script src="https://code.highcharts.com/modules/coloraxis.js"></script>
+    <!-- <script src="https://code.highcharts.com/modules/coloraxis.js"></script> -->
     <script>
         // Plugin to allow Click on Color Axis Legend to be disabled in coloraxis.dataclasses (Solution found at: https://github.com/highcharts/highcharts/issues/9246)
         (function(H) {
@@ -57,29 +57,7 @@
                 });
                 })(Highcharts)
     </script>                                                                                                                                                       
-<style>
 
-.toolTipZ{
-
-    z-index: 100000;
-}
-.labelZ{
-    z-index: 500;
-}
-
-.label {
-    z-index: 1 !important;
-}
-
-.highcharts-tooltip span {
-    background-color: white;
-    border-radius: 5%;
-    padding: 5px;
-    border:1 px solid black;
-    opacity: 1;
-    z-index: 9999 !important;}
-
-</style>
     
     <!-- START OF CHART -->
     
@@ -138,40 +116,45 @@
                 ],
                 reversed: true,
         
-                dataClasses: [{
-                            from: 2.1,
-                            to: 3,
-                            color: '#cc3333',
-                            // color: '#fff5f3',
-                            name: '<b>Maximal</b><br>500 to 3969 person-days',
-                         // Disables Click on Color Axis Legend for Limited
-                            events: {
-                                legendItemClick: function(e) {
-                                    return false;
-                                }}
-                        }, {
-                            from: 1.1,
-                            to: 2,
-                            color: '#e88074',
-                            // color: '#e88074',
-                            name: '<b>Significant</b><br>101 to 499.5 person-days',
-                        // Disables Click on Color Axis Legend for Significant
-                            events: {
-                                legendItemClick: function(e) {
-                                    return false;
-                                }}                            
-                        },{
-                            from: 0,
-                            to: 1,
-                            color: '#fff5f3',
-                            // color: '#cc3333',
-                            name: '<b>Limited</b><br>1 to 99.5 person-days',
-                         // Disables Click on Color Axis Legend for Limited
-                            events: {
-                                    legendItemClick: function(e) {
-                                        return false;
-                                    }}
-                        }],        
+
+                // Legend Below Treemap (To reactivate also add <script src="https://code.highcharts.com/modules/coloraxis.js"></script> to the top of the body)
+                        // dataClasses: [{
+                        //             from: 2.1,
+                        //             to: 3,
+                        //             color: '#cc3333',
+                        //             // color: '#fff5f3',
+                        //             name: '<b>Maximal</b><br>500 to 3,969 person-days',
+                        //          // Disables Click on Color Axis Legend for Limited
+                        //             events: {
+                        //                 legendItemClick: function(e) {
+                        //                     return false;
+                        //                 }}
+                        //         }, {
+                        //             from: 1.1,
+                        //             to: 2,
+                        //             color: '#e88074',
+                        //             // color: '#e88074',
+                        //             name: '<b>Significant</b><br>101 to 499.5 person-days',
+                        //         // Disables Click on Color Axis Legend for Significant
+                        //             events: {
+                        //                 legendItemClick: function(e) {
+                        //                     return false;
+                        //                 }}                            
+                        //         },{
+                        //             from: 0,
+                        //             to: 1,
+                        //             color: '#fff5f3',
+                        //             // color: '#cc3333',
+                        //             name: '<b>Limited</b><br>1 to 99.5 person-days',
+                        //          // Disables Click on Color Axis Legend for Limited
+                        //             events: {
+                        //                     legendItemClick: function(e) {
+                        //                         return false;
+                        //                     }}
+                        //         }],        
+
+
+
 
                 // dataClasses: [{
                 //             from: 0,
@@ -319,8 +302,8 @@
                             switch(this.key) {
                                     case "Maximal":
                                         // code block
-                                        labelVal += "<b>Maximal</b><br>500 to 3969 person-days";
-                                        rangeVal = "(500 to 3969 person-days)"
+                                        labelVal += "<b>Maximal</b><br>500 to 3,969 person-days";
+                                        rangeVal = "(500 to 3,969 person-days)"
                                         break;
                                     // case "Extensive":
                                     //     labelVal = "(between 230 and 499.5 person-days)<br/><br/>These fires make up <b>19%</b> of total person-days";
@@ -825,6 +808,7 @@
                 useHTML: true,
                 className:"toolTipZ",
                 borderWidth: 0,
+                borderColor: 'white',
                 backgroundColor: "rgba(255,255,255,0)",
                 borderRadius: 0,
                 shadow: false,
@@ -867,7 +851,7 @@
                             case "Maximal":
                                 // code block
                                 labelVal = " <b>52%</b> of total person-days";
-                                rangeVal = " (500 to 3969 person-days)"
+                                rangeVal = " (500 to 3,969 person-days)"
                                 break;
                             // case "Extensive":
                             //     labelVal = "(between 230 and 499.5 person-days)<br/><br/>These fires make up <b>19%</b> of total person-days";
@@ -901,13 +885,13 @@
                             
                                                 console.log(this.point)
                             console.log(this.point.name)
-                            label =  "<b>"+ this.point.name +" ("+ this.point.year+ ")</b> had <b>" + this.point.value.toLocaleString() + " total person-days</b><br></b><b><span style=" + "'color:#be1e2d'>" + this.point.node.children[0].name + "</span></b>: " + this.point.node.children[0].val + "<br><b><span style=" + "'color:#b26b43'>" + this.point.node.children[1].name + "</b>: " + this.point.node.children[1].val;
+                            label =  "<b>"+ this.point.name +" ("+ this.point.year+ ")</b> had <b>" + this.point.value.toLocaleString() + " total person-days</b><br></b><b><span class='depType'; style=" + "'color:#be1e2d';>" + this.point.node.children[0].name + "</span></b>: " + this.point.node.children[0].val.toLocaleString() + "<br><b><span class='depType' style=" + "'color:#b26b43'>" + this.point.node.children[1].name + "</b>: " + this.point.node.children[1].val.toLocaleString();
 
                         }
                     }
                     // Sets Format for toolwips for Fires with More Support
                     if (this.point.node.children[0].name.includes("Support")) {
-                        label = "<b>" + this.point.name + " ("+ this.point.year+ ")</b> had <b>" + this.point.value.toLocaleString() + " total person-days</b><br><b><span style=" + "'color:#b26b43'>" + this.point.node.children[0].name + "</span></b>: " + this.point.node.children[0].val + "<br><b><span style=" + "'color:#be1e2d'>" + this.point.node.children[1].name + "</b>: " + this.point.node.children[1].val
+                        label = "<b>" + this.point.name + " ("+ this.point.year+ ")</b> had <b>" + this.point.value.toLocaleString() + " total person-days</b><br><b><span class='depType'; style=" + "'color:#b26b43'>" + this.point.node.children[0].name + "</span></b>: " + this.point.node.children[0].val.toLocaleString() + "<br><b><span class='depType'; style= " + "'color:#be1e2d'>" + this.point.node.children[1].name + "</b>: " + this.point.node.children[1].val.toLocaleString()
 
 
                     }
