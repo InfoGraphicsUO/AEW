@@ -57,7 +57,29 @@
                 });
                 })(Highcharts)
     </script>                                                                                                                                                       
+<style>
 
+.toolTipZ{
+
+    z-index: 100000;
+}
+.labelZ{
+    z-index: 500;
+}
+
+.label {
+    z-index: 1 !important;
+}
+
+.highcharts-tooltip span {
+    background-color: white;
+    border-radius: 5%;
+    padding: 5px;
+    border:1 px solid black;
+    opacity: 1;
+    z-index: 9999 !important;}
+
+</style>
     
     <!-- START OF CHART -->
     
@@ -289,9 +311,10 @@
                     
                     
                         useHTML: true,
+                        className:"labelZ",
                         formatter: function () {
                             console.log(this.key)
-                            labelVal= "<div style='text-align: center; font-size: larger; background-color: rgba(50,50,50,0.5); padding: 5px; color: white; border-radius: 5%;'>"
+                            labelVal= "<div style='text-align: center; font-size: larger; background-color: rgba(50,50,50,0.5); padding: 5px; color: white; border-radius: 5%; z-index: -10'>"
 
                             switch(this.key) {
                                     case "Maximal":
@@ -319,31 +342,7 @@
                             return labelVal + "</div>"
 
                         },
-                        // format: {
-                        //             switch(point.name) {
-                        //             case "Maximal":
-                        //                 // code block
-                        //                 labelVal = " <b>52%</b> of total person-days";
-                        //                 rangeVal = " (500 to 3969 person-days)"
-                        //                 break;
-                        //             // case "Extensive":
-                        //             //     labelVal = "(between 230 and 499.5 person-days)<br/><br/>These fires make up <b>19%</b> of total person-days";
-                        //             //     break;
-                        //             case "Significant":
-                        //                 labelVal = " <b>33%</b> of total person-days";
-                        //                 rangeVal = " (101 to 499.5 person-days)"
-                        //                 break;
-                        //             case "Limited":
-                        //                 labelVal = " <b>15%</b> of total person-days";
-                        //                 rangeVal = " (1 to 99.5 person-days)"
-                        //                 break;
-                        //             default:
-                        //             },
-
-                            
-                        //     '{point.name} <br> 100 to ___'},
-                        // backgroundColor: 'rgba(51,51,51,0.7)',
-                        //                    backgroundRadius: 5,
+                       
 
                         style: {
                             //                        textOutline: 0,
@@ -824,6 +823,11 @@
             tooltip: {
 
                 useHTML: true,
+                className:"toolTipZ",
+                borderWidth: 0,
+                backgroundColor: "rgba(255,255,255,0)",
+                borderRadius: 0,
+                shadow: false,
 
 
                 // Adjust Tool Tip Postion above label name (https://stackoverflow.com/questions/39198173/how-to-move-tooltip-position-in-highchart)
