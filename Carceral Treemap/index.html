@@ -285,11 +285,63 @@
                         overflow: 'hidden',
 
 
-                    //    Modify Bin Label
+                    //    Modify Bin Label (https://api.highcharts.com/highcharts/plotOptions.series.dataLabels)
                     
-                    // If point.name = Maximal make dataRange= 500 to 3969
+                    
+                        useHTML: true,
+                        formatter: function () {
+                            console.log(this.key)
+                            labelVal= "<div style='text-align: center; font-size: larger; background-color: rgba(50,50,50,0.5); padding: 5px; color: white; border-radius: 5%;'>"
 
-                        format: '{point.name} <br> 100 to ___',
+                            switch(this.key) {
+                                    case "Maximal":
+                                        // code block
+                                        labelVal += "<b>Maximal</b><br>500 to 3969 person-days";
+                                        rangeVal = "(500 to 3969 person-days)"
+                                        break;
+                                    // case "Extensive":
+                                    //     labelVal = "(between 230 and 499.5 person-days)<br/><br/>These fires make up <b>19%</b> of total person-days";
+                                    //     break;
+                                    case "Significant":
+                                        labelVal += "<b>Significant</b><br>101 to 499.5 person-days";
+                                        rangeVal = " (101 to 499.5 person-days)"
+                                        break;
+                                    case "Limited":
+                                        labelVal += " <b>Limited</b><br>1 to 99.5 person-days";
+                                        rangeVal = " (1 to 99.5 person-days)"
+                                        break;
+                                    default:
+
+
+                            }
+
+
+                            return labelVal + "</div>"
+
+                        },
+                        // format: {
+                        //             switch(point.name) {
+                        //             case "Maximal":
+                        //                 // code block
+                        //                 labelVal = " <b>52%</b> of total person-days";
+                        //                 rangeVal = " (500 to 3969 person-days)"
+                        //                 break;
+                        //             // case "Extensive":
+                        //             //     labelVal = "(between 230 and 499.5 person-days)<br/><br/>These fires make up <b>19%</b> of total person-days";
+                        //             //     break;
+                        //             case "Significant":
+                        //                 labelVal = " <b>33%</b> of total person-days";
+                        //                 rangeVal = " (101 to 499.5 person-days)"
+                        //                 break;
+                        //             case "Limited":
+                        //                 labelVal = " <b>15%</b> of total person-days";
+                        //                 rangeVal = " (1 to 99.5 person-days)"
+                        //                 break;
+                        //             default:
+                        //             },
+
+                            
+                        //     '{point.name} <br> 100 to ___'},
                         // backgroundColor: 'rgba(51,51,51,0.7)',
                         //                    backgroundRadius: 5,
 
@@ -730,32 +782,32 @@
                     // { name: 'Silver Creek', id: 'Silver Creek', parent: 'over 100', borderColor: 'purple', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Purple' } }, zIndex: 500 }, { name: 'Suppression', parent: 'Silver Creek', value: 180 }, { name: 'Support', parent: 'Silver Creek', value: 0 },
                     // { name: 'High Pass #6', id: 'High Pass #6', parent: '8 to 20', borderColor: 'purple', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Purple' } }, zIndex: 500 }, { name: 'Suppression', parent: 'High Pass #6', value: 20 }, { name: 'Support', parent: 'High Pass #6', value: 0 },
                     
-
+              
                     // Preposistion Fires
-                    {name:'2017 NCAS Pre-Position', id: '2017 NCAS Pre-Position', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2017', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2017 NCAS Pre-Position', value: 28},{name:'Support', parent:'2017 NCAS Pre-Position', value: 0},
-                    {name:'CFPA Pre-position', id: 'CFPA Pre-position', parent:'Limited', colorValue:1, year: '2017',borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA Pre-position', value: 20},{name:'Support', parent:'CFPA Pre-position', value: 0},
-                    {name:'Chetco Bar Pre-position', id: 'Chetco Bar Pre-position', parent:'Limited', colorValue:1, year: '2017', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Chetco Bar Pre-position', value: 13},{name:'Support', parent:'Chetco Bar Pre-position', value: 0},
-                    {name:'Coos Bay Pre-position', id: 'Coos Bay Pre-position', parent:'Significant', colorValue:2, year: '2017', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Coos Bay Pre-position', value: 94},{name:'Support', parent:'Coos Bay Pre-position', value: 15},
-                    {name:'Pre-position Santiam/Lyons ', id: 'Pre-position Santiam/Lyons ', parent:'Limited', colorValue:1, year: '2017', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Pre-position Santiam/Lyons ', value: 20},{name:'Support', parent:'Pre-position Santiam/Lyons ', value: 0},
-                    {name:'West Oregon Eclipse Prepo', id: 'West Oregon Eclipse Prepo', parent:'Significant', colorValue:2, year: '2017', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'West Oregon Eclipse Prepo', value: 100},{name:'Support', parent:'West Oregon Eclipse Prepo', value: 0},
-                    {name:'CFPA July Preposition', id: 'CFPA July Preposition', parent:'Limited', colorValue:1, year: '2018', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA July Preposition', value: 60},{name:'Support', parent:'CFPA July Preposition', value: 0},
-                    {name:'CFPA PrePo - 4 Mile Guard', id: 'CFPA PrePo - 4 Mile Guard', parent:'Limited', colorValue:1, year: '2018', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - 4 Mile Guard', value: 40},{name:'Support', parent:'CFPA PrePo - 4 Mile Guard', value: 0},
-                    {name:'CFPA PrePo - Carpenteville Hwy', id: 'CFPA PrePo - Carpenteville Hwy', parent:'Limited', colorValue:1, year: '2018', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - Carpenteville Hwy', value: 9},{name:'Support', parent:'CFPA PrePo - Carpenteville Hwy', value: 0},
-                    {name:'CFPA PrePo - Coos Bay', id: 'CFPA PrePo - Coos Bay', parent:'Limited', colorValue:1, year: '2018', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - Coos Bay', value: 38},{name:'Support', parent:'CFPA PrePo - Coos Bay', value: 0},
-                    {name:'CFPA PrePo - Euchre Creek', id: 'CFPA PrePo - Euchre Creek', parent:'Limited', colorValue:1, year: '2018', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - Euchre Creek', value: 10},{name:'Support', parent:'CFPA PrePo - Euchre Creek', value: 0},
-                    {name:'CFPA pre-position', id: 'CFPA pre-position', parent:'Limited', colorValue:1, year: '2018', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA pre-position', value: 98},{name:'Support', parent:'CFPA pre-position', value: 0},
-                    {name:'Santiam Pre-Position', id: 'Santiam Pre-Position', parent:'Limited', colorValue:1, year: '2018', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Santiam Pre-Position', value: 70},{name:'Support', parent:'Santiam Pre-Position', value: 0},
-                    {name:'2019 CFPA Preposition ', id: '2019 CFPA Preposition ', parent:'Limited', colorValue:1, year: '2019', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2019 CFPA Preposition ', value: 60},{name:'Support', parent:'2019 CFPA Preposition ', value: 0},
-                    {name:'2019 Preposition', id: '2019 Preposition', parent:'Limited', colorValue:1, year: '2019', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2019 Preposition', value: 30},{name:'Support', parent:'2019 Preposition', value: 0},
-                    {name:'2019 Santiam Preposition', id: '2019 Santiam Preposition', parent:'Limited', colorValue:1, year: '2019', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2019 Santiam Preposition', value: 30},{name:'Support', parent:'2019 Santiam Preposition', value: 0},
-                    {name:'Preeposition - Santiam', id: 'Preeposition - Santiam', parent:'Limited', colorValue:1, year: '2019', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preeposition - Santiam', value: 10},{name:'Support', parent:'Preeposition - Santiam', value: 0},
-                    {name:'Preposition - Mollala Ofc', id: 'Preposition - Mollala Ofc', parent:'Limited', colorValue:1, year: '2019', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preposition - Mollala Ofc', value: 10},{name:'Support', parent:'Preposition - Mollala Ofc', value: 0},
-                    {name:'Preposition - Santiam  Ofc', id: 'Preposition - Santiam  Ofc', parent:'Limited', colorValue:1, year: '2019', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preposition - Santiam  Ofc', value: 10},{name:'Support', parent:'Preposition - Santiam  Ofc', value: 0},
-                    {name:'Preposition-Mollala', id: 'Preposition-Mollala', parent:'Limited', colorValue:1, year: '2019', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preposition-Mollala', value: 10},{name:'Support', parent:'Preposition-Mollala', value: 0},
-                    {name:'CD Preposition Molalla ODF', id: 'CD Preposition Molalla ODF', parent:'Limited', colorValue:1, year: '2020', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CD Preposition Molalla ODF', value: 10},{name:'Support', parent:'CD Preposition Molalla ODF', value: 0},
-                    {name:'Curry PrePosition 2021', id: 'Curry PrePosition 2021', parent:'Limited', colorValue:1, year: '2021', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Curry PrePosition 2021', value: 9},{name:'Support', parent:'Curry PrePosition 2021', value: 0},
-                    {name:'Molalla PrePosition', id: 'Molalla PrePosition', parent:'Limited', colorValue:1, year: '2021', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Molalla PrePosition', value: 10},{name:'Support', parent:'Molalla PrePosition', value: 0},
-                    {name:'Santiam PrePosition', id: 'Santiam PrePosition', parent:'Limited', colorValue:1, year: '2021', borderColor: 'darkGrey', borderWidth: 3, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Santiam PrePosition', value: 10},{name:'Support', parent:'Santiam PrePosition', value: 0},
+                    {name:'2017 NCAS Pre-Position', id: '2017 NCAS Pre-Position', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2017', dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2017 NCAS Pre-Position', value: 28},{name:'Support', parent:'2017 NCAS Pre-Position', value: 0},
+                    {name:'CFPA Pre-position', id: 'CFPA Pre-position', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2017',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA Pre-position', value: 20},{name:'Support', parent:'CFPA Pre-position', value: 0},
+                    {name:'Chetco Bar Pre-position', id: 'Chetco Bar Pre-position', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2017',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Chetco Bar Pre-position', value: 13},{name:'Support', parent:'Chetco Bar Pre-position', value: 0},
+                    {name:'Coos Bay Pre-position', id: 'Coos Bay Pre-position', parent:'Significant', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:2, year: '2017',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Coos Bay Pre-position', value: 94},{name:'Support', parent:'Coos Bay Pre-position', value: 15},
+                    {name:'Pre-position Santiam/Lyons ', id: 'Pre-position Santiam/Lyons ', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2017',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Pre-position Santiam/Lyons ', value: 20},{name:'Support', parent:'Pre-position Santiam/Lyons ', value: 0},
+                    {name:'West Oregon Eclipse Prepo', id: 'West Oregon Eclipse Prepo', parent:'Significant', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:2, year: '2017',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'West Oregon Eclipse Prepo', value: 100},{name:'Support', parent:'West Oregon Eclipse Prepo', value: 0},
+                    {name:'CFPA July Preposition', id: 'CFPA July Preposition', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2018',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA July Preposition', value: 60},{name:'Support', parent:'CFPA July Preposition', value: 0},
+                    {name:'CFPA PrePo - 4 Mile Guard', id: 'CFPA PrePo - 4 Mile Guard', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2018',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - 4 Mile Guard', value: 40},{name:'Support', parent:'CFPA PrePo - 4 Mile Guard', value: 0},
+                    {name:'CFPA PrePo - Carpenteville Hwy', id: 'CFPA PrePo - Carpenteville Hwy', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2018',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - Carpenteville Hwy', value: 9},{name:'Support', parent:'CFPA PrePo - Carpenteville Hwy', value: 0},
+                    {name:'CFPA PrePo - Coos Bay', id: 'CFPA PrePo - Coos Bay', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2018',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - Coos Bay', value: 38},{name:'Support', parent:'CFPA PrePo - Coos Bay', value: 0},
+                    {name:'CFPA PrePo - Euchre Creek', id: 'CFPA PrePo - Euchre Creek', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2018',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA PrePo - Euchre Creek', value: 10},{name:'Support', parent:'CFPA PrePo - Euchre Creek', value: 0},
+                    {name:'CFPA pre-position', id: 'CFPA pre-position', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2018',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CFPA pre-position', value: 98},{name:'Support', parent:'CFPA pre-position', value: 0},
+                    {name:'Santiam Pre-Position', id: 'Santiam Pre-Position', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2018',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Santiam Pre-Position', value: 70},{name:'Support', parent:'Santiam Pre-Position', value: 0},
+                    {name:'2019 CFPA Preposition ', id: '2019 CFPA Preposition ', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2019',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2019 CFPA Preposition ', value: 60},{name:'Support', parent:'2019 CFPA Preposition ', value: 0},
+                    {name:'2019 Preposition', id: '2019 Preposition', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2019',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2019 Preposition', value: 30},{name:'Support', parent:'2019 Preposition', value: 0},
+                    {name:'2019 Santiam Preposition', id: '2019 Santiam Preposition', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2019',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'2019 Santiam Preposition', value: 30},{name:'Support', parent:'2019 Santiam Preposition', value: 0},
+                    {name:'Preeposition - Santiam', id: 'Preeposition - Santiam', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2019',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preeposition - Santiam', value: 10},{name:'Support', parent:'Preeposition - Santiam', value: 0},
+                    {name:'Preposition - Mollala Ofc', id: 'Preposition - Mollala Ofc', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2019',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preposition - Mollala Ofc', value: 10},{name:'Support', parent:'Preposition - Mollala Ofc', value: 0},
+                    {name:'Preposition - Santiam  Ofc', id: 'Preposition - Santiam  Ofc', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2019',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preposition - Santiam  Ofc', value: 10},{name:'Support', parent:'Preposition - Santiam  Ofc', value: 0},
+                    {name:'Preposition-Mollala', id: 'Preposition-Mollala', parent:'Limited', color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1,  year: '2019',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Preposition-Mollala', value: 10},{name:'Support', parent:'Preposition-Mollala', value: 0},
+                    {name:'CD Preposition Molalla ODF', id: 'CD Preposition Molalla ODF', parent:'Limited',color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2020',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'CD Preposition Molalla ODF', value: 10},{name:'Support', parent:'CD Preposition Molalla ODF', value: 0},
+                    {name:'Curry PrePosition 2021', id: 'Curry PrePosition 2021', parent:'Limited',color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2021',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Curry PrePosition 2021', value: 9},{name:'Support', parent:'Curry PrePosition 2021', value: 0},
+                    {name:'Molalla PrePosition', id: 'Molalla PrePosition', parent:'Limited',color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2021',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Molalla PrePosition', value: 10},{name:'Support', parent:'Molalla PrePosition', value: 0},
+                    {name:'Santiam PrePosition', id: 'Santiam PrePosition', parent:'Limited',color:{patternIndex: 8, pattern:{color: 'black'}}, colorValue:1, year: '2021',  dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: 10, color: 'Black' } }, zIndex: 500 },{name:'Suppression', parent:'Santiam PrePosition', value: 10},{name:'Support', parent:'Santiam PrePosition', value: 0},
 
 
 
@@ -772,8 +824,20 @@
             tooltip: {
 
                 useHTML: true,
+
+
+                // Adjust Tool Tip Postion above label name (https://stackoverflow.com/questions/39198173/how-to-move-tooltip-position-in-highchart)
+                        //         positioner: function(labelWidth, labelHeight, point) {
+                        // var tooltipX = point.plotX - 100;
+                        // var tooltipY = point.plotY - 130;
+                        // return {
+                        //     x: tooltipX,
+                        //     y: tooltipY
+                        // };},
+
                 formatter: function () {
                     label = this.key
+                    
 
 //                    //Sets format for Tooltips for Bins i.e. over 100
                     if (dataCategories.includes(label)) {
