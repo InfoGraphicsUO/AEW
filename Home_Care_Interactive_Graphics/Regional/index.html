@@ -33,7 +33,7 @@
         right: 50px;
         padding: 10px;
         background-color: rgba(255, 255, 255, 0.897);
-        max-width: 25%;
+        max-width: 40%;
         font-family: "freight-sans-pro", sans-serif;
     }
 
@@ -523,7 +523,7 @@
                         let thisInterviewee = protest_data.tooltips[thisData].Interviewee
                         let thisLink = protest_data.tooltips[thisData].Link
                         let thisInterviewId= protest_data.tooltips[thisData].ID
-
+                        let testEmbed = '<iframe src="https://www.loc.gov/item/2017655484/?&embed=resources" width="697" height="600" frameborder="0" scrolling="no" allowfullscreen></iframe>'
 
 
                           // let shortID = thisID.substring(thisID.length-5, thisID.length)
@@ -535,7 +535,7 @@
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
                         // Page describing links in iFrames: https://stackoverflow.com/questions/9130275/iframe-link-to-open-a-browser-as-a-new-tab
                         .html("<b>Interviewee:</b> "+ thisInterviewee + "<br> <b>Location:</b> " + thisCity +", "+ thisState + "<br> <b>Description:</b> " + thisDescription
-                        +"<br><br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>" )
+                        +"<br><br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>" + "<br>" + testEmbed) 
                         // .html(shortID)
 
                         d3.select("#minimizeButton").attr("hidden",null); // show the button
