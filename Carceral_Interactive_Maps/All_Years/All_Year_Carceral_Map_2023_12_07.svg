@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 921.6 651.6">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 921.6 651.6">
   <defs>
     <style>
       .cls-1 {
@@ -274,10 +274,9 @@
       }
     </style>
   </defs>
-    <g id="Flat_Base_Map" data-name="Flat Base Map">
-    <image width="3840" height="2715" transform="translate(0 1.15) scale(.24)" xlink:href="https://infographicsuo.github.io/AEW/Carceral_Interactive_Maps/All_Years/Base_Map_12-07-2023.png"/>
+  <g id="Layer_74" data-name="Layer 74">
+    <image width="3840" height="2715" transform="translate(0 0) scale(.24)" xlink:href= "https://infographicsuo.github.io/AEW/Carceral_Interactive_Maps/All_Years/Base_Map_12-07-2023.png">
   </g>
-
   <g id="Legend_Frame_to_Highlight" data-name="Legend Frame to Highlight">
     <g id="Map_Frames" data-name="Map Frames">
       <polygon class="cls-1" points="25.68 310.13 25.68 42.96 25.68 37.19 34.08 37.19 191.22 37.19 199.62 37.19 199.62 42.96 199.62 310.13 199.62 315.9 191.22 315.9 34.08 315.9 25.68 315.9 25.68 310.13"/>
