@@ -30,7 +30,7 @@
     .greyMask{
       fill: gray!important;
       stroke: gray!important;
-      fill-opacity: 0.9;
+      fill-opacity: .9 !important;
     }
 
     .linePath{
@@ -454,15 +454,36 @@
     let yearText = document.getElementById("sliderText")
     yearText.innerHTML = "2018"
 
+
     // Function to update slider text
     function slider(){
+      // console.log("slide")
+      var yearBuilder = "_" + yearText.innerHTML + "_Data"
+      console.log("builder year to hide", yearBuilder)
+
+      // clear previous fire year circles
+      document.getElementById(yearBuilder).style.display = "none"
+
+      // update slider value year
       const sliderValue = document.getElementById("sliderRange").value
       yearText.innerHTML = sliderValue.toString()
+      // console.log("yeartext is now", yearText.innerHTML)
+
+      yearBuilder = "_" + yearText.innerHTML + "_Data"
+      // console.log("NEW yearBuilder =", yearBuilder)
+      
+      // set current fire year circles
+      console.log("setting up fires for", yearBuilder)
+      document.getElementById(yearBuilder).style.display = "block"
   }
     
      // on sucessful load 
      function doThings(){    
         console.log("doing things")
+
+        // set inital fires on load (Currently set for 2018 data on load)
+        document.getElementById("_2018_Data").style.display = "block"
+
 
         // To capture correct fire year
         // console.log(fire_data.fireData[yearText.innerHTML]["2015_04"])
@@ -497,7 +518,6 @@
         //     break;
         // }
 
-
         // Capture institutional tabs
         var sciText = d3.select("#legend_sci")
         var srciText = d3.select("#legend_srci")
@@ -513,14 +533,17 @@
         // properties we want from each data
         var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
         var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
+
+        // display data for current year
+        
         
         // Select all Fires based on ID and object type 
-        d3.selectAll("#Outlines>circle,#Outlines>path,#Outlines>ellipse")
+        d3.selectAll("#_2018_Interactive_Pie_Outline>circle")
 
                   //Function which highlights the hovered on fire, and populates the legend with the fire's details
                    .on("mouseover", function(d,i) {
-
-                        // const yearJson = yearText.innerHTML
+                        console.log(this.id)
+                        console.log(fire_data.fireData[yearText.innerHTML.toString()])
 
                         // console.log("this =", this)
                         // console.log("id =", this.id)
@@ -531,6 +554,7 @@
                         // d3.select("#SRCI").select("polygon")
                         //     .classed("selectedHouse", true)
                             
+                        // for loop for legend info
                         for(var i = 0; i < propertiesToCapture.length; i++){
                           var id_str = "#title_"+propertiesToCapture[i].toLowerCase()
                           var box_str = "#box_"+propertiesToCapture[i]
@@ -538,8 +562,8 @@
                           // console.log(institutionsToCapture[i].text("test"))
                           
                           // if the cccf, drci...data value is 0, display blank text on legend
-                          if(fire_data.fireData[yearText.innerHTML.toString()][this.id][propertiesToCapture[i]] == 0){
-                            fire_data.fireData[yearText.innerHTML.toString()][this.id][propertiesToCapture[i]] = ""
+                          if(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] == 0){
+                            fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] = ""
                             d3.select(id_str)
                                   .classed("selectedIsnt", false)
                                   .classed("greyMask", true)
@@ -550,10 +574,9 @@
                             d3.select(box_str)
                                   .classed("greyMask", true)
                           }
-                          
                           // else the cccf, drci...data value is NOT 0, display that value in legend
                           else{
-                            institutionsToCapture[i].text(fire_data.fireData[yearText.innerHTML.toString()][this.id][propertiesToCapture[i]])
+                            institutionsToCapture[i].text(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]])
                             d3.select(id_str)
                                   .classed("selectedIsnt", true)
                             // Highlight all of the house icons that are involved in this fire
@@ -563,12 +586,18 @@
                         }
 
                         // Grey out all other circles that are not the current circle that's hovered
-                        d3.selectAll(".cls-20")
+                        d3.selectAll(".cls-34")
                             .classed("greyMask", true)
+                        
+                        d3.select("#_2018_Interactive_Pie_Outline")
+                            .classed("cls-87", false)
+
+                        // d3.selectAll("#_2018_Interactive_Pie_Outline")
+                        //     .classed("greyMask", true)
 
                         // Set deployment name in legend
                         d3.select("#legend_fire_name")
-                            .text(fire_data.fireData[yearText.innerHTML.toString()][this.id].LabelName)
+                            .text(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)].LabelName)
 
                         d3.select(this)
                             .classed("selectedProtest", true)
@@ -603,7 +632,10 @@
                               .classed("greyMask", false)
                         // Clear line path
                         d3.selectAll(".linePath")
-                              .classed("linePath", false)                       
+                              .classed("linePath", false)
+                        d3.select("#_2018_Interactive_Pie_Outline")
+                            .classed("cls-87", true)
+                       
                    });
 
         // Following code is for hover actions of an institution in the legend
