@@ -37,7 +37,7 @@
       display: inline!important;
     }
 
-    #tooltip{
+    /* #tooltip{
         position: absolute;
         top: 50px;
         right: 50px;
@@ -45,7 +45,36 @@
         background-color: rgba(255, 255, 255, 0.897);
         max-width: 50%;
         font-family: "freight-sans-pro", sans-serif;
-    }
+    } */
+
+    /* Tooltip to Display description of each year */
+
+    #tooltip{
+      align-items: top;
+        position: relative;  
+        top: 10px;
+        right: 0px;
+        padding: 10px;
+        background-color: rgba(219, 219, 219, 0.897);
+        max-width: 25%;
+         font-family: "freight-sans-pro", sans-serif;
+        max-height: calc(100vh - 10px);
+      max-width: calc(10vw - 10px); 
+  }
+
+  @media only screen and (max-width: 600px) {
+    #tooltip{
+        /* position: relative; */
+        /* align-items: center; */
+        top: 10px;
+        left: 10px !important;
+        padding: 100px;
+        background-color: rgba(219, 219, 219, 0.897);
+        /* max-width: 100%; */
+        font-family: "freight-sans-pro", sans-serif;
+        max-height: calc(100vh - 10px);
+      max-width: calc(100vw - 10px);
+  }}
 
     #Pies_to_fade,#Institutions_to_Fade {
       pointer-events: none;
@@ -57,7 +86,7 @@
     }
 
     .slidecontainer {
-      width: 100%; /* Width of the outside container f*/
+      width: 50%; /* Width of the outside container f*/
       position: absolute;
       margin: auto;
     }
@@ -71,7 +100,15 @@
       margin-top: 20px;
       font-family: FreightSansProBold-Regular, 'FreightSans Pro', sans-serif;
     }
-
+    @media only screen and (min-width: 600px) {
+    .textMapContainer{
+      max-height: calc(100vh - 10px);
+      max-width: calc(100vw - 10px);
+      display: grid;
+      align-items: top;
+      justify-content: left;
+      grid-template-columns: 1fr 1fr ;
+    }}
   </style>
 
 </head>
@@ -79,6 +116,8 @@
 <body>
 
 <!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
+
+<div class="textMapContainer">
   <div id="mapDiv">
 
     <div class="slidecontainer">
@@ -87,7 +126,9 @@
     </div>
 
   </div>
-  <!-- <div id="tooltip">Hover on each dot for description of Protest</div> --> 
+  <div id="tooltip">Description of ____ Year </div> 
+
+</div>
 
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
