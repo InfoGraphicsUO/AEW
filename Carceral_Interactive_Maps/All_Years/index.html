@@ -52,29 +52,27 @@
     #tooltip{
       align-items: top;
         position: relative;  
-        top: 10px;
-        right: 0px;
+      
         padding: 10px;
-        background-color: rgba(219, 219, 219, 0.897);
-        max-width: 25%;
+        /* background-color: rgba(255, 255, 255, 0.897); */
+        /* max-width: 25%; */
          font-family: "freight-sans-pro", sans-serif;
-        max-height: calc(100vh - 10px);
-      max-width: calc(10vw - 10px); 
+        max-height: 100%;
+      /* max-width: 10%;  */
   }
 
   @media only screen and (max-width: 600px) {
     #tooltip{
         /* position: relative; */
         /* align-items: center; */
-        top: 10px;
-        left: 10px !important;
+        top: 0px;
+        left: 0px !important;
         padding: 100px;
         background-color: rgba(219, 219, 219, 0.897);
-        /* max-width: 100%; */
         font-family: "freight-sans-pro", sans-serif;
-        max-height: calc(100vh - 10px);
-      max-width: calc(100vw - 10px);
-  }}
+       
+        max-height: calc(10vw - 10px);
+      max-width: calc(10vw - 10px);}}
 
     #Pies_to_fade,#Institutions_to_Fade {
       pointer-events: none;
@@ -100,14 +98,26 @@
       margin-top: 20px;
       font-family: FreightSansProBold-Regular, 'FreightSans Pro', sans-serif;
     }
-    @media only screen and (min-width: 600px) {
+  
     .textMapContainer{
-      max-height: calc(100vh - 10px);
-      max-width: calc(100vw - 10px);
+      /* max-height: 100%;
+      max-width: 100%; */
       display: grid;
       align-items: top;
       justify-content: left;
-      grid-template-columns: 1fr 1fr ;
+      grid-template-columns: 80% 20%;
+    }
+
+    @media only screen and (max-width: 1000px) {
+    .textMapContainer{
+      display: revert;
+      /* max-height: 100%;
+      max-width: 100%; */
+      /* display: grid;
+      align-items: top;
+      justify-content: left;
+      grid-template-columns: 80% 20%; */
+      background-color: rgba(255, 255, 255, 0.897);
     }}
   </style>
 
@@ -126,7 +136,9 @@
     </div>
 
   </div>
-  <div id="tooltip">Description of ____ Year </div> 
+  <div id="tooltip">Description of ____ Year <br> 
+    feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius
+  </div> 
 
 </div>
 
