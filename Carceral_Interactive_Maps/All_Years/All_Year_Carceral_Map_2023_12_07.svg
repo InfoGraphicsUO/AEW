@@ -336,7 +336,7 @@
     <text id="legend_drci" class="cls-64" transform="translate(46.34 150.4)"><tspan x="0" y="0">xxxxx</tspan></text>
     <text id="legend_prcf" class="cls-64" transform="translate(46.34 187.14)"><tspan x="0" y="0">xxxxx</tspan></text>
     <text id="legend_scci" class="cls-64" transform="translate(46.34 205.51)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-58" transform="translate(61.21 76.75)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
+    <text id="legend_fire_name" class="cls-58" transform="translate(61.21 76.75)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
     <polyline class="cls-16" points="45.1 381.2 96.67 381.2 166.15 381.2"/>
   </g>
   <g id="_2015_Data" data-name="2015_Data" display="none">
