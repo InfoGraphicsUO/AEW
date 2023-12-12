@@ -326,16 +326,16 @@
     <polygon class="cls-25" points="96.32 299.29 96.32 292.11 90.28 286.82 84.23 292.11 84.23 299.29 96.32 299.29"/>
   </g>
   <g id="Interactive_Text" data-name="Interactive Text">
-    <text class="cls-64" transform="translate(46.34 223.88)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 260.62)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 242.25)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 279)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 297.37)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 132.03)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 168.77)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 150.4)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 187.14)"><tspan x="0" y="0">xxxxx</tspan></text>
-    <text class="cls-64" transform="translate(46.34 205.51)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_sci" class="cls-64" transform="translate(46.34 223.88)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_srci" class="cls-64" transform="translate(46.34 260.62)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_sffc" class="cls-64" transform="translate(46.34 242.25)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_trci" class="cls-64" transform="translate(46.34 279)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_wccf" class="cls-64" transform="translate(46.34 297.37)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_cccf" class="cls-64" transform="translate(46.34 132.03)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_mccf" class="cls-64" transform="translate(46.34 168.77)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_drci" class="cls-64" transform="translate(46.34 150.4)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_prcf" class="cls-64" transform="translate(46.34 187.14)"><tspan x="0" y="0">xxxxx</tspan></text>
+    <text id="legend_scci" class="cls-64" transform="translate(46.34 205.51)"><tspan x="0" y="0">xxxxx</tspan></text>
     <text class="cls-58" transform="translate(61.21 76.75)"><tspan x="0" y="0">HOVER FOR DETAILS </tspan></text>
     <polyline class="cls-16" points="45.1 381.2 96.67 381.2 166.15 381.2"/>
   </g>
