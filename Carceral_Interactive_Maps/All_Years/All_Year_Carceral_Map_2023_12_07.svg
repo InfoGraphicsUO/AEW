@@ -406,7 +406,7 @@
       <circle class="cls-38" cx="132.64" cy="438.78" r="6"/>
       <circle class="cls-55" cx="68.21" cy="424.17" r="6"/>
     </g>
-    <g id="_2015_Leading_Lines" data-name="2015 Leading Lines">
+    <g id="_2015_Leading_Lines" data-name="2015 Leading Lines" display="none">
       <g id="line2015_38">
         <line class="cls-59" x1="330.78" y1="144.34" x2="326.74" y2="124.63"/>
         <g>
@@ -566,7 +566,7 @@
       <circle class="cls-41" cx="144.82" cy="437.42" r="6.46" transform="translate(-310.15 510.3) rotate(-80.78)"/>
       <circle class="cls-38" cx="96.32" cy="440.2" r="6.34"/>
     </g>
-    <g id="_2016_Leader_Lines" data-name="2016 Leader Lines">
+    <g id="_2016_Leader_Lines" data-name="2016 Leader Lines" display="none">
       <g id="line2016_35">
         <line class="cls-59" x1="305.28" y1="317.24" x2="293.34" y2="332.7"/>
         <g>
@@ -695,7 +695,7 @@
       <circle class="cls-52" cx="65.19" cy="425.77" r="6.72"/>
       <circle class="cls-38" cx="123.88" cy="432" r="11.23"/>
     </g>
-    <g id="_2017_Leader_Lines" data-name="2017 Leader Lines">
+    <g id="_2017_Leader_Lines" data-name="2017 Leader Lines" display="none">
       <g id="line2017_44">
         <line class="cls-59" x1="397.38" y1="263.84" x2="415.72" y2="277.79"/>
         <g>
@@ -939,7 +939,7 @@
       <circle id="_2018_60" data-name="2018_60" class="cls-34" cx="62" cy="562.63" r="6.38"/>
       <circle id="_2018_20" data-name="2018_20" class="cls-34" cx="115.27" cy="420.24" r="8.58"/>
     </g>
-    <g id="_2018_Leader_Line" data-name="2018 Leader Line">
+    <g id="_2018_Leader_Line" data-name="2018 Leader Line" display="none">
       <g id="line2018_23">
         <line class="cls-59" x1="377.58" y1="246.54" x2="353.55" y2="230.77"/>
         <g>
@@ -1111,7 +1111,7 @@
       <circle id="_2019_14" data-name="2019_14" class="cls-34" cx="158.29" cy="422.3" r="6.38"/>
       <circle id="_2019_48" data-name="2019_48" class="cls-34" cx="112.65" cy="430.61" r="6"/>
     </g>
-    <g id="_2019_Leader_Line" data-name="2019 Leader Line">
+    <g id="_2019_Leader_Line" data-name="2019 Leader Line" display="none">
       <g id="line2019_31">
         <line class="cls-59" x1="326.78" y1="460.34" x2="266.93" y2="493.82"/>
         <g>
@@ -1183,7 +1183,7 @@
       <circle id="_2020_28" data-name="2020_28" class="cls-34" cx="342.4" cy="147.42" r="9.41" transform="translate(-30.35 142.25) rotate(-22.5)"/>
       <circle id="_2020_12" data-name="2020_12" class="cls-34" cx="462.71" cy="293.71" r="31.49" transform="translate(47.51 651.45) rotate(-73.15)"/>
       <circle id="_2020_06" data-name="2020_06" class="cls-34" cx="567.99" cy="553.6" r="10.93" transform="translate(-142.99 905.16) rotate(-70.58)"/>
-      <circle id="_2020_09-2" data-name="2020_09" class="cls-34" cx="638.63" cy="248.21" r="9.03" transform="translate(-35.11 372.82) rotate(-31.72)"/>
+      <circle id="_2020_29" data-name="2020_09" class="cls-34" cx="638.63" cy="248.21" r="9.03" transform="translate(-35.11 372.82) rotate(-31.72)"/>
       <circle id="_2020_30" data-name="2020_30" class="cls-34" cx="284.11" cy="338.4" r="16.81" transform="translate(-95.43 564.63) rotate(-80.78)"/>
       <circle id="_2020_01" data-name="2020_01" class="cls-34" cx="232.94" cy="480.45" r="6" transform="translate(-73.95 43.52) rotate(-9.22)"/>
       <circle id="_2020_27" data-name="2020_27" class="cls-34" cx="395.06" cy="223.79" r="6.76" transform="translate(-55.57 168.22) rotate(-22.5)"/>
@@ -1203,7 +1203,7 @@
       <circle id="_2020_03" data-name="2020_03" class="cls-34" cx="121.8" cy="501.45" r="6"/>
       <circle id="_2020_24" data-name="2020_24" class="cls-34" cx="73.72" cy="434.3" r="9.41" transform="translate(-365.91 406.27) rotate(-76.72)"/>
     </g>
-    <g id="_2020_Leader_Line" data-name="2020 Leader Line">
+    <g id="_2020_Leader_Line" data-name="2020 Leader Line" display="none">
       <g id="line2020_15">
         <line class="cls-59" x1="322.68" y1="156.34" x2="301.85" y2="141.86"/>
         <g>
@@ -1315,7 +1315,7 @@
       <circle id="_2021_30" data-name="2021_30" class="cls-34" cx="152.58" cy="502.77" r="6"/>
       <circle id="_2021_01" data-name="2021_01" class="cls-34" cx="68.21" cy="425.54" r="6.76"/>
     </g>
-    <g id="_2021_Leader_Line" data-name="2021 Leader Line">
+    <g id="_2021_Leader_Line" data-name="2021 Leader Line" display="none">
       <g id="line2021_28">
         <g>
           <line class="cls-42" x1="352.68" y1="149.11" x2="352.68" y2="166.54"/>
