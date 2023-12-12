@@ -304,16 +304,16 @@
     <text class="cls-61" transform="translate(780.34 587.48)"><tspan class="cls-92" x="0" y="0">1</tspan><tspan class="cls-89" x="5.53" y="0">5</tspan><tspan x="10.44" y="0">0</tspan></text>
   </g>
   <g id="Legend_Text_to_Highlight" data-name="Legend Text to Highlight">
-    <text class="cls-64" transform="translate(105.37 150.68)"><tspan x="0" y="0">Deer Ridge</tspan></text>
-    <text class="cls-64" transform="translate(105.37 169.14)"><tspan x="0" y="0">Mill Creek</tspan></text>
-    <text class="cls-64" transform="translate(105.37 187.6)"><tspan x="0" y="0">Powder River</tspan></text>
-    <text class="cls-64" transform="translate(105.37 132.22)"><tspan x="0" y="0">Coffee Creek</tspan></text>
-    <text class="cls-64" transform="translate(105.37 206.06)"><tspan x="0" y="0">Shutter Creek</tspan></text>
-    <text class="cls-64" transform="translate(105.37 224.52)"><tspan x="0" y="0">Santiam</tspan></text>
-    <text class="cls-64" transform="translate(105.37 242.98)"><tspan x="0" y="0">South Fork</tspan></text>
-    <text class="cls-64" transform="translate(105.37 261.44)"><tspan x="0" y="0">Snake River</tspan></text>
-    <text class="cls-64" transform="translate(105.37 279.9)"><tspan x="0" y="0">Two Rivers</tspan></text>
-    <text class="cls-64" transform="translate(105.37 298.36)"><tspan x="0" y="0">Warner Creek</tspan></text>
+    <text id="title_drci" class="cls-64" transform="translate(105.37 150.68)"><tspan x="0" y="0">Deer Ridge</tspan></text>
+    <text id="title_mccf" class="cls-64" transform="translate(105.37 169.14)"><tspan x="0" y="0">Mill Creek</tspan></text>
+    <text id="title_prcf" class="cls-64" transform="translate(105.37 187.6)"><tspan x="0" y="0">Powder River</tspan></text>
+    <text id="title_cccf" class="cls-64" transform="translate(105.37 132.22)"><tspan x="0" y="0">Coffee Creek</tspan></text>
+    <text id="title_scci" class="cls-64" transform="translate(105.37 206.06)"><tspan x="0" y="0">Shutter Creek</tspan></text>
+    <text id="title_sci" class="cls-64" transform="translate(105.37 224.52)"><tspan x="0" y="0">Santiam</tspan></text>
+    <text id="title_sffc" class="cls-64" transform="translate(105.37 242.98)"><tspan x="0" y="0">South Fork</tspan></text>
+    <text id="title_srci" class="cls-64" transform="translate(105.37 261.44)"><tspan x="0" y="0">Snake River</tspan></text>
+    <text id="title_trci" class="cls-64" transform="translate(105.37 279.9)"><tspan x="0" y="0">Two Rivers</tspan></text>
+    <text id="title_wccf" class="cls-64" transform="translate(105.37 298.36)"><tspan x="0" y="0">Warner Creek</tspan></text>
     <polygon class="cls-20" points="96.32 280.91 96.32 273.73 90.28 268.44 84.23 273.73 84.23 280.91 96.32 280.91"/>
     <polygon class="cls-24" points="96.32 133.86 96.32 126.68 90.28 121.39 84.23 126.68 84.23 133.86 96.32 133.86"/>
     <polygon class="cls-17" points="96.32 152.24 96.32 145.06 90.28 139.77 84.23 145.06 84.23 152.24 96.32 152.24"/>
