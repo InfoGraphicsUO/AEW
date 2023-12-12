@@ -99,7 +99,7 @@
 
     <div class="slidecontainer">
       <text id="sliderText" class="slideText"></text>
-      <input id="sliderRange" type="range" style="margin: auto; float: right; margin-right: 50px; margin-top: 50px;" min="2015" max="2021" value="2018" step="1" oninput="slider()">
+      <input id="sliderRange" type="range" style="margin: auto; float: right; margin-right: 50px; margin-top: 50px;" min="2015" max="2021" value="2018" step="1" oninput="slider();doThings()">
     </div>
 
   </div>
@@ -480,6 +480,14 @@
         })
 
         doThings();
+
+        // console.log(yearText.innerHTML)
+        // let yearVar = document.getElementById("sliderText").innerHTML
+        // console.log("yearvar =", yearVar)
+        // yearVar.on("change"){
+        //   doThings()
+        // }
+        
         
     });
     
@@ -531,7 +539,7 @@
         console.log("doing things")
 
         // set inital fires on load (Currently set for 2018 data on load)
-        document.getElementById("_2018_Data").style.display = "block"
+        // document.getElementById("_2018_Data").style.display = "block"
 
       // On Load Start Summary of Fire Deployments on 2018
         let sumDeployments = fire_data.fireData.YearSummary[2018]
@@ -589,18 +597,24 @@
         var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
         var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
 
+        // builder for d3 selectors
+        var fireSelector = "#_" + yearText.innerHTML + "_Interactive_Pie_Outline>circle"
+        console.log("fireSelector =", fireSelector)
+        var fireOutlines = "#_" + yearText.innerHTML + "_Interactive_Pie_Outline"
+
         // display data for current year  
         // Select all Fires based on ID and object type 
-        d3.selectAll("#_2018_Interactive_Pie_Outline>circle")
+        d3.selectAll(fireSelector)
 
                   //Function which highlights the hovered on fire, and populates the legend with the fire's details
                    .on("mouseover", function(d,i) {
                         console.log(this.id)
-                        console.log(fire_data.fireData[yearText.innerHTML.toString()])
+                        // console.log(fire_data.fireData[yearText.innerHTML.toString()])
 
                         // console.log("this =", this)
                         // console.log("id =", this.id)
-                        var lineID = "#line" + this.id
+                        var lineID = "#line" + this.id.slice(1)
+                        console.log("lineId =", lineID)
                         // console.log("fire details =", d3.select("#legend_fire_name"))
                         // testing for grabbing house objects
                         // console.log("SRCI house object =", d3.select("#SRCI"))
@@ -642,11 +656,8 @@
                         d3.selectAll(".cls-34")
                             .classed("greyMask", true)
                         
-                        d3.select("#_2018_Interactive_Pie_Outline")
+                        d3.select(fireOutlines)
                             .classed("cls-87", false)
-
-                        // d3.selectAll("#_2018_Interactive_Pie_Outline")
-                        //     .classed("greyMask", true)
 
                         // Set deployment name in legend
                         d3.select("#legend_fire_name")
@@ -659,7 +670,9 @@
                         // Display the path of the fire, if available
                         // console.log("line object =", d3.select("#line2018_23"))
                         if(lineID){
-                          d3.select(lineID)
+                          console.log(d3.select(lineID))
+                          console.log("leader lines=", d3.select("#_2018_Leader_Line").select(lineID))
+                          d3.selectAll(lineID)
                               .classed("linePath", true)
                         }
                       })
@@ -669,10 +682,10 @@
                         d3.select(this)
                             .classed("selectedProtest", false)
                         // Blank values on mouseout
-                        d3.select("#Interactive_Text").selectAll(".cls-58")
+                        d3.select("#Interactive_Text").selectAll(".cls-64")
                               .text("")
                         // Unbold all bolded institution tiles
-                        d3.select("#Legend_Text_to_Highlight").selectAll(".cls-57")
+                        d3.select("#Legend_Text_to_Highlight").selectAll(".cls-64")
                               .classed("selectedIsnt", false)
                         // Clear deployment name legend text
                         d3.select("#legend_fire_name")
@@ -686,7 +699,7 @@
                         // Clear line path
                         d3.selectAll(".linePath")
                               .classed("linePath", false)
-                        d3.select("#_2018_Interactive_Pie_Outline")
+                        d3.select(fireOutlines)
                             .classed("cls-87", true)
                        
                    });
