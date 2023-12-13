@@ -314,16 +314,16 @@
     <text id="title_srci" class="cls-64" transform="translate(105.37 261.44)"><tspan x="0" y="0">Snake River</tspan></text>
     <text id="title_trci" class="cls-64" transform="translate(105.37 279.9)"><tspan x="0" y="0">Two Rivers</tspan></text>
     <text id="title_wccf" class="cls-64" transform="translate(105.37 298.36)"><tspan x="0" y="0">Warner Creek</tspan></text>
-    <polygon class="cls-20" points="96.32 280.91 96.32 273.73 90.28 268.44 84.23 273.73 84.23 280.91 96.32 280.91"/>
-    <polygon class="cls-24" points="96.32 133.86 96.32 126.68 90.28 121.39 84.23 126.68 84.23 133.86 96.32 133.86"/>
-    <polygon class="cls-17" points="96.32 152.24 96.32 145.06 90.28 139.77 84.23 145.06 84.23 152.24 96.32 152.24"/>
-    <polygon class="cls-22" points="96.32 170.62 96.32 163.44 90.28 158.15 84.23 163.44 84.23 170.62 96.32 170.62"/>
-    <polygon class="cls-30" points="96.32 189 96.32 181.82 90.28 176.53 84.23 181.82 84.23 189 96.32 189"/>
-    <polygon class="cls-26" points="96.32 225.76 96.32 218.58 90.28 213.29 84.23 218.58 84.23 225.76 96.32 225.76"/>
-    <polygon class="cls-19" points="96.32 207.38 96.32 200.2 90.28 194.91 84.23 200.2 84.23 207.38 96.32 207.38"/>
-    <polygon class="cls-2" points="96.32 262.52 96.32 255.35 90.28 250.06 84.23 255.35 84.23 262.52 96.32 262.52"/>
-    <polygon class="cls-21" points="96.32 244.14 96.32 236.97 90.28 231.68 84.23 236.97 84.23 244.14 96.32 244.14"/>
-    <polygon class="cls-25" points="96.32 299.29 96.32 292.11 90.28 286.82 84.23 292.11 84.23 299.29 96.32 299.29"/>
+    <polygon id="box_trci" class="cls-20" points="96.32 280.91 96.32 273.73 90.28 268.44 84.23 273.73 84.23 280.91 96.32 280.91"/>
+    <polygon id="box_cccf" class="cls-24" points="96.32 133.86 96.32 126.68 90.28 121.39 84.23 126.68 84.23 133.86 96.32 133.86"/>
+    <polygon id="box_drci" class="cls-17" points="96.32 152.24 96.32 145.06 90.28 139.77 84.23 145.06 84.23 152.24 96.32 152.24"/>
+    <polygon id="box_mccf" class="cls-22" points="96.32 170.62 96.32 163.44 90.28 158.15 84.23 163.44 84.23 170.62 96.32 170.62"/>
+    <polygon id="box_prcf" class="cls-30" points="96.32 189 96.32 181.82 90.28 176.53 84.23 181.82 84.23 189 96.32 189"/>
+    <polygon id="box_sci" class="cls-26" points="96.32 225.76 96.32 218.58 90.28 213.29 84.23 218.58 84.23 225.76 96.32 225.76"/>
+    <polygon id="box_scci" class="cls-19" points="96.32 207.38 96.32 200.2 90.28 194.91 84.23 200.2 84.23 207.38 96.32 207.38"/>
+    <polygon id="box_srci" class="cls-2" points="96.32 262.52 96.32 255.35 90.28 250.06 84.23 255.35 84.23 262.52 96.32 262.52"/>
+    <polygon id="box_sffc" class="cls-21" points="96.32 244.14 96.32 236.97 90.28 231.68 84.23 236.97 84.23 244.14 96.32 244.14"/>
+    <polygon id="box_wccf" class="cls-25" points="96.32 299.29 96.32 292.11 90.28 286.82 84.23 292.11 84.23 299.29 96.32 299.29"/>
   </g>
   <g id="Interactive_Text" data-name="Interactive Text">
     <text id="legend_sci" class="cls-64" transform="translate(46.34 223.88)"><tspan x="0" y="0">xxxxx</tspan></text>
