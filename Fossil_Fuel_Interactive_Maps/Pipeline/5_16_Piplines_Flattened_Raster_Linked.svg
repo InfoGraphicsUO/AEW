@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 921.6 651.36">
+    <defs>
+        <style>
+            <!-- .cls-1,.cls-2{fill-rule:evenodd}
+            .cls-1,.cls-2,.cls-3,
+            .cls-4{fill:#d95a2a}.cls-2,.cls-3{stroke:#fff;stroke-miterlimit:10;stroke-width: 2px} -->
+
+            .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        fill: #d95a2a;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        fill-rule: evenodd;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        fill: #d95a2a;
+
+        stroke-width: 2px;
+      }
+        </style>
+    </defs>
+    <image width="3840" height="2714" transform="scale(.24)" xlink:href="Pipeline.jpg" id="Raster_Base"/>
+    <g id="ProtestData_For_All_Data">
+        <g id="Pipeline_Project" data-name="Pipeline Project">
+             <path id="Pipeline_49" class="cls-4" d="m260.14,80.56c4.76,0,8.61,3.86,8.61,8.61s-3.86,8.61-8.61,8.61-8.61-3.86-8.61-8.61,3.86-8.61,8.61-8.61Z"/>
+              <path id="Pipeline_48" class="cls-4" d="m260.14,71.34c4.76,0,8.61,3.86,8.61,8.61s-3.86,8.61-8.61,8.61-8.61-3.86-8.61-8.61,3.86-8.61,8.61-8.61Z"/>
+              <circle id="Pipeline_42" class="cls-5" cx="341.05" cy="356.63" r="8.61"/>
+              <circle id="Pipeline_44" class="cls-5" cx="346.05" cy="335.95" r="8.61" transform="translate(-128.82 420.25) rotate(-54.22)"/>
+              <path id="Pipeline_47" class="cls-4" d="m412.36,189.91c4.76,0,8.61,3.86,8.61,8.61s-3.86,8.61-8.61,8.61-8.61-3.86-8.61-8.61,3.86-8.61,8.61-8.61Z"/>
+              <circle id="Pipeline_51" class="cls-5" cx="432.72" cy="180.78" r="8.61" transform="translate(100.1 511.38) rotate(-67.5)"/>
+              <path id="Pipeline_52" class="cls-4" d="m335.21,271.21c4.76,0,8.61,3.86,8.61,8.61s-3.86,8.61-8.61,8.61-8.61-3.86-8.61-8.61,3.86-8.61,8.61-8.61Z"/>
+              <path id="Pipeline_101" class="cls-4" d="m277.3,485.84c4.76,0,8.61,3.86,8.61,8.61s-3.86,8.61-8.61,8.61-8.61-3.86-8.61-8.61,3.86-8.61,8.61-8.61Z"/>
+              <circle id="Pipeline_105" class="cls-5" cx="435.52" cy="171.59" r="8.61" transform="translate(110.32 508.3) rotate(-67.5)"/>
+              <circle id="Pipeline_58" class="cls-5" cx="260.14" cy="70.73" r="8.61"/>
+              <path id="Pipeline_57" class="cls-4" d="m260.14,52.9c4.76,0,8.61,3.86,8.61,8.61s-3.86,8.61-8.61,8.61-8.61-3.86-8.61-8.61,3.86-8.61,8.61-8.61Z"/>
+              <circle id="Pipeline_56" class="cls-5" cx="260.14" cy="52.28" r="8.61" transform="translate(-.21 103.53) rotate(-22.5)"/>
+              <circle id="Pipeline_55" class="cls-5" cx="260.14" cy="43.06" r="8.61" transform="translate(94.5 248.22) rotate(-60.48)"/>
+              <path id="Pipeline_54" class="cls-4" d="m260.14,25.23c4.76,0,8.61,3.86,8.61,8.61s-3.86,8.61-8.61,8.61-8.61-3.86-8.61-8.61,3.86-8.61,8.61-8.61Z"/>
+              <circle id="Pipeline_53" class="cls-5" cx="260.14" cy="24.62" r="8.61"/>
+        </g>
+    </g>
+</svg>
