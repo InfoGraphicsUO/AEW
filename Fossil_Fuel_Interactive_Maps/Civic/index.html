@@ -55,11 +55,40 @@
         max-height: calc(100vh - 10px);
       max-width: calc(100vw - 10px);
   }}
+
+  /* code for next button  */
+
+  .hiddenOnMobile{
+    display: block;
+  }
+
+  #nextButton{
+    left: 0;
+    top: 0;
+    margin: 25px;
+    background-color: wheat;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    z-index: 10;
+  }
+
+  #next{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
+  #previous{
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
   </style>
-
-
 </head>
-
 <body>
 
 <!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
@@ -67,6 +96,10 @@
   <div id="tooltip">
       <span id="minimizeButton" hidden onclick="minimizeInfoWindow();"><b>X</b></span>
       <div id="tooltipText">Hover on each dot for description of Protest</div>
+  </div>
+  <div id="nextButton" class="hiddenOnMobile">
+    <img id="next" src="nextRight.png" onclick="updatePanelNext()">
+    <img id="previous" src="previousLeft.png" onclick="updatePanelPrevious()">
   </div>
 
 <!-- LOAD D3 LIBRARY -->
@@ -241,6 +274,7 @@
         // let selectedYear = protest_data.tooltips[].Year
 
                   //  .attr("title","I am a circle!")
+
                    
                   //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
                    .on("mouseover", function(d,i) { 
@@ -286,6 +320,76 @@
          d3.select("#tooltipText").html("Hover on each dot for description of Protest")
          d3.select("#minimizeButton").attr("hidden",true); // hide the button when info is minimized
      }
+
+    var panelIndex = -1
+
+    function updatePanelNext(){
+        // Clear old protest highlight
+        d3.selectAll("#Civic>circle,#Civic>path,#Civic>ellipse")
+          .classed("selectedProtest", false)
+
+
+        civicIDs = ["Civic-43", "Civic-45", "Civic-50", "Civic-60", "Civic-64", "Civic-65", "Civic-68", "Civic-69", "Civic-70", "Civic-71", "Civic-72", "Civic-73", "Civic-74", "Civic-75", "Civic-76", "Civic-77", "Civic-83", "Civic-87", "Civic-96", "Civic-97", "Civic-99", "Civic-102", "Civic-103", "Civic-104"]
+        panelIndex+=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(panelIndex > civicIDs.length-1){
+          panelIndex = civicIDs.length-1
+        }
+
+        thisData = civicIDs[panelIndex]
+        console.log('data:', thisData)
+
+        // highlight selected Protest=
+        d3.select("#" + thisData.toString())
+          .classed("selectedProtest", true)
+
+        // Get data from JSON --> thisData = "Civic-34" etc
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisLocation = protest_data.tooltips[thisData].GeneralLocation
+        let thisDescription = protest_data.tooltips[thisData].Description
+        let thisProtestTarget = protest_data.tooltips[thisData].Protesting
+
+        d3.select("#tooltipText")
+          .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
+
+        // panelIndex+=1
+        console.log('index at NEXT =', panelIndex)
+    }
+
+    function updatePanelPrevious(){
+      // Clear old circle highlight
+        d3.selectAll("#Civic>circle,#Civic>path,#Civic>ellipse")
+          .classed("selectedProtest", false)
+
+        civicIDs = ["Civic-43", "Civic-45", "Civic-50", "Civic-60", "Civic-64", "Civic-65", "Civic-68", "Civic-69", "Civic-70", "Civic-71", "Civic-72", "Civic-73", "Civic-74", "Civic-75", "Civic-76", "Civic-77", "Civic-83", "Civic-87", "Civic-96", "Civic-97", "Civic-99", "Civic-102", "Civic-103", "Civic-104"]
+        panelIndex-=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(panelIndex < 0){
+          panelIndex=0
+        }
+
+        thisData = civicIDs[panelIndex]
+        console.log('data:', thisData)
+
+        // highlight selected Protest
+        d3.select("#" + thisData.toString())
+          .classed("selectedProtest", true)
+
+
+        // Get data from JSON --> thisData = "Civic-34" etc
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisLocation = protest_data.tooltips[thisData].GeneralLocation
+        let thisDescription = protest_data.tooltips[thisData].Description
+        let thisProtestTarget = protest_data.tooltips[thisData].Protesting
+
+        d3.select("#tooltipText")
+          .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
+
+        // panelIndex-=1
+        console.log('index at PREVIOUS =', panelIndex)
+
+    }
+
 
 </script>
 
