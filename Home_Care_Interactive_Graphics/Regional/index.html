@@ -72,7 +72,7 @@
   <div id="mapDiv"></div>
   <div id="tooltip">
       <span id="minimizeButton" hidden onclick="minimizeInfoWindow();"><b>X</b></span>
-      <div id="tooltipText">Hover on each dot for description of Protest</div>
+      <div id="tooltipText">Hover on each dot to access interviews with Home Care Workers in Oregon</div>
   </div>
 
 <!-- LOAD D3 LIBRARY -->
@@ -536,8 +536,16 @@
                         d3.select("#tooltipText")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
                         // Page describing links in iFrames: https://stackoverflow.com/questions/9130275/iframe-link-to-open-a-browser-as-a-new-tab
+
                         .html("<b>Interviewee:</b> "+ thisInterviewee + "<br> <b>Location:</b> " + thisCity +", "+ thisState + "<br> <b>Description:</b> " + thisDescription
-                        +"<br><br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>" + "<br>" + testEmbed) 
+                        +"<br><br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>") 
+                       
+                        
+                        //Tool Tip with Video Of Interview in Iframe
+                        //.html("<b>Interviewee:</b> "+ thisInterviewee + "<br> <b>Location:</b> " + thisCity +", "+ thisState + "<br> <b>Description:</b> " + thisDescription
+                        //+"<br><br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>" + "<br>" + testEmbed) 
+                       
+                       
                         // .html(shortID)
 
                         d3.select("#minimizeButton").attr("hidden",null); // show the button
