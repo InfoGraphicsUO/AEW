@@ -570,6 +570,7 @@
                         // console.log("id =", this.id)
                         var lineID = "#line" + this.id.slice(1)
                         console.log("lineId =", lineID)
+                        console.log('fire name?', fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
                         // console.log("fire details =", d3.select("#legend_fire_name"))
                         // testing for grabbing house objects
                         // console.log("SRCI house object =", d3.select("#SRCI"))
@@ -620,7 +621,7 @@
 
                         // Set deployment name in legend
                         d3.select("#legend_fire_name")
-                            .text(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)].LabelName)
+                            .text(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
 
                         d3.select(this)
                             .classed("selectedProtest", true)
