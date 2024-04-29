@@ -72,6 +72,40 @@
         max-height: calc(100vh - 10px);
         max-width: calc(100vw - 10px);
     }
+
+    #nextButton{
+    left: 0;
+    top: 0;
+    margin: 25px;
+    border-radius: 15px;
+    background-color: #d95a2a;
+    height: 45px;
+    width: 100px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+    opacity: .85;
+  }
+
+  @media only screen and (max-width: 600px) {
+  #nextButton {
+    display: block;
+  }}
+
+  #next{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
+  #previous{
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
   </style>
 
 
@@ -86,6 +120,11 @@
       <div id="tooltipText">Hover on each dot for description of Protest</div>
   </div>
   <div id="caption">Interactive Map of Pipeline Protests</div>
+  <div id="nextButton" class="hiddenOnMobile">
+    <img id="next" src="nextRight.png" onclick="updatePanelNext()">
+    <img id="previous" src="previousLeft.png" onclick="updatePanelPrevious()">
+  </div>
+
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
@@ -305,6 +344,82 @@
          d3.select("#tooltipText").html("Hover on each dot for description of Protest")
          d3.select("#minimizeButton").attr("hidden",true); // hide the button when info is minimized
      }
+
+    var pipeIndex = -1
+    pipeIDs = ["Pipeline_53", "Pipeline_54", "Pipeline_55", "Pipeline_56", "Pipeline_57", "Pipeline_58", "Pipeline_48", "Pipeline_49", "Pipeline_105", "Pipeline_51", "Pipeline_47", "Pipeline_52", "Pipeline_44", "Pipeline_42", "Pipeline_101"]
+
+    function updatePanelNext(){
+        // Clear old protest highlight
+        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+          .classed("selectedProtest", false)
+        
+          pipeIndex+=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(pipeIndex > pipeIDs.length-1){
+          pipeIndex = pipeIDs.length-1
+        }
+
+        thisData = pipeIDs[pipeIndex]
+        console.log('data:', thisData)
+
+        // let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention
+
+
+        // highlight selected Protest=
+        d3.select("#" + thisData.toString())
+          .classed("selectedProtest", true)
+
+        thisData = thisData.replace('_', '-') // required if JSON data and map data use a different naming convention
+
+
+        // Get data from JSON --> thisData = "Pipeline_Project-34" etc
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisLocation = protest_data.tooltips[thisData].GeneralLocation
+        let thisDescription = protest_data.tooltips[thisData].Description
+        let thisProtestTarget = protest_data.tooltips[thisData].Protesting
+
+        d3.select("#tooltipText")
+          .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
+
+        // pipeIndex+=1
+        console.log('index at NEXT =', pipeIndex)
+    }
+
+    function updatePanelPrevious(){
+      // Clear old circle highlight
+        d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+          .classed("selectedProtest", false)
+        pipeIndex-=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(pipeIndex < 0){
+          pipeIndex=0
+        }
+
+        thisData = pipeIDs[pipeIndex]
+        console.log('data:', thisData)
+
+        // highlight selected Protest
+        d3.select("#" + thisData.toString())
+          .classed("selectedProtest", true)
+
+          thisData = thisData.replace('_', '-') // required if JSON data and map data use a different naming convention
+
+
+
+        // Get data from JSON --> thisData = "Pipeline_Project-34" etc
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisLocation = protest_data.tooltips[thisData].GeneralLocation
+        let thisDescription = protest_data.tooltips[thisData].Description
+        let thisProtestTarget = protest_data.tooltips[thisData].Protesting
+
+        d3.select("#tooltipText")
+          .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
+
+        // pipeIndex-=1
+        console.log('index at PREVIOUS =', pipeIndex)
+
+    }
+
 
 </script>
 

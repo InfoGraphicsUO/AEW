@@ -58,20 +58,29 @@
 
   /* code for next button  */
 
-  .hiddenOnMobile{
-    display: block;
-  }
+  /* .hiddenOnMobile{
+    display: none;
+  } */
 
   #nextButton{
     left: 0;
     top: 0;
     margin: 25px;
-    background-color: wheat;
-    height: 100px;
+    border-radius: 15px;
+    background-color: #006F45;
+    height: 45px;
     width: 100px;
     position: absolute;
     z-index: 10;
+    display: none;
+    opacity: .85;
   }
+
+  @media only screen and (max-width: 600px) {
+  #nextButton {
+    display: block;
+  }}
+
 
   #next{
     right: 0;
@@ -246,13 +255,12 @@
         console.log("doing things")
 
         // ---- Adjust SVG View Box for Mobile and Desktop ----
-
            
               // On Load if Mobile Change SVG View Box to Narrower view port width 
     
               if (window.innerWidth < 600) {
-                    d3.select("svg").attr("viewBox", "0 0 540 580");                    
-                  }
+                    d3.select("svg").attr("viewBox", "0 0 540 580");            
+              }
               // When Window resizes Change SVG View Box to Mobile or Desktop View
                   window.onresize = function() {
                     
@@ -321,22 +329,20 @@
          d3.select("#minimizeButton").attr("hidden",true); // hide the button when info is minimized
      }
 
-    var panelIndex = -1
+    var civicIndex = -1
+    civicIDs = ["Civic-69", "Civic-97", "Civic-99", "Civic-96", "Civic-87", "Civic-75", "Civic-77", "Civic-76","Civic-74", "Civic-73", "Civic-65", "Civic-68", "Civic-71", "Civic-72", "Civic-64", "Civic-104", "Civic-70", "Civic-83", "Civic-45", "Civic-50", "Civic-60", "Civic-43", "Civic-102", "Civic-103"]
 
     function updatePanelNext(){
         // Clear old protest highlight
         d3.selectAll("#Civic>circle,#Civic>path,#Civic>ellipse")
           .classed("selectedProtest", false)
-
-
-        civicIDs = ["Civic-43", "Civic-45", "Civic-50", "Civic-60", "Civic-64", "Civic-65", "Civic-68", "Civic-69", "Civic-70", "Civic-71", "Civic-72", "Civic-73", "Civic-74", "Civic-75", "Civic-76", "Civic-77", "Civic-83", "Civic-87", "Civic-96", "Civic-97", "Civic-99", "Civic-102", "Civic-103", "Civic-104"]
-        panelIndex+=1
+        civicIndex+=1
         // To make sure the index doesn't leave the bounds of 0 -> 23
-        if(panelIndex > civicIDs.length-1){
-          panelIndex = civicIDs.length-1
+        if(civicIndex > civicIDs.length-1){
+          civicIndex = civicIDs.length-1
         }
 
-        thisData = civicIDs[panelIndex]
+        thisData = civicIDs[civicIndex]
         console.log('data:', thisData)
 
         // highlight selected Protest=
@@ -352,23 +358,21 @@
         d3.select("#tooltipText")
           .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
 
-        // panelIndex+=1
-        console.log('index at NEXT =', panelIndex)
+        // civicIndex+=1
+        console.log('index at NEXT =', civicIndex)
     }
 
     function updatePanelPrevious(){
       // Clear old circle highlight
         d3.selectAll("#Civic>circle,#Civic>path,#Civic>ellipse")
           .classed("selectedProtest", false)
-
-        civicIDs = ["Civic-43", "Civic-45", "Civic-50", "Civic-60", "Civic-64", "Civic-65", "Civic-68", "Civic-69", "Civic-70", "Civic-71", "Civic-72", "Civic-73", "Civic-74", "Civic-75", "Civic-76", "Civic-77", "Civic-83", "Civic-87", "Civic-96", "Civic-97", "Civic-99", "Civic-102", "Civic-103", "Civic-104"]
-        panelIndex-=1
+        civicIndex-=1
         // To make sure the index doesn't leave the bounds of 0 -> 23
-        if(panelIndex < 0){
-          panelIndex=0
+        if(civicIndex < 0){
+          civicIndex=0
         }
 
-        thisData = civicIDs[panelIndex]
+        thisData = civicIDs[civicIndex]
         console.log('data:', thisData)
 
         // highlight selected Protest
@@ -385,8 +389,8 @@
         d3.select("#tooltipText")
           .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
 
-        // panelIndex-=1
-        console.log('index at PREVIOUS =', panelIndex)
+        // civicIndex-=1
+        console.log('index at PREVIOUS =', civicIndex)
 
     }
 

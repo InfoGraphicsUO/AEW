@@ -53,6 +53,41 @@
         max-height: calc(100vh - 10px);
       max-width: calc(100vw - 10px);
   }}
+
+  #nextButton{
+    left: 0;
+    top: 0;
+    margin: 25px;
+    border-radius: 15px;
+    background-color: #692E86;
+    height: 45px;
+    width: 100px;
+    position: absolute;
+    z-index: 10;
+    display: none;
+    opacity: .85;
+  }
+
+  @media only screen and (max-width: 600px) {
+  #nextButton {
+    display: block;
+  }}
+
+
+  #next{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
+  #previous{
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
   </style>
 
 
@@ -66,6 +101,11 @@
       <span id="minimizeButton" hidden onclick="minimizeInfoWindow();"><b>X</b></span>
       <div id="tooltipText">Hover on each dot for description of Protest</div>
   </div>
+  <div id="nextButton" class="hiddenOnMobile">
+    <img id="next" src="nextRight.png" onclick="updatePanelNext()">
+    <img id="previous" src="previousLeft.png" onclick="updatePanelPrevious()">
+  </div>
+
 
 <!-- LOAD D3 LIBRARY -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -285,6 +325,72 @@
          d3.select("#tooltipText").html("Hover on each dot for description of Protest")
          d3.select("#minimizeButton").attr("hidden",true); // hide the button when info is minimized
      }
+
+    var corpIndex = -1
+    corpIDs = ["Corporation-94", "Corporation-89", "Corporation-91", "Corporation-92", "Corporation-95", "Corporation-98", "Corporation-78", "Corporation-80", "Corporation-82", "Corporation-85", "Corporation-90", "Corporation-67", "Corporation-66", "Corporation-46", "Corporation-62", "Corporation-100", "Corporation-86", "Corporation-88", "Corporation-59", "Corporation-61", "Corporation-63", "Corporation-93", "Corporation-79", "Corporation-81", "Corporation-84", "Corporation-106"]
+
+    function updatePanelNext(){
+        // Clear old protest highlight
+        d3.selectAll("#Corporation>circle,#Corporation>path,#Corporation>ellipse")
+          .classed("selectedProtest", false)
+        corpIndex+=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(corpIndex > corpIDs.length-1){
+          corpIndex = corpIDs.length-1
+        }
+
+        thisData = corpIDs[corpIndex]
+        console.log('data:', thisData)
+
+        // highlight selected Protest=
+        d3.select("#" + thisData.toString())
+          .classed("selectedProtest", true)
+
+        // Get data from JSON --> thisData = "Corporation-34" etc
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisLocation = protest_data.tooltips[thisData].GeneralLocation
+        let thisDescription = protest_data.tooltips[thisData].Description
+        let thisProtestTarget = protest_data.tooltips[thisData].Protesting
+
+        d3.select("#tooltipText")
+          .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
+
+        // corpIndex+=1
+        console.log('index at NEXT =', corpIndex)
+    }
+
+    function updatePanelPrevious(){
+      // Clear old circle highlight
+        d3.selectAll("#Corporation>circle,#Corporation>path,#Corporation>ellipse")
+          .classed("selectedProtest", false)
+        corpIndex-=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(corpIndex < 0){
+          corpIndex=0
+        }
+
+        thisData = corpIDs[corpIndex]
+        console.log('data:', thisData)
+
+        // highlight selected Protest
+        d3.select("#" + thisData.toString())
+          .classed("selectedProtest", true)
+
+
+        // Get data from JSON --> thisData = "Corporation-34" etc
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisLocation = protest_data.tooltips[thisData].GeneralLocation
+        let thisDescription = protest_data.tooltips[thisData].Description
+        let thisProtestTarget = protest_data.tooltips[thisData].Protesting
+
+        d3.select("#tooltipText")
+          .html("<b>Protest Target:</b> "+ thisProtestTarget + "<br> <b>Location:</b> " + thisLocation +"<br><b>Year:</b> " + thisYear + "<br> <b>Description:</b> " + thisDescription)
+
+        // corpIndex-=1
+        console.log('index at PREVIOUS =', corpIndex)
+
+    }
+
 
 </script>
 
