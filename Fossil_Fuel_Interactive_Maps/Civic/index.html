@@ -298,14 +298,13 @@
                    .on("mouseover", function(d,i) { 
                         // console.log(this.id)
 
-                        // Clear any former selected protest (if one selected by arrow button)
-                        d3.selectAll(".selectedProtest").classed("selectedProtest", false)
-
                       //Get the ID (i.e. Pipeline_48) of the current protest being hovered on and Assign it to thisID
                         let active_tooltip = this.id;
                         console.log(active_tooltip)
                         let thisID = this.id;
 
+                        // Clear any former selected protest (if one selected by arrow button)
+                        d3.selectAll(".selectedProtest").classed("selectedProtest", false)
                         // set the civics array ID to clicked protest
                         civicIndex = civicIDs.indexOf(active_tooltip)
 

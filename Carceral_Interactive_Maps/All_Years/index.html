@@ -629,7 +629,8 @@
 
                         // Display the path of the fire, if available
                         // console.log("line object =", d3.select("#line2018_23"))
-                        if(lineID){
+                        // hide the offset line for lobster Crk (line2018_41)
+                        if(lineID && lineID!="#line2018_41"){
                           console.log(d3.select(lineID))
                           console.log("leader lines=", d3.select("#_2018_Leader_Line").select(lineID))
                           d3.selectAll(lineID)
