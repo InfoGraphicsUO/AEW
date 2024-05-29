@@ -28,7 +28,7 @@
     </style>
   </defs>
   <g id="Base_Map" data-name="Base Map">
-    <image width="3840" height="2714" transform="translate(-270.68 -472.81) rotate(-2.55) scale(.46)" xlink:href="Hill_Shade_SmallerExtent-01.jpg"/>
+    <image width="3840" height="2714" transform="translate(-270.68 -472.81) rotate(-2.55) scale(.46)" xlink:href="Homecare_map_background.png"/>
   </g>
   <g id="Data_Points" data-name="Data Points">
     <g id="InterviewLocations">
@@ -69,7 +69,7 @@
       <!-- <path id="_ID_26_-2" data-name="&amp;lt;ID=26&amp;gt;" class="cls-3" d="m239.66,365.56c3.59-.16,6.64,2.62,6.8,6.22s-2.62,6.64-6.22,6.8-6.64-2.62-6.8-6.22,2.62-6.64,6.22-6.8Z"/> -->
     </g>
   </g>
-  <g id="Labels">
+  <!-- <g id="Labels">
     <g>
       <text class="cls-2" transform="translate(496.45 342.3)"><tspan x="0" y="0">OR</tspan></text>
       <text class="cls-1" transform="translate(388.53 607.02)"><tspan x="0" y="0">CA</tspan></text>
@@ -86,5 +86,5 @@
       <text class="cls-1" transform="translate(240.45 524.18)"><tspan x="0" y="0">Grants Pass</tspan></text>
       <text class="cls-1" transform="translate(353.42 244.68)"><tspan x="0" y="0">Salem</tspan></text>
     </g>
-  </g>
+  </g> -->
 </svg>

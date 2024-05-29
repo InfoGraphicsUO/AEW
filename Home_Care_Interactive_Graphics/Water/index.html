@@ -217,6 +217,29 @@
      // on sucessful load
      function doThings(){    
         console.log("doing things")
+            // ---- Adjust SVG View Box for Mobile and Desktop ----
+        
+          // On Load if Mobile Change SVG View Box to Narrower view port width 
+
+          if (window.innerWidth < 600) {
+                d3.select("svg").attr("viewBox", "0 0 540 580");
+                document.getElementById('tooltipText').innerHTML = 'Tap each dot or use arrows to toggle through descriptions of each Protest'            
+          }
+          // When Window resizes Change SVG View Box to Mobile or Desktop View
+              window.onresize = function() {
+                
+                if (window.innerWidth < 600) {
+                d3.select("svg").attr("viewBox", "0 0 540 580");
+                document.getElementById('tooltipText').innerHTML = 'Tap each dot or use arrows to toggle through descriptions of each Protest'            
+                
+              } else{
+                d3.select("svg").attr("viewBox", "0 0 921.6 651.36");
+                document.getElementById('tooltipText').innerHTML = 'Hover on each dot for description of Protest'            
+
+              }
+            };
+                 
+
 
         // ---- CREATE TOOLTIP FOR EACH PROTEST ----
 
