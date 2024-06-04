@@ -28,7 +28,8 @@
     </style>
   </defs>
   <g id="Base_Map" data-name="Base Map">
-    <image width="3840" height="2714" transform="translate(-270.68 -472.81) rotate(-2.55) scale(.46)" xlink:href="Homecare_map_background.png"/>
+    <image width="3840" height="2714" 
+    transform="" xlink:href="Homecare_map_background.png"/>
   </g>
   <g id="Data_Points" data-name="Data Points">
     <g id="InterviewLocations">
