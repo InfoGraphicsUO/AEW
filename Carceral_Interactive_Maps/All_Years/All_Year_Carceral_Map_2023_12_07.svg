@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 921.6 651.6">
   <defs>
-    <style>
+   <style>
+
+        @import url("https://use.typekit.net/uye5etk.css");
+        @import url("https://use.typekit.net/ttx2mek.css");
+
       .cls-1 {
         fill: #86837a;
         opacity: .5;
@@ -55,7 +59,7 @@
       }
 
       .cls-67, .cls-35, .cls-68, .cls-37, .cls-69, .cls-39, .cls-40, .cls-70, .cls-71, .cls-72, .cls-43, .cls-73, .cls-66, .cls-45, .cls-48, .cls-49, .cls-50, .cls-74, .cls-75, .cls-76, .cls-53, .cls-77, .cls-56, .cls-57 {
-        font-family: FreightSansProSemibold-Italic, 'FreightSans Pro';
+        font-family: FreightSansProSemibold-Italic, 'freight-sans-pro', sans-serif;
         font-size: 14px;
         font-style: italic;
       }
@@ -114,7 +118,7 @@
       }
 
       .cls-58 {
-        font-family: FreightSansProSemibold-Regular, 'FreightSans Pro';
+        font-family: FreightSansProSemibold-Regular, 'Freight-Sans-Pro', sans-serif;
       }
 
       .cls-58, .cls-64, .cls-65 {
@@ -187,7 +191,8 @@
       }
 
       .cls-60, .cls-61, .cls-62, .cls-63, .cls-64, .cls-65 {
-        font-family: FreightSansProBold-Regular, 'FreightSans Pro';
+        font-family: FreightSansProBold-Regular, 'freight-sans-pro', sans-serif;
+        font-weight: 600;
       }
 
       .cls-45 {
