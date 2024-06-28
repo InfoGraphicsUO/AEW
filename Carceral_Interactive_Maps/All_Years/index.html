@@ -37,20 +37,25 @@
       display: inline!important;
     }
 
-    /* Set postion of Summary of Deployments 
+    Set postion of Summary of Deployments 
     .textMapContainer{
       display: grid;
       align-items: top;
       justify-content: left;
-      grid-template-columns: 80% 20%;
-    }*/
+      grid-template-columns: 100%;  /*Changed from 80% 20% to 100% to remove right sidebar */
+    }
 
-  /*  @media only screen and (max-width: 1000px) {
+    @media only screen and (max-width: 1000px) {
     .textMapContainer{
       display: revert;
            background-color: rgba(255, 255, 255, 0.897);
-    }}*/
-
+    }}
+    
+      
+    #mapDiv {
+      flex: 1; /* Ensure mapDiv takes up the full available space */
+    }
+      
     #tooltip{
         align-items: top;
         position: relative;  
