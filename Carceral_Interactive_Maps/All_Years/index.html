@@ -37,19 +37,19 @@
       display: inline!important;
     }
 
-    /* Set postion of Summary of Deployments */
+    /* Set postion of Summary of Deployments 
     .textMapContainer{
       display: grid;
       align-items: top;
       justify-content: left;
       grid-template-columns: 80% 20%;
-    }
+    }*/
 
-    @media only screen and (max-width: 1000px) {
+  /*  @media only screen and (max-width: 1000px) {
     .textMapContainer{
       display: revert;
            background-color: rgba(255, 255, 255, 0.897);
-    }}
+    }}*/
 
     #tooltip{
         align-items: top;
@@ -103,10 +103,10 @@
     </div>
 
   </div>
-  <div id="tooltip">Description of ____ Year <br> 
+  <!--<div id="tooltip">Description of ____ Year <br> 
     feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius
   </div> 
-
+-->
 </div>
 
 <!-- LOAD D3 LIBRARY -->
@@ -516,11 +516,11 @@
       // Defines Fire Summary Text Located in Variable Fire_Data Above
       let sumDeployments = fire_data.fireData.YearSummary[yearText.innerHTML]
 
-      // Change Text in Year Summary Description to right of interactive map
+      /*// Change Text in Year Summary Description to right of interactive map
       d3.select("#tooltip")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
                         .html("<b>Summary of "+ yearText.innerHTML + " Deployments</b><br>" + sumDeployments)
-                        // .html(shortID)
+                        // .html(shortID)*/
   }
     
      // on sucessful load 
@@ -530,11 +530,11 @@
         // set inital fires on load (Currently set for 2018 data on load)
         // document.getElementById("_2018_Data").style.display = "block"
 
-        // On Load Start Summary of Fire Deployments on 2018
+       /* // On Load Start Summary of Fire Deployments on 2018
         let sumDeployments = fire_data.fireData.YearSummary[2018]
         d3.select("#tooltip")
                         // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
-                        .html("<b>Summary of "+ yearText.innerHTML + " Deployments</b><br>" + sumDeployments )
+                        .html("<b>Summary of "+ yearText.innerHTML + " Deployments</b><br>" + sumDeployments )*/
 
         // Capture institutional tabs
         var sciText = d3.select("#legend_sci")
