@@ -11,6 +11,7 @@
     svg {
       max-height: calc(100vh - 10px);
       max-width: calc(100vw - 10px);
+      position: relative; /* Ensure the SVG is the reference point for positioning */
     }
 
     .selectedProtest{
@@ -43,6 +44,7 @@
       justify-content: center; /* Align items to the left (start) */
       width: 100%; /* Ensure the container takes full width */
       height: 100%; /* Ensure the container takes full height if needed */
+      position: relative;
     }
       
    /* Set postion of Summary of Deployments 
@@ -53,11 +55,11 @@
       grid-template-columns: 100%;  Changed from 80% 20% to 100% to remove right sidebar 
     }*/
 
-    @media only screen and (max-width: 1000px) {
+    /*@media only screen and (max-width: 1000px) {
     .textMapContainer{
       display: revert;
            background-color: rgba(255, 255, 255, 0.897);
-    }}
+    }}*/
     
       
     #mapDiv {
@@ -65,6 +67,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative; /* Make mapDiv the reference point for absolute positioning */
     }
       
     #tooltip{
@@ -85,23 +88,57 @@
       fill: red;
     }
 
-    .slidecontainer {
-      width: 50%; /* Width of the outside container f*/
+    /*.slidecontainer {
+      width: 50%;  Width of the outside container f
       position: absolute;
       margin: auto;
+    }*/
+      
+    .slidecontainer {
+      width: min(20vh, 20vw); /* Width of the outside container */
+      max-width: 800vw; /* Maximum width */
+      position: absolute;
+      top: calc(min(5vh, 20px)); /* Adjust as needed, relative to the SVG */
+      left: 55%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column; /* Align items in a column */
+      align-items: center; /* Center horizontally */
+      justify-content: center;
+      z-index: 10; /* Ensure the slider is above the SVG */
     }
 
-    .slideText{
+    .slideText {
+      color: white;
+      margin-bottom: 1vh; /* Space between the text and slider */
+      font-family: FreightSansProBold-Regular, 'FreightSans Pro', sans-serif;
+      text-align: center;
+      font-size: 3vh; /* Responsive font size based on viewport height */
+    }
+
+    input[type="range"] {
+      flex: 1;
+      width: 100%;
+      margin-left: 10%; /* Adjust as needed */
+    }
+
+    @media only screen and (max-width: 1000px) {
+      .textMapContainer {
+        display: flex; /* Use Flexbox layout */
+        background-color: rgba(255, 255, 255, 0.897);
+      }
+
+    
+    /*.slideText{
       color: white;
       display: inline;
       position: absolute;
       right: 0;
       margin-right: 96px;
       margin-top: 20px;
-      font-family: FreightSansProBold-Regular, 'FreightSans Pro', sans-serif;
-    }
-   
-
+      font-family: FreightSansProBold-Regularf, 'FreightSans Pro', sans-serif;
+    }*/
+      
   </style>
 
 </head>
@@ -115,7 +152,7 @@
 
     <div class="slidecontainer">
       <text id="sliderText" class="slideText"></text>
-      <input id="sliderRange" type="range" style="margin: auto; float: right; margin-right: 50px; margin-top: 50px;" min="2015" max="2021" value="2018" step="1" oninput="slider();doThings()">
+      <input id="sliderRange" type="range" min="2015" max="2021" value="2018" step="1" oninput="slider();doThings()">
     </div>
 
   </div>
