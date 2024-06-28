@@ -37,13 +37,21 @@
       display: inline!important;
     }
 
-    Set postion of Summary of Deployments 
+    .textMapContainer {
+      display: flex; /* Use Flexbox layout */
+      align-items: flex-start; /* Align items to the top (start) */
+      justify-content: flex-start; /* Align items to the left (start) */
+      width: 100%; /* Ensure the container takes full width */
+      height: 100%; /* Ensure the container takes full height if needed */
+    }
+      
+   /* Set postion of Summary of Deployments 
     .textMapContainer{
       display: grid;
       align-items: top;
       justify-content: left;
-      grid-template-columns: 100%;  /*Changed from 80% 20% to 100% to remove right sidebar */
-    }
+      grid-template-columns: 100%;  Changed from 80% 20% to 100% to remove right sidebar 
+    }*/
 
     @media only screen and (max-width: 1000px) {
     .textMapContainer{
