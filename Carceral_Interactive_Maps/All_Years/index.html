@@ -543,37 +543,35 @@
 
     // Starting slider at 2018
     let yearText = document.getElementById("sliderText")
-    yearText.innerHTML = "2018"
+    yearText.innerHTML = "2018*"
 
     // Function to update slider text
-    function slider(){
-      // console.log("slide")
-      var yearBuilder = "_" + yearText.innerHTML + "_Data"
-      console.log("builder year to hide", yearBuilder)
+  function slider() {
+    // Get the current slider value
+    const sliderValue = document.getElementById("sliderRange").value;
+    
+    // Update the year text with an asterisk for 2015 and 2018
+    yearText.innerHTML = sliderValue.toString() + ((sliderValue === "2015" || sliderValue === "2018") ? "*" : "");
 
-      // clear previous fire year circles
-      document.getElementById(yearBuilder).style.display = "none"
+    // Build the year data ID
+    const yearBuilder = "_" + sliderValue + "_Data";
+    
+    // Clear previous fire year circles
+    document.querySelectorAll('[id*="_Data"]').forEach(el => el.style.display = "none");
 
-      // update slider value year
-      const sliderValue = document.getElementById("sliderRange").value
-      yearText.innerHTML = sliderValue.toString()
-      // console.log("yeartext is now", yearText.innerHTML)
+    // Set current fire year circles
+    if (document.getElementById(yearBuilder)) {
+      document.getElementById(yearBuilder).style.display = "block";
+    } else {
+      console.error("Element not found:", yearBuilder);
+    }
 
-      yearBuilder = "_" + yearText.innerHTML + "_Data"
-      // console.log("NEW yearBuilder =", yearBuilder)
-      
-      // set current fire year circles
-      console.log("setting up fires for", yearBuilder)
-      document.getElementById(yearBuilder).style.display = "block"
+    // Defines Fire Summary Text Located in Variable Fire_Data Above
+    let sumDeployments = fire_data.fireData.YearSummary[sliderValue];
 
-      // Defines Fire Summary Text Located in Variable Fire_Data Above
-      let sumDeployments = fire_data.fireData.YearSummary[yearText.innerHTML]
-
-      /*// Change Text in Year Summary Description to right of interactive map
-      d3.select("#tooltip")
-                        // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
-                        .html("<b>Summary of "+ yearText.innerHTML + " Deployments</b><br>" + sumDeployments)
-                        // .html(shortID)*/
+    // Uncomment and update this part if needed
+    /* d3.select("#tooltip")
+       .html("<b>Summary of " + yearText.innerHTML + " Deployments</b><br>" + sumDeployments); */
   }
     
      // on sucessful load 
