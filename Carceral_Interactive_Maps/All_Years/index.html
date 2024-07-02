@@ -546,7 +546,7 @@
     yearText.innerHTML = "2018*"
 
     // Function to update slider text
-  function slider() {
+    function slider() {
     // Get the current slider value
     const sliderValue = document.getElementById("sliderRange").value;
     
@@ -603,11 +603,14 @@
         var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
         var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
         var insitutionLabels = ["Coffee_Creek", "Deer_Ridge", "Mill_Creek", "Powder_River", "Shutter_Creek", "Santiam", "South_Fork_Forest_Camp", "Snake_River", "Two_Rivers", "Warner_Creek"]
+        
+        // Remove asterisk from yearText for selectors
+        const cleanYearText = yearText.innerHTML.replace('*', '');
 
         // builder for d3 selectors
-        var fireSelector = "#_"+yearText.innerHTML+"_Interactive_Pie_Outline>circle, #_"+yearText.innerHTML+"_Interactive_Pie_Outline>path"
+        var fireSelector = "#_"+cleanYearText.innerHTML+"_Interactive_Pie_Outline>circle, #_"+cleanYearText.innerHTML+"_Interactive_Pie_Outline>path"
         console.log("fireSelector =", fireSelector)
-        var fireOutlines = "#_" + yearText.innerHTML + "_Interactive_Pie_Outline"
+        var fireOutlines = "#_" + cleanYearText.innerHTML + "_Interactive_Pie_Outline"
 
         // display data for current year  
         // Select all Fires based on ID and object type 
@@ -615,13 +618,13 @@
                   //Function which highlights the hovered on fire, and populates the legend with the fire's details
                    .on("mouseover", function(d,i) {
                         console.log(this.id)
-                        // console.log(fire_data.fireData[yearText.innerHTML.toString()])
+                        // console.log(fire_data.fireData[cleanYearText.innerHTML.toString()])
 
                         // console.log("this =", this)
                         // console.log("id =", this.id)
                         var lineID = "#line" + this.id.slice(1)
                         console.log("lineId =", lineID)
-                        console.log('fire name?', fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
+                        console.log('fire name?', fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
                         // console.log("fire details =", d3.select("#legend_fire_name"))
                         // testing for grabbing house objects
                         // console.log("SRCI house object =", d3.select("#SRCI"))
@@ -636,8 +639,8 @@
                           // console.log(institutionsToCapture[i].text("test"))
                           
                           // if the cccf, drci...data value is 0, display blank text on legend
-                          if(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] == 0){
-                            fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] = ""
+                          if(fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] == 0){
+                            fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] = ""
                             // greying out legend inst names 
                             d3.select(id_str)
                                   .classed("selectedIsnt", false)
@@ -654,7 +657,7 @@
                           }
                           // else the cccf, drci...data value is NOT 0, display that value in legend
                           else{
-                            institutionsToCapture[i].text(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]])
+                            institutionsToCapture[i].text(fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]])
                             d3.select(id_str)
                                   .classed("selectedIsnt", true)
                             // Highlight all of the house icons that are involved in this fire
@@ -672,7 +675,7 @@
 
                         // Set deployment name in legend
                         d3.select("#legend_fire_name")
-                            .text(fire_data.fireData[yearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
+                            .text(fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
 
                         d3.select(this)
                             .classed("selectedProtest", true)
@@ -739,11 +742,11 @@
                             .classed("greyMask", true)
                     }
 
-                    for(var i in fire_data.fireData[yearText.innerHTML.toString()]){
+                    for(var i in fire_data.fireData[cleanYearText.innerHTML.toString()]){
                       // console.log("i=",i)
                       // console.log(d3.select(document.getElementById("_"+i.toString())))
                       // console.log(fire_data.fireData[i][inst_str])
-                      if(fire_data.fireData[yearText.innerHTML.toString()][i][inst_str] != 0){
+                      if(fire_data.fireData[cleanYearText.innerHTML.toString()][i][inst_str] != 0){
                         // console.log(fire_data.fireData[i][inst_str])
                         // console.log(i.toString())   
                         d3.select(document.getElementById("_"+i.toString()))
