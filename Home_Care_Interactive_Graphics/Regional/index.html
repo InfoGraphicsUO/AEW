@@ -1,0 +1,765 @@
+<html>
+
+<head>
+
+
+  <title>Protest Map - Fossil Fuels</title>
+  <style>
+    /* Adobe Fonts (McClean Gonzalez's account */
+    @import url("https://use.typekit.net/uye5etk.css");
+    @import url("https://use.typekit.net/ttx2mek.css");
+
+    svg {
+      max-height: calc(100vh - 10px);
+      max-width: calc(100vw - 10px);
+    }
+
+    .selectedProtest{
+            fill:red!important;
+            stroke:black !important;
+            stroke-width:3 !important;
+        }
+.sectionProtest {
+  fill:red!important;
+            stroke:black !important;
+            stroke-width:5 !important;
+            fill-opacity:0.7;
+            z-index: 1000;
+
+}
+    #tooltip{
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.897);
+        max-width: 40%;
+        font-family: "freight-sans-pro", sans-serif;
+    }
+
+    @media only screen and (max-width: 600px) {
+    #tooltip{
+        position: relative;
+        /* align-items: center; */
+        top: 10px;
+        right: 0px !important;
+        padding: 10px;
+        background-color: rgba(219, 219, 219, 0.897);
+        /* max-width: 100%; */
+        font-family: "freight-sans-pro", sans-serif;
+        max-height: calc(100vh - 10px);
+      max-width: calc(100vw - 10px);
+  }
+}
+      
+    #minimizeButton{
+       position: absolute;
+       top: 0.25em;
+       right: 0.50em;
+       cursor: pointer;
+    }
+    #tooltipText{
+      max-width: 95%;
+    }
+    #nextButton{
+      left: 0;
+      bottom: 0;
+      margin: 25px;
+      border-radius: 15px;
+      background-color: #692e86;
+      height: 45px;
+      width: 100px;
+      position: absolute;
+      z-index: 10;
+      display: none;
+      opacity: .85;
+  }
+
+  @media only screen and (max-width: 600px) {
+  #nextButton {
+    display: block;
+  }}
+
+
+  #next{
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
+  #previous{
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 5px;
+  }
+
+  </style>
+
+
+</head>
+
+<body>
+
+<!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
+  <div id="mapDiv" style="position: relative;">
+    <div id="nextButton" class="hiddenOnMobile">
+      <img id="next" src="nextRight.png" onclick="updatePanelNext()">
+      <img id="previous" src="previousLeft.png" onclick="updatePanelPrevious()">
+    </div>
+  </div>
+  <div id="tooltip">
+      <span id="minimizeButton" hidden onclick="minimizeInfoWindow();"><b>X</b></span>
+      <div id="tooltipText">Hover on each dot to access interviews with Home Care Workers in Oregon</div>
+  </div>
+
+<!-- LOAD D3 LIBRARY -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+
+
+  <!-- JSON of Attribute Table -->
+  <script>
+  
+        // example data access: protest_data.tooltips["Water-1"].Year
+
+	var protest_data = {
+		"tooltips" : [
+  {
+    "ID": 1,
+    "Interviewee": "Adam Christopher Riggs",
+    "Interviewer": "Michael Robert Bussel",
+    "City": "Eugene",
+    "State": "Oregon",
+    "Title": "Adam Christopher Riggs interview conducted by Michael Robert Bussel, 2014-10-29",
+    "Summary": "Adam Christopher Riggs describes his experiences as a home health care worker and his activism with Service Employees International Union Local 503. In wide-ranging conversation he talks about the qualities needed for his job, maintaining a proper distance while remaining compassionate, black humor, and lobby legislature for support of home health care.",
+    "Link": "https://www.loc.gov/item/2017655470/",
+    "Notes": "",
+    "thumbnailLink": 'https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01220/afc2014021_01220_mv01.gif '
+  },
+  {
+    "ID": 2,
+    "Interviewee": "Adelina Martinez",
+    "Interviewer": "Michael Robert Bussel, Sonia De La Cruz",
+    "City": "Forest Grove",
+    "State": "Oregon",
+    "Title": "Adelina Martinez interview conducted by Michael Robert Bussel and Sonia De La Cruz, 2015-06-14",
+    "Summary": "Interview with Adelina Martinez about her work as a home care provider. Originally from Cuernavaca, Mexico, for the last 10-months she has been officially employed caring for her disabled 20-year old son. Although she spent years caring for her son, recent professional training and official employment as his care giver has made her aware of the profession and the many resources available. Talks about typical day, traits necessary to do a good job as a care giver, and recently joining the union. Interview conducted in Spanish with interviewer Sonia de la Cruz serving as translator.",
+    "Link": "https://www.loc.gov/item/2017655499/",
+    "Notes": "",
+    "thumbnailLink": 'https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_02120/afc2014021_02120_mv01.gif'
+  },
+  {
+    "ID": 3,
+    "Interviewee": "Alice Redding",
+    "Interviewer": "Helen Marie Moss, Donald Eugene Stacy",
+    "City": "Portland, Rainier",
+    "State": "Oregon",
+    "Title": "Alice Redding interviews conducted by Helen Marie Moss and Donald Eugene Stacy, 2014-11-21 and 2015-03-04",
+    "Summary": "Alice discusses her work as a home care worker and her union work. She talks about her typical day; the challenges of balancing the needs of her clients with her needs and the needs of her family; the gratification she takes in having a meaningful job; the role of the church and her local community in her life; and the important role active union involvement has played and continues to play in her sense of herself as a worker and a member of an important occupational group.",
+    "Link": "https://www.loc.gov/item/2017655484/",
+    "Notes": "Majority of the interview was held in Portland. Met again in Rainier per interviewee's request to include more information for the interview. Prioritizing Portland location for this entry.",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01660/afc2014021_01660_mv01.gif"
+  },
+  {
+    "ID": 4,
+    "Interviewee": "Anna Young",
+    "Interviewer": "Helen Marie Moss, Donald Eugene Stacy",
+    "City": "Rainier",
+    "State": "Oregon",
+    "Title": "Anna Young interview conducted by Helen Marie Moss and Donald Eugene Stacy, 2015-03-04",
+    "Summary": "Anna Young relates her insights on home care work. She discusses how she became a home care worker, the enjoyment she gets from working closely with clients, Oregon Home Care Commission classes and how important they were in her training, dealing with difficult clients to win their trust, work-related stresses as well as rewards, and the important role the union has played in her career.",
+    "Link": "https://www.loc.gov/item/2017655486/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01681/afc2014021_01681_mv01.gif"
+  },
+  {
+    "ID": 5,
+    "Interviewee": "Annie Smith",
+    "Interviewer": "Helen Marie Moss",
+    "City": "Portland",
+    "State": "Oregon",
+    "Title": "Annie Smith interview conducted by Helen Marie Moss, 2014-11-21",
+    "Summary": "Annie Smith describes her experiences as a home care worker and how she became active in the union. She also mentions her experiences working as a waitress at the \"Southern Tea Room\" in Mississippi in the 1960s, other jobs she has had, the skills and abilities needed to be a successful home health care worker, describes a typical day, the challenges of maintain the proper distance between herself and clients, and the satisfaction she derives from her job.",
+    "Link": "https://www.loc.gov/item/2017655475/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01342/afc2014021_01342_mv01.gif"
+  },
+  {
+    "ID": 6,
+    "Interviewee": "April Shattuck",
+    "Interviewer": "Sonia De La Cruz, Nathan J. Moore",
+    "City": "Portland",
+    "State": "Oregon",
+    "Title": "April Shattuck interview conducted by Sonia De La Cruz and Nathan J. Moore, 2014-10-20",
+    "Summary": "April discusses her history as a home care worker, her typical duties, how she balances work and personal life, and her activities in her union. She also reflects on her motivation to help others, the challenges of her profession, and the relationships that she forms with her customers.",
+    "Link": "https://www.loc.gov/item/2017655468/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01121/afc2014021_01121_mv01.gif"
+  },
+  {
+    "ID": 7,
+    "Interviewee": "Bobbie Sotin",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "North Bend",
+    "State": "Oregon",
+    "Title": "Bobbie Sotin interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-01-21",
+    "Summary": "Bobbie Sotin discusses the rewards and challenges of working as a home care provider in Coos County, Oregon. She also talks about her union activism and the changes that the Service Employees International Union (SEIU) has brought to the field. She recalls her earlier jobs, her training, the challenges of temporarily filling in for other people's long-term clients, the awkwardness of receiving gifts from clients, and her pride in her work and her profession.",
+    "Link": "https://www.loc.gov/item/2017655481/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01580/afc2014021_01580_mv01.gif"
+  },
+  {
+    "ID": 8,
+    "Interviewee": "Carol Tyndall",
+    "Interviewer": "Michael Robert Brussel",
+    "City": "Grants Pass",
+    "State": "Oregon",
+    "Title": "Carol Tyndall Conlon interview conducted by Michael Robert Bussel, 2014-12-16",
+    "Summary": "Care giver Carol Tyndall Conlon talks about her experiences caring for her autistic son and how it led her into being a health care worker. Also discusses previous jobs, becoming involved with autism support networks, her own training, empowering individuals with disabilities, her experiences testifying before legislative committees and advocating for policy changes and modifications in public support of health care.",
+    "Link": "https://www.loc.gov/item/2017655477/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01420/afc2014021_01420_mv01.gif"
+  },
+  {
+    "ID": 9,
+    "Interviewee": "David Rogers",
+    "Interviewer": "Nathan J. Moore",
+    "City": "Eugene",
+    "State": "Oregon",
+    "Title": "David Rogers interview conducted by Nathan J. Moore, 2015-02-23",
+    "Summary": "David Rogers discusses his job as a home care worker and his work at drop-in day centers for people with disabilities. He talks about his typical activities, his efforts to connect various agencies, and the importance of humor in the lives of people with disabilities. He also focuses on his work as a professional musician and how he connects his music to his job as a care provider.",
+    "Link": "https://www.loc.gov/item/2017655485/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01661/afc2014021_01661_mv01.gif"
+  },
+  {
+    "ID": 10,
+    "Interviewee": "Edward Smith",
+    "Interviewer": "Michael Robert Brussel",
+    "City": "Salem",
+    "State": "Oregon",
+    "Title": "Edward Smith interview conducted by Michael Robert Bussel, 2014-12-19",
+    "Summary": "Interview with Edward Smith about his job as home care worker. Smith, who trained as a phlebotomist in college, has been a forensic nurse and served in the military. He tends to work closely with a single, high-maintenance client at a time. He speaks about challenges of being a man in a heavily female profession, how much he enjoys his work, and the positive impact the union has had on the quality of life for its members as well as the progressive legislation it has supported in Oregon for caregivers and their clients.",
+    "Link": "https://www.loc.gov/item/2017655482/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01620/afc2014021_01620_mv01.gif"
+  },
+  {
+    "ID": 11,
+    "Interviewee": "Eileen Ordway",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "Eugene",
+    "State": "Oregon",
+    "Title": "Eileen Ordway interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-05-26",
+    "Summary": "Eileen Ordway discusses her experiences as a home care worker, including her typical duties, relationships with consumer-employers, union activism, and the use of humor on the job. She also discusses health issues encountered by home care workers and her passion for health care reform.",
+    "Link": "https://www.loc.gov/item/2017655495/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_02024/afc2014021_02024_mv01.gif"
+  },
+  {
+    "ID": 12,
+    "Interviewee": "Gracia Molina",
+    "Interviewer": "Michael Robert Brussel, Sonia De La Cruz",
+    "City": "Salem",
+    "State": "Oregon",
+    "Title": "Gracia Molina interview conducted by Michael Robert Bussel and Sonia De La Cruz, 2015-06-18",
+    "Summary": "Interview with home care provider Gracia Molina, who talks about her work and the challenges of being a care giver. Originally from Mexico City, Molina held a series of jobs before starting her work as a care giver. She talks about working with elderly clients, overseeing medications, how she handles intimacy and confidentiality issues, how she learned English from his clients, and how much she likes her profession.",
+    "Link": "https://www.loc.gov/item/2017655500/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_02121/afc2014021_02121_mv01.gif"
+  },
+  {
+    "ID": 13,
+    "Interviewee": "Joyce Vegar",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "North Bend",
+    "State": "Oregon",
+    "Title": "Joyce Vegar interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-01-21",
+    "Summary": "Joyce (Joy) Vegar discusses her work as a home care provider in Coos County, Oregon, including her training, the qualities that are needed to do the job, the importance of humor, and her advocacy for her clients. She also talks about her union activism and the culture and activities of the Service Employees International Union (SEIU).",
+    "Link": "https://www.loc.gov/item/2017655479/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01540/afc2014021_01540_mv01.gif"
+  },
+  {
+    "ID": 14,
+    "Interviewee": "Kimberly Cole",
+    "Interviewer": "Michael Robert Brussel, Donald Eugene Stacy",
+    "City": "Salem",
+    "State": "Oregon",
+    "Title": "Kimberly Cole interview conducted by Michael Robert Bussel and Donald Eugene Stacy, 2015-05-05",
+    "Summary": "Home care worker Kimberly Cole talks about her experiences as a care giver. Begins by talking about previous job and then discuses challenges and rewards of working for difficult clients. Credits union for assisting her personal and professional growth and feels heartened that the community is increasingly aware of the important role played by care workers. Insightful discussion--mentions the Special Olympic and her belief that the \"woman she cares for has made her a better person.",
+    "Link": "https://www.loc.gov/item/2017655497/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_02060/afc2014021_02060_mv01.gif"
+  },
+  {
+    "ID": 15,
+    "Interviewee": "Maleta Christian",
+    "Interviewer": "Sonia De La Cruz, Nathan J. Moore",
+    "City": "Roseburg",
+    "State": "Oregon",
+    "Title": "Maleta Christian interview conducted by Sonia De La Cruz and Nathan J. Moore, 2014-11-17",
+    "Summary": "Maleta Christian discusses her history as a personal support worker, her efforts to empower her consumers, and her activities as a union activist. She also talks about the importance of humor on the job, the significance of the union's colors, and the similarities and differences between personal support work and other occupations.",
+    "Link": "https://www.loc.gov/item/2017655471/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01260/afc2014021_01260_mv01.gif"
+  },
+  {
+    "ID": 16,
+    "Interviewee": "Michael Ryan Hohman",
+    "Interviewer": "Michael Robert Brussel, Sonia De La Cruz",
+    "City": "Eugene",
+    "State": "Oregon",
+    "Title": "Michael Ryan Hohman interview conducted by Michael Robert Bussel and Sonia De La Cruz, 2014-10-29",
+    "Summary": "M. Ryan Hohman discusses his career as a home care worker and his role as a union activist in the Service Employees International Union (SEIU) Local 503. Speaks about skills needed by a care giver, a typical day, and the challenges of working with different types of patients.",
+    "Link": "https://www.loc.gov/item/2017655467/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01120/afc2014021_01120_mv01.gif"
+  },
+  {
+    "ID": 17,
+    "Interviewee": "Michael Tolman",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "Eugene",
+    "State": "Oregon",
+    "Title": "Michael Tolman interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-02-23",
+    "Summary": "Mike Tolman discusses his work as a direct support professional for Oregon Supported Living Program, a private non-profit company that provides services for adults with developmental disabilities. He talks about his relationships with clients, his experiences as a union member and a manager, the skills and qualities needed to perform the work, and the workplace culture of direct support professionals.",
+    "Link": "https://www.loc.gov/item/2017655487/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01700/afc2014021_01700_mv01.gif"
+  },
+  {
+    "ID": 18,
+    "Interviewee": "Nargiza Turanova",
+    "Interviewer": "Sonia De La Cruz, Helen Marie Moss",
+    "City": "Portland",
+    "State": "Oregon",
+    "Title": "Nargiza Turanova interview conducted by Sonia De La Cruz and Helen Marie Moss, 2015-03-07",
+    "Summary": "Nargiza Turanova describes her experiences as a home care worker. Originally from Turkey, she moved to Uzbekistan and then came as a refugee to the US. She speaks Turkish, Uzbek, Russian, and \"some English.\" She began her training before coming to the US and has continued her care giver's training here, specializing in caring for the sick and elderly. Her current client speaks Turkish and she expresses concerns about working with English-only clients. Also talks about skills needed, her work days, what caregivers discuss when they talk to each other (mostly about clients), the skills she needs, and her satisfaction with the job. The interview was conducted in Russian and English with an interpreter.",
+    "Link": "https://www.loc.gov/item/2017655490/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01741/afc2014021_01741_mv01.gif"
+  },
+  {
+    "ID": 19,
+    "Interviewee": "Neftali Garcia",
+    "Interviewer": "Michael Robert Brussel, Sonia De La Cruz",
+    "City": "Salem",
+    "State": "Oregon",
+    "Title": "Neftali Garcia interview conducted by Michael Robert Bussel and Sonia De La Cruz, 2015-06-18",
+    "Summary": "Interview with home care provider Neftali Garcia about his life and work. Originally from the Mexican state of Oaxaca, Garcia is a Mixtec, who migrated to the US several decades ago specifically in search of help for his deaf son. Talks about differences in social attitudes towards the disabled in the two countries. Speaks about establishing a community group called \"Together We Can\" with other Latinos, learning about educational and social resources for his son, establishing US residency, being trained as an official care giver, and his continued interest in working with the deaf community.",
+    "Link": "https://www.loc.gov/item/2017655501/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_02140/afc2014021_02140_mv01.gif"
+  },
+  {
+    "ID": 20,
+    "Interviewee": "Olena Kryuchenko",
+    "Interviewer": "Sonia De La Cruz, Helen Marie Moss",
+    "City": "Portland",
+    "State": "Oregon",
+    "Title": "Olena Kryuchenko interview conducted by Sonia De La Cruz and Helen Marie Moss, 2015-03-07",
+    "Summary": "Olena Kryuchenko describes her experiences as a home care worker in Portland after moving here from Ukraine, where she was a chemical engineer. She speaks about her re-training for a new job; the interpersonal skills that are needed in her new career, like humor, love and hard work; how rewarding she finds healthcare; confronting language barriers; and she tells a few stories about her clients--including the time she adopted a client's cat after the former's death. The interview is in Russian and English. We used an interpreter.",
+    "Link": "https://www.loc.gov/item/2017655489/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01721/afc2014021_01721_mv01.gif"
+  },
+  {
+    "ID": 21,
+    "Interviewee": "Olga Yakimchuk",
+    "Interviewer": "Sonia De La Cruz, Helen Marie Moss",
+    "City": "Portland",
+    "State": "Oregon",
+    "Title": "Olga Yakimchuk interview conducted by Sonia De La Cruz and Helen Marie Moss, 2015-03-07",
+    "Summary": "Olga Yakimchuk relates her experiences as a home care worker for her husband's parents. Originally from Ukraine, where she was trained as a nurse, she arrived in Portland just as the Home Care Workers Commission was being established and has been caring for her in-laws for 15 years. Finds taking care of the elderly satisfying and \"noble.\" Remarks on the need for humor, faith, and continued training. Speaks about the important role the union and union training has played in her career. The interview was conducted in Russian and English.",
+    "Link": "https://www.loc.gov/item/2017655491/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01742/afc2014021_01742_mv01.gif"
+  },
+  {
+    "ID": 22,
+    "Interviewee": "Penny Wicklander",
+    "Interviewer": "Michael Robert Brussel, Donald Eugene Stacy",
+    "City": "Salem",
+    "State": "Oregon",
+    "Title": "Penny Wicklander interview conducted by Michael Robert Bussel and Donald Eugene Stacy, 2015-05-05",
+    "Summary": "Penny Wicklander discusses her life and work as an at home care giver. She talks about always having to take care of somebody--in-laws, parents, and for the last 6 years, her son, who had Lou Gehrig's disease. Has worked with a few men, a client with a traumatic brain injury, and her current client, who is 86-years-old. Loves being a care giver. Discusses being a rural care giver, the importance of having a sense of humor, and the challenges of working with the dying. She also talks about being a union job steward and serving on the union's bargaining team.",
+    "Link": "https://www.loc.gov/item/2017655498/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_02080/afc2014021_02080_mv01.gif"
+  },
+  {
+    "ID": 23,
+    "Interviewee": "Rebecca Sandoval",
+    "Interviewer": "Michael Robert Brussel, Sonia De La Cruz",
+    "City": "Medford",
+    "State": "Oregon",
+    "Title": "Rebecca Sandoval interview conducted by Michael Robert Bussel and Sonia De La Cruz, 2014-12-16",
+    "Summary": "Interview with Rebecca Sandoval about her work as a home care worker. Spoke about previous jobs and how caring for her grandmother and then her own companion led her to become a profession care giver. Speaks about need \"to give up your ego,\" how boundaries with clients can sometime \"be nebulous,\" job stress, and the satisfaction of making it possible for clients to remain in their own homes. Discusses the importance of the Union in making care giving \"a job worth having\" by increasing its prestige, obtaining adequate pay, and assuring benefits. Also talks about her activities lobbying state legislators in Oregon and Connecticut for support of care givers, increased training, and the recognition of care givers as professional workers.",
+    "Link": "https://www.loc.gov/item/2017655494/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01882/afc2014021_01882_mv01.gif"
+  },
+  {
+    "ID": 24,
+    "Interviewee": "Rhonda Estrada",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "Salem",
+    "State": "Oregon",
+    "Title": "Rhonda Estrada interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-05-26",
+    "Summary": "Rhonda discusses her work as a home care provider, including her typical activities and her relationships with her \"consumers,\" some of which span decades. She also discusses her active involvement in the Service Employees International Union (SEIU) and the benefits, such as sick days and better pay, that have been negotiated by the union.",
+    "Link": "https://www.loc.gov/item/2017655496/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_02026/afc2014021_02026_mv01.gif"
+  },
+  {
+    "ID": 25,
+    "Interviewee": "Rita Adamski",
+    "Interviewer": "Michael Robert Brussel",
+    "City": "Salem",
+    "State": "Oregon",
+    "Title": "Rita Adamski interview conducted by Michael Robert Bussel, 2014-12-05",
+    "Summary": "Interview with Rita Adamski about her career as a home care worker. She talks about how she got into the profession, her training, what a \"typical day\" is like, how she balances being friends with her clients while retaining a \"respectful\" and professional distance, caring for dying patients, the challenging to taking on new clients after the death of a long-time client, and \"the many different ways\" to be a caregiver.",
+    "Link": "https://www.loc.gov/item/2017655476/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01360/afc2014021_01360_mv01.gif"
+  },
+  {
+    "ID": 26,
+    "Interviewee": "Rose M. Rogers",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "North Bend",
+    "State": "Oregon",
+    "Title": "Rose M. Rogers interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-01-21",
+    "Summary": "Rose Rogers discusses working as a personal support worker for her autistic son. She talks about her typical duties, her work as an advocate for her son as well as her daily routine caring for him. She also discusses her union activities, the Special Olympics and her hopes and concerns for her son and other disabled individuals.",
+    "Link": "https://www.loc.gov/item/2017655480/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01560/afc2014021_01560_mv01.gif"
+  },
+  {
+    "ID": 27,
+    "Interviewee": "Sally K. Cumberworth",
+    "Interviewer": "Michael Robert Brussel",
+    "City": "Grants Pass",
+    "State": "Oregon",
+    "Title": "Sally K. Cumberworth interview conducted by Michael Robert Bussel, 2014-12-16",
+    "Summary": "Interview with Sally Cumberworth about her career as a home care worker. She talks about how she got into health care as a divorced mother of five; skills and abilities that good health care workers must have; her relationships with her clients and their families; her increasing involvement with the union; and how receiving a SEIU \"Trailblazer\" award made her feel \"like she had won a Tony.",
+    "Link": "https://www.loc.gov/item/2017655478/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01461/afc2014021_01461_mv01.gif"
+  },
+  {
+    "ID": 28,
+    "Interviewee": "Sharronne Vincent",
+    "Interviewer": "Helen Marie Moss, Donald Eugene Stacy",
+    "City": "Rainier",
+    "State": "Oregon",
+    "Title": "Sharronne Vincent interview conducted by Helen Marie Moss and Donald Eugene Stacy, 2015-03-04",
+    "Summary": "Sharronne Vincent describes her experiences as a home care worker. She talks about her varied career before a friend in healthcare asked her to assist with a client. She reviews a typical day, the challenges of dealing with different sorts of clients, confidentiality, the lack of awareness of special care needed for disabled and elderly by many in the community, and how some view caregivers are treated like an Indian \"bottom caste that does the necessary tasks no one else wants.\" She also speaks about how rewarding she finds her career as a caregiver and expresses concern that the inter-generational relationships that were important in her childhood might not be as strong in today's families.",
+    "Link": "https://www.loc.gov/item/2017655488/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01720/afc2014021_01720_mv01.gif"
+  },
+  {
+    "ID": 29,
+    "Interviewee": "Shaun Notdurft",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "Eugene",
+    "State": "Oregon",
+    "Title": "Shaun Notdurft interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-03-22",
+    "Summary": "Shaun Notdurft discusses his work as a direct support professional (DSP) for adults with developmental and mental disabilities. Topics include differences between his work and home care work, occupational training, job humor, and Shaun's personal experiences in the industry. He talks about his activities as a union steward, activist, and office holder.",
+    "Link": "https://www.loc.gov/item/2017655483/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01640/afc2014021_01640_mv01.gif"
+  },
+  {
+    "ID": 30,
+    "Interviewee": "Steve Tenhonen",
+    "Interviewer": "Helen Marie Moss",
+    "City": "Portland",
+    "State": "Oregon",
+    "Title": "Steve Tenhonen interview conducted by Helen Marie Moss, 2014-11-21",
+    "Summary": "Steve Tenhonen, a personal support worker for developmentally disabled and mentally ill clients, discusses his experiences on the job and why it is important to have a union. He also talks about difficult patients, wages, lobbying, and politics.",
+    "Link": "https://www.loc.gov/item/2017655472/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01300/afc2014021_01300_mv01.gif"
+  },
+  {
+    "ID": 31,
+    "Interviewee": "Terry Haydon",
+    "Interviewer": "Michael Robert Brussel",
+    "City": "Corvallis",
+    "State": "Oregon",
+    "Title": "Terry Haydon interview conducted by Michael Robert Bussel, 2014-11-19",
+    "Summary": "Interview about Terry Haydon's career as a home health care worker. Talks about a wide range of his previous jobs, which included theatre, teaching, and being a medical transport driver. Became a care giver through his domestic partner, who needed assistance at home. Talks about skills needed and his training, how his initial opposition to the union changed to enthusiastic support, and the gratification he takes from his job.",
+    "Link": "https://www.loc.gov/item/2017655473/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01320/afc2014021_01320_mv01.gif"
+  },
+  {
+    "ID": 32,
+    "Interviewee": "Terry Luther",
+    "Interviewer": "Michael Robert Brussel, Sonia De La Cruz",
+    "City": "Florence",
+    "State": "Oregon",
+    "Title": "Terry Luther interview conducted by Michael Robert Bussel and Sonia De La Cruz, 2015-02-13",
+    "Summary": "Interview with Terry Luther about her experiences as a caregiver for her autistic son. Talks about previous jobs that range from theatre work to planting trees and an early interest in care giving, that included volunteering at a Veteran's Hospital as a teenager. A caregiver for her autistic son for last 24 years, she has been officially paid for her care giving work for last two and one-half years. Talks about her daily routine, her activities in organizing support systems and mentoring other parents with special needs children, the importance of valuing and supporting people with disabilities, and the need to fight societal prejudice and preconceptions about the disabled.",
+    "Link": "https://www.loc.gov/item/2017655493/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01881/afc2014021_01881_mv01.gif"
+  },
+  {
+    "ID": 33,
+    "Interviewee": "Tom Wilson",
+    "Interviewer": "Nathan J. Moore, Donald Eugene Stacy",
+    "City": "Eugene",
+    "State": "Oregon",
+    "Title": "Tom Wilson interview conducted by Nathan J. Moore and Donald Eugene Stacy, 2015-04-19",
+    "Summary": "Tom Wilson discusses his career as a home care worker. He talks about the differences between working in group homes and one-on-one settings, his relationships with clients, and how he approaches intimate tasks. His interview also focuses on humor between clients and caregivers.",
+    "Link": "https://www.loc.gov/item/2017655492/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01880/afc2014021_01880_mv01.gif"
+  },
+  {
+    "ID": 34,
+    "Interviewee": "Victoria Tenbusch",
+    "Interviewer": "Michael Robert Brussel",
+    "City": "Sweet Home",
+    "State": "Oregon",
+    "Title": "Victoria Tenbusch interview conducted by Michael Robert Bussel, 2014-11-20",
+    "Summary": "Interview with Victoria Tenbusch about her career as a home care worker. She talks about how, after working for many years in a cannery she sought less physically stressful work and, found it first at a nursing home and then as a care giver to at-home clients. Talks about stresses and satisfaction of her job, her daily schedule, working with moody patients, and her union activities--including lobbying state legislators for addition support for home care workers.",
+    "Link": "https://www.loc.gov/item/2017655474/",
+    "Notes": "",
+    "thumbnailLink": "https://tile.loc.gov/storage-services/service/afc/afc2014021/afc2014021_01321/afc2014021_01321_mv01.gif"
+  }
+]}
+
+  </script>
+
+<!-- REPOPULATE TOOL TIPS WITH PROTEST DATA -->
+<script>
+
+  //-----LOAD SVG----- 
+    d3.xml('https://infographicsuo.github.io/AEW/Home_Care_Interactive_Graphics/Regional/RegionalScale_InterviewPoints_labels_Flattened_SVG-01.svg') 
+        .then(data => {
+        d3.select("#mapDiv").nodes().forEach(n => {
+            n.append(data.documentElement.cloneNode(true))
+        })
+
+        doThings();
+    });
+
+
+     // on sucessful load
+     function doThings(){    
+        console.log("doing things")
+
+        // ---- Adjust SVG View Box for Mobile and Desktop ----
+
+        if (window.innerWidth < 600) {
+                    d3.select("svg").attr("viewBox", "0 0 540 580");
+                    document.getElementById('tooltipText').innerHTML = 'Tap each dot or use arrows to toggle through descriptions of each Protest'            
+              }
+              // When Window resizes Change SVG View Box to Mobile or Desktop View
+                  window.onresize = function() {
+                    
+                    if (window.innerWidth < 600) {
+                    d3.select("svg").attr("viewBox", "0 0 540 580");
+                    document.getElementById('tooltipText').innerHTML = 'Tap each dot or use arrows to toggle through descriptions of each Protest'            
+                    
+                  } else{
+                    d3.select("svg").attr("viewBox", "0 0 921.6 651.36");
+                    document.getElementById('tooltipText').innerHTML = 'Hover on each dot for description of Protest'            
+
+                  }
+                };
+
+
+        // ---- CREATE TOOLTIP FOR EACH PROTEST ----
+
+        // Select all Protests based on ID and object type 
+        // d3.selectAll("#Pipeline_Project>circle,#Pipeline_Project>path,#Pipeline_Project>ellipse")
+        
+        let sectionProtestPoint = "#Water_10"
+        d3.select(sectionProtestPoint)
+        .classed("sectionProtest",true)
+       
+        d3.selectAll('#InterviewLocations>circle,#InterviewLocations>path,#InterviewLocations>ellipse')
+
+                  //  .attr("title","I am a circle!")
+
+                   
+                  //Function which replaces Text in Tool Tip DIV with the Data for the protest being hovered on
+                   .on("mouseover", function(d,i) { 
+                        // console.log(this)
+                        console.log(this.id)
+                        // protestIndex = this.id.slice(4)
+
+                      //Get the ID (i.e. Pipeline_48) of the current protest being hovered on and Assign it to thisID
+                        let active_tooltip = this.id;
+                        console.log(active_tooltip)
+                        let thisID = this.id;
+                  d3.select(sectionProtestPoint)
+                      .classed("sectionProtest",false)
+
+                        let firstSlice = active_tooltip.slice(4)
+                        let secondSlice = firstSlice.slice(0, -1)
+                        console.log(secondSlice)
+                        d3.selectAll(".selectedProtest").classed("selectedProtest", false)
+
+                        protestIndex = indexOrder.indexOf(secondSlice-1)
+                        console.log('protestIndex at hover =',protestIndex)
+                        
+                      // Replace the _ in Protest ID with a - 
+                        // let thisData = thisID.replace('_', '-') // required if JSON data and map data use a different naming convention
+                        let thisData = thisID.replace(/[^0-9]/g, '') // required if JSON data and map data use a different naming convention
+                        thisData-=1;
+                        let linkFinder = "Link"
+                        // Get data from JSON 
+                        let thisYear = protest_data.tooltips[thisData].Year
+                        let thisCity = protest_data.tooltips[thisData].City
+                        let thisState = protest_data.tooltips[thisData].State
+                        let thisDescription = protest_data.tooltips[thisData].Summary
+                        let thisInterviewee = protest_data.tooltips[thisData].Interviewee
+                        let thisLink = protest_data.tooltips[thisData].Link
+                        let thisInterviewId= protest_data.tooltips[thisData].ID
+                        let thumbnail = protest_data.tooltips[thisData].thumbnailLink
+
+                        // Test of Embed at bottom of iFrame
+                        let testEmbed = '<iframe src="https://www.loc.gov/item/2017655484/?&embed=resources" width="100%" height="300px" frameborder="0" scrolling="yes" allowfullscreen></iframe>'
+
+
+                          // let shortID = thisID.substring(thisID.length-5, thisID.length)
+
+                        d3.select(this)
+                            .classed("selectedProtest", true)
+                    //Defines Text which will populate Tooltip when a protest is hovered on  
+                        d3.select("#tooltipText")
+                        // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
+                        // Page describing links in iFrames: https://stackoverflow.com/questions/9130275/iframe-link-to-open-a-browser-as-a-new-tab
+
+                        .html("<b>Interviewee:</b> "+ thisInterviewee + "<br> <b>Location:</b> " + thisCity +", "+ thisState + "<br> <b>Description:</b> " + thisDescription +
+                        "<br><br> <img src='"+thumbnail+"' >"
+                        +"<br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>") 
+                       
+                        
+                        //Tool Tip with Video Of Interview in Iframe
+                        //.html("<b>Interviewee:</b> "+ thisInterviewee + "<br> <b>Location:</b> " + thisCity +", "+ thisState + "<br> <b>Description:</b> " + thisDescription
+                        //+"<br><br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>" + "<br>" + testEmbed) 
+                       
+                       
+                        // .html(shortID)
+
+                        d3.select("#minimizeButton").attr("hidden",null); // show the button
+                   })
+
+                   .on("mouseout", function(d,i) { 
+                        d3.select(this)
+                            .classed("selectedProtest", false)
+                   });
+    }
+
+    function minimizeInfoWindow(){
+         d3.select("#tooltipText").html("Hover on each dot for description of Protest")
+         d3.select("#minimizeButton").attr("hidden",true); // hide the button when info is minimized
+         d3.selectAll(".selectedProtest").classed("selectedProtest", false)
+     }
+
+    // protestIndex tracks the index of protest from the protest_data array, indexOrder is the sort of each protest by location
+    var protestIndex = -1
+    const indexOrder = [27, 3, 29, 20, 19, 17, 5, 4, 2, 1, 24, 23, 21, 18, 13, 11, 9, 30, 33, 32, 28, 16, 15, 10, 8, 0, 31, 12, 25, 6, 14, 26, 7, 22]
+
+    function updatePanelNext(){
+        // Clear old protest highlight
+        d3.selectAll("#InterviewLocations>circle,#InterviewLocations>path,#InterviewLocations>ellipse")
+          .classed("selectedProtest", false)
+        protestIndex+=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(protestIndex > protest_data.length-1){
+          protestIndex = protest_data.length-1
+        }
+
+
+        thisData = indexOrder[protestIndex]
+        console.log('data:', thisData)
+        let circleID = '#_ID_' + (thisData+1) + '_'
+
+        // highlight selected Protest=
+        d3.select(circleID)
+          .classed("selectedProtest", true)
+
+        // Get data from JSON --> thisData = "Water_Project-34" etc
+        // let thisYear =thisData.Year
+        // let thisCity =thisData.City
+        // let thisState = thisData.State
+        // let thisDescription = thisData.Summary
+        // let thisInterviewee = thisData.Interviewee
+        // let thisLink = thisData.Link
+        // let thisInterviewId= thisData.ID
+        // let thumbnail =thisData.thumbnailLink
+
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisCity = protest_data.tooltips[thisData].City
+        let thisState = protest_data.tooltips[thisData].State
+        let thisDescription = protest_data.tooltips[thisData].Summary
+        let thisInterviewee = protest_data.tooltips[thisData].Interviewee
+        let thisLink = protest_data.tooltips[thisData].Link
+        let thisInterviewId= protest_data.tooltips[thisData].ID
+        let thumbnail = protest_data.tooltips[thisData].thumbnailLink
+
+        d3.select("#tooltipText")
+            .html("<b>Interviewee:</b> "+ thisInterviewee + "<br> <b>Location:</b> " + thisCity +", "+ thisState + "<br> <b>Description:</b> " + thisDescription +
+            "<br><br> <img src='"+thumbnail+"' >"
+            +"<br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>") 
+
+        // protestIndex+=1
+        console.log('index at NEXT =', protestIndex)
+    }
+
+    function updatePanelPrevious(){
+      // Clear old circle highlight
+        d3.selectAll("#InterviewLocations>circle,#InterviewLocations>path,#InterviewLocations>ellipse")
+          .classed("selectedProtest", false)
+        protestIndex-=1
+        // To make sure the index doesn't leave the bounds of 0 -> 23
+        if(protestIndex < 0){
+          protestIndex=0
+        }
+
+        thisData = indexOrder[protestIndex]
+        console.log('data:', thisData)
+        let circleID = '#_ID_' + (thisData+1) + '_'
+
+
+        // highlight selected Protest
+        d3.select(circleID)
+          .classed("selectedProtest", true)
+
+        // Get data from JSON --> thisData = "Water_Project-34" etc
+        let thisYear = protest_data.tooltips[thisData].Year
+        let thisCity = protest_data.tooltips[thisData].City
+        let thisState = protest_data.tooltips[thisData].State
+        let thisDescription = protest_data.tooltips[thisData].Summary
+        let thisInterviewee = protest_data.tooltips[thisData].Interviewee
+        let thisLink = protest_data.tooltips[thisData].Link
+        let thisInterviewId= protest_data.tooltips[thisData].ID
+        let thumbnail = protest_data.tooltips[thisData].thumbnailLink
+
+        d3.select("#tooltipText")
+            .html("<b>Interviewee:</b> "+ thisInterviewee + "<br> <b>Location:</b> " + thisCity +", "+ thisState + "<br> <b>Description:</b> " + thisDescription +
+            "<br><br> <img src='"+thumbnail+"' >"
+            +"<br><a href='"+ thisLink +"' target='_blank'>Link to Interview</a>") 
+
+        // protestIndex-=1
+        console.log('index at PREVIOUS =', protestIndex)
+
+    }
+
+
+</script>
+
+</body>
+
+</html>

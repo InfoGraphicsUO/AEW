@@ -1,0 +1,699 @@
+<html>
+
+<head>
+
+
+  <style>
+    /* Adobe Fonts (McClean Gonzalez's account */
+    @import url("https://use.typekit.net/uye5etk.css");
+    @import url("https://use.typekit.net/ttx2mek.css");
+
+    svg {
+      max-height: calc(100vh - 10px);
+      max-width: calc(100vw - 10px);
+      position: relative; /* Ensure the SVG is the reference point for positioning */
+    }
+
+    .selectedProtest{
+            fill:black!important;
+            stroke:black !important;
+            stroke-width:3 !important;
+            fill-opacity:0.2;
+        }
+
+    .selectedHouse{
+      /* fill: white !important; */
+      /* fill-opacity: 0.2; */
+      stroke: black !important;
+      stroke-width: 2 !important;
+    }
+
+    .greyMask{
+      fill: gray!important;
+      stroke: gray!important;
+      fill-opacity: .9 !important;
+    }
+
+    .linePath{
+      display: inline!important;
+    }
+
+    .textMapContainer {
+      display: flex; /* Use Flexbox layout */
+      align-items: center; /* Align items to the top (start) */
+      justify-content: center; /* Align items to the left (start) */
+      width: 100%; /* Ensure the container takes full width */
+      height: 100%; /* Ensure the container takes full height if needed */
+      position: relative;
+    }
+      
+   /* Set postion of Summary of Deployments 
+    .textMapContainer{
+      display: grid;
+      align-items: top;
+      justify-content: left;
+      grid-template-columns: 100%;  Changed from 80% 20% to 100% to remove right sidebar 
+    }*/
+
+    /*@media only screen and (max-width: 1000px) {
+    .textMapContainer{
+      display: revert;
+           background-color: rgba(255, 255, 255, 0.897);
+    }}*/
+    
+      
+    #mapDiv {
+      flex: 1; /* Ensure mapDiv takes up the full available space */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative; /* Make mapDiv the reference point for absolute positioning */
+    }
+      
+    #tooltip{
+        align-items: top;
+        position: relative;  
+        padding: 10px;
+        font-family: "freight-sans-pro", sans-serif;
+        max-height: 100%;
+    }
+
+
+    #Pies_to_fade,#Institutions_to_Fade, #Institution_Labels {
+      pointer-events: none;
+    }
+
+    .selectedIsnt{
+      font-weight: 900;
+      fill: red;
+    }
+
+    /*.slidecontainer {
+      width: 50%;  Width of the outside container f
+      position: absolute;
+      margin: auto;
+    }*/
+      
+    .slidecontainer {
+      width: min(20vh, 20vw); /* Width of the outside container */
+      max-width: 800vw; /* Maximum width */
+      position: absolute;
+      top: calc(min(5vh, 20px)); /* Adjust as needed, relative to the SVG */
+      left: 55%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column; /* Align items in a column */
+      align-items: center; /* Center horizontally */
+      justify-content: center;
+      z-index: 10; /* Ensure the slider is above the SVG */
+    }
+
+    .slideText {
+      color: white;
+      margin-bottom: 1vh; /* Space between the text and slider */
+      font-family: FreightSansProBold-Regular, 'FreightSans Pro', sans-serif;
+      text-align: center;
+      font-size: 3vh; /* Responsive font size based on viewport height */
+    }
+
+    input[type="range"] {
+      flex: 1;
+      width: 100%;
+      margin-left: 10%; /* Adjust as needed */
+    }
+
+    @media only screen and (max-width: 1000px) {
+      .textMapContainer {
+        display: flex; /* Use Flexbox layout */
+        background-color: rgba(255, 255, 255, 0.897);
+      }
+
+    
+    /*.slideText{
+      color: white;
+      display: inline;
+      position: absolute;
+      right: 0;
+      margin-right: 96px;
+      margin-top: 20px;
+      font-family: FreightSansProBold-Regularf, 'FreightSans Pro', sans-serif;
+    }*/
+      
+  </style>
+
+</head>
+
+<body>
+
+<!-- CREATES TOOL TIP DIV - TEXT WILL BE REPLACED WITH PROTEST DATA ON HOVER -->
+
+<div class="textMapContainer">
+  <div id="mapDiv">
+
+    <div class="slidecontainer">
+      <text id="sliderText" class="slideText"></text>
+      <input id="sliderRange" type="range" min="2015" max="2021" value="2018" step="1" oninput="slider();doThings()">
+    </div>
+
+  </div>
+  <!--<div id="tooltip">Description of ____ Year <br> 
+    feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius
+  </div> 
+-->
+</div>
+
+<!-- LOAD D3 LIBRARY -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- JSON of Attribute Table -->
+  <script>
+  
+    // example data access: fire_data.fireData["2018_1"].CCCF
+
+    var fire_data = {
+      "fireData": {
+        "2015":{
+          "2015_01":{"LabelName":"Twelvemile Creek","DeploymentRecordName":"12-Mile Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2015_02":{"LabelName":"Beaverdam Milepost 5","DeploymentRecordName":"5-Mile/ Beaver Dam Rd","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2015_03":{"LabelName":"Allen Creek","DeploymentRecordName":"Allen Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":10,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2015_04":{"LabelName":"August Fire","DeploymentRecordName":"August Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":100,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":"","Longitude":""},
+          "2015_05":{"LabelName":"BLM Gold Beach Severity","DeploymentRecordName":"BLM Gold Beach Severity","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":458,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":458,"Latitude":"","Longitude":""},
+          "2015_06":{"LabelName":"Cable Crossing","DeploymentRecordName":"Cable Crossing","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":180,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":100,"SCI":0,"SFFC":220,"SRCI":0,"TRCI":0,"WCCF":0,"Total":500,"Latitude":"","Longitude":""},
+          "2015_07":{"LabelName":"Chambers Mill","DeploymentRecordName":"Chambers Mill","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":140,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":140,"Latitude":"","Longitude":""},
+          "2015_08":{"LabelName":"Clapshaw","DeploymentRecordName":"Clapshaw","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2015_09":{"LabelName":"Cornet-Windy","DeploymentRecordName":"Cornet","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":210,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":306,"TRCI":0,"WCCF":0,"Total":516,"Latitude":"","Longitude":""},
+          "2015_10":{"LabelName":"Cove","DeploymentRecordName":"Cove","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":100,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":"","Longitude":""},
+          "2015_11":{"LabelName":"Devil's Well","DeploymentRecordName":"Devil's Well","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":69,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":69,"Latitude":"","Longitude":""},
+          "2015_12":{"LabelName":"Dry Gulch","DeploymentRecordName":"Dry Gulch","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":100,"MCCF":0,"OSCI":0,"PRCF":100,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":20,"TRCI":90,"WCCF":0,"Total":310,"Latitude":"","Longitude":""},
+          "2015_13":{"LabelName":"Early Tom","DeploymentRecordName":"Early Tom/Tom Rock","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":60,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":60,"Latitude":"","Longitude":""},
+          "2015_14":{"LabelName":"Eldorado","DeploymentRecordName":"El Dorado","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":120,"SCCI":0,"SCI":50,"SFFC":140,"SRCI":147,"TRCI":0,"WCCF":120,"Total":577,"Latitude":"","Longitude":""},
+          "2015_15":{"LabelName":"Euchre Fire","DeploymentRecordName":"Euchre","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2015_16":{"LabelName":"Fall Creek","DeploymentRecordName":"Fall Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":100,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":"","Longitude":""},
+          "2015_17":{"LabelName":"Grizzly","DeploymentRecordName":"Grizzley-Eagle Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":200,"SCCI":100,"SCI":64,"SFFC":0,"SRCI":404,"TRCI":12,"WCCF":0,"Total":780,"Latitude":"","Longitude":""},
+          "2015_18":{"LabelName":"Harper Complex","DeploymentRecordName":"Harper Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":10,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2015_19":{"LabelName":"Helter Shelter","DeploymentRecordName":"Helter Shelter","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2015_20":{"LabelName":"Hiembre Ridge","DeploymentRecordName":"Hiembre Ridge","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":80,"SRCI":0,"TRCI":0,"WCCF":0,"Total":80,"Latitude":"","Longitude":""},
+          "2015_21":{"LabelName":"Hoskin's Field","DeploymentRecordName":"Hoskin's Field","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":9,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2015_22":{"LabelName":"Huntley Road","DeploymentRecordName":"Huntley Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":30,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2015_23":{"LabelName":"Lewis and Clark Fire","DeploymentRecordName":"Lewis & Clark","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":18,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":18,"Latitude":"","Longitude":""},
+          "2015_24":{"LabelName":"Flannigan Creek","DeploymentRecordName":"Lightning Burst/ Flannigan Creek Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":119,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":119,"Latitude":"","Longitude":""},
+          "2015_25":{"LabelName":"Niagra Falls","DeploymentRecordName":"Niagra","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":120,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":379,"SRCI":0,"TRCI":0,"WCCF":0,"Total":499,"Latitude":"","Longitude":""},
+          "2015_26":{"LabelName":"Old Bald Fire","DeploymentRecordName":"Old Bald Mountain","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":30,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2015_27":{"LabelName":"Phillips Creek","DeploymentRecordName":"Phillips Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":110,"TRCI":0,"WCCF":0,"Total":110,"Latitude":"","Longitude":""},
+          "2015_28":{"LabelName":"Rogers Mountain","DeploymentRecordName":"Rogers Mountain","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":9,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2015_29":{"LabelName":"Rye","DeploymentRecordName":"Rye","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":22,"TRCI":0,"WCCF":0,"Total":22,"Latitude":"","Longitude":""},
+          "2015_30":{"LabelName":"N. Fork Salmonberry Fire","DeploymentRecordName":"Salmon Berry","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2015_31":{"LabelName":"Sandy Creek","DeploymentRecordName":"Sandy Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":70,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":70,"Latitude":"","Longitude":""},
+          "2015_32":{"LabelName":"Shevlin 0186","DeploymentRecordName":"Shevlin","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":30,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2015_33":{"LabelName":"Skunk Creek","DeploymentRecordName":"Skunk Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":107,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":80,"SRCI":0,"TRCI":0,"WCCF":0,"Total":187,"Latitude":"","Longitude":""},
+          "2015_34":{"LabelName":"South Jetty","DeploymentRecordName":"South Jetty","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":150,"SRCI":0,"TRCI":0,"WCCF":0,"Total":150,"Latitude":"","Longitude":""},
+          "2015_35":{"LabelName":"Stouts Creek Fire","DeploymentRecordName":"Stouts Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":140,"OSCI":0,"PRCF":250,"SCCI":95,"SCI":222,"SFFC":954,"SRCI":3,"TRCI":10,"WCCF":20,"Total":1694,"Latitude":"","Longitude":""},
+          "2015_36":{"LabelName":"Stump Butte","DeploymentRecordName":"Stump Butte","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":20,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2015_37":{"LabelName":"Sugar Loaf","DeploymentRecordName":"Sugar Loaf","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":180,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":180,"Latitude":"","Longitude":""},
+          "2015_38":{"LabelName":"Sunset Grade","DeploymentRecordName":"Sunset Grade","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":191,"SRCI":0,"TRCI":0,"WCCF":0,"Total":191,"Latitude":"","Longitude":""},
+          "2015_39":{"LabelName":"Whiskey Run","DeploymentRecordName":"Whiskey Run","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":79,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":79,"Latitude":"","Longitude":""},
+          "2015_40":{"LabelName":"Willamina Creek","DeploymentRecordName":"Willamina Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":280,"MCCF":297,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":367,"SRCI":0,"TRCI":0,"WCCF":0,"Total":944,"Latitude":"","Longitude":""},
+          "2015_41":{"LabelName":"Double Strike","DeploymentRecordName":"Wollowa Fire 491","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":20,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+        },
+
+        "2016":{
+          "2016_01":{"LabelName":"2500 Rd.","DeploymentRecordName":"2500 Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":95,"OSCI":"","PRCF":"","SCCI":110,"SCI":60,"SFFC":370,"SRCI":0,"TRCI":0,"WCCF":0,"Total":635,"Latitude":"","Longitude":""},
+          "2016_02":{"LabelName":"400 Rd. Fire","DeploymentRecordName":"400 Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":40,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2016_03":{"LabelName":"Akawana #152","DeploymentRecordName":"Akawana","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":150,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":220,"Latitude":"","Longitude":""},
+          "2016_04":{"LabelName":"Big Crk.","DeploymentRecordName":"Big Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2016_05":{"LabelName":"Big Rock Loop","DeploymentRecordName":"Big Rock Loop","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_06":{"LabelName":"Blue Ridge","DeploymentRecordName":"Blue Ridge","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_07":{"LabelName":"Briggs Hill","DeploymentRecordName":"Briggs Hill","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_08":{"LabelName":"Chapman Grange #2","DeploymentRecordName":"Chapman Grange","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":70,"Latitude":"","Longitude":""},
+          "2016_09":{"LabelName":"Cleveland Ridge","DeploymentRecordName":"Cleveland Ridge","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":360,"SCI":0,"SFFC":810,"SRCI":0,"TRCI":0,"WCCF":0,"Total":1170,"Latitude":"","Longitude":""},
+          "2016_10":{"LabelName":"Gold Canyon","DeploymentRecordName":"Gold Canyon","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":72,"SCI":0,"SFFC":156,"SRCI":0,"TRCI":0,"WCCF":0,"Total":228,"Latitude":"","Longitude":""},
+          "2016_11":{"LabelName":"Griffin Gulch","DeploymentRecordName":"Griffin Gulch","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":20,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":10,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2016_12":{"LabelName":"Gunners Lake ML #1","DeploymentRecordName":"Gunners Lake Mainline","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_13":{"LabelName":"Halls Crk.","DeploymentRecordName":"Hall Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":11,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":11,"Latitude":"","Longitude":""},
+          "2016_14":{"LabelName":"Healey Rd. #1","DeploymentRecordName":"Healey Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_15":{"LabelName":"High Pass #6","DeploymentRecordName":"High Pass #6","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2016_16":{"LabelName":"High Pass 12.5","DeploymentRecordName":"High Pass Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":274,"SRCI":0,"TRCI":0,"WCCF":120,"Total":394,"Latitude":"","Longitude":""},
+          "2016_17":{"LabelName":"Holiday Rd. 225","DeploymentRecordName":"Holiday Rd","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2016_18":{"LabelName":"Hwy. 138 W","DeploymentRecordName":"Hwy 138","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":100,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":"","Longitude":""},
+          "2016_19":{"LabelName":"Imnonen Rd.","DeploymentRecordName":"Imnonen Road","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":44.187871,"Longitude":-124.341487},
+          "2016_20":{"LabelName":"INC 192","DeploymentRecordName":"INC 192","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":22,"WCCF":0,"Total":22,"Latitude":44.187871,"Longitude":-124.341487},
+          "2016_21":{"LabelName":"Indian Crossing","DeploymentRecordName":"Indian Creek Crossing","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":120,"TRCI":0,"WCCF":0,"Total":120,"Latitude":"","Longitude":""},
+          "2016_22":{"LabelName":"IP Deeded Rd.","DeploymentRecordName":"IP Deeded","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_23":{"LabelName":"Liberty Rd. Fire","DeploymentRecordName":"Liberty Rd","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_24":{"LabelName":"Mason Hill Ed Fire","DeploymentRecordName":"Miller Ranch Rd","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":40,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2016_25":{"LabelName":"Miller Ranch","DeploymentRecordName":"Neal Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":3,"PRCF":30,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":3,"TRCI":0,"WCCF":0,"Total":36,"Latitude":"","Longitude":""},
+          "2016_26":{"LabelName":"Neal Crk.","DeploymentRecordName":"New Idanha","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_27":{"LabelName":"New Idanha","DeploymentRecordName":"NW Mason Hill Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_28":{"LabelName":"Peavy Arboretum","DeploymentRecordName":"Peavy Arboretum","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2016_29":{"LabelName":"Pumpkin Ridge","DeploymentRecordName":"Pumpkin Ridge","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":19,"SRCI":0,"TRCI":0,"WCCF":0,"Total":19,"Latitude":44.187871,"Longitude":-124.341487},
+          "2016_30":{"LabelName":"Reservoir 334","DeploymentRecordName":"Reservoir","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":20,"Total":20,"Latitude":"","Longitude":""},
+          "2016_31":{"LabelName":"Soda Fork","DeploymentRecordName":"Soda","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":12,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":22,"Latitude":"","Longitude":""},
+          "2016_32":{"LabelName":"Stand-by Bridge CFPA","DeploymentRecordName":"Stand-by Bridge CFPA","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":44.187871,"Longitude":-124.341487},
+          "2016_33":{"LabelName":"Stand-by Fourmile CFPA GS","DeploymentRecordName":"Stand-by Fourmile CFPA GS","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":30,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":44.187871,"Longitude":-124.341487},
+          "2016_34":{"LabelName":"Stand-by Libby Lane","DeploymentRecordName":"Stand-by Libby Lane","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":30,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":44.187871,"Longitude":-124.341487},
+          "2016_35":{"LabelName":"Swamp Buggy","DeploymentRecordName":"Swamp Buggy","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_36":{"LabelName":"Swamp Crk.","DeploymentRecordName":"Swamp Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2016_37":{"LabelName":"Tioga Tie","DeploymentRecordName":"Tioga Tie","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2016_38":{"LabelName":"Wanless White/Russell Cr.","DeploymentRecordName":"Wanless White/Russell Cr.","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":60,"SRCI":0,"TRCI":0,"WCCF":0,"Total":60,"Latitude":"","Longitude":""},
+          "2016_39":{"LabelName":"Weigh Station","DeploymentRecordName":"Weigh Station","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":100,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":126,"TRCI":80,"WCCF":0,"Total":306,"Latitude":"","Longitude":""},
+        },
+
+        "2017":{
+          "2017_01":{"LabelName":"Service Corrals","DeploymentRecordName":"187 Service Corral","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":120.5,"TRCI":0,"WCCF":0,"Total":120.5,"Latitude":"","Longitude":""},
+          "2017_02":{"LabelName":"Two by Four Crk.","DeploymentRecordName":"2 x 4 Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_03":{"LabelName":"2017 NCAS Pre-Position","DeploymentRecordName":"2017 NCAS Pre-Position","MissingLocation":0,"Preposition":1,"CCCF":28,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":28,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_04":{"LabelName":"Bear Butte","DeploymentRecordName":"Bear Butte","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":340,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":113,"TRCI":0,"WCCF":0,"Total":453,"Latitude":"","Longitude":""},
+          "2017_05":{"LabelName":"Boulder Crk.","DeploymentRecordName":"Boulder Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":50,"TRCI":0,"WCCF":0,"Total":50,"Latitude":"","Longitude":""},
+          "2017_06":{"LabelName":"Buck Butte 254","DeploymentRecordName":"Buck Butte","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":20,"Total":20,"Latitude":"","Longitude":""},
+          "2017_07":{"LabelName":"Burnt Peak","DeploymentRecordName":"Burnt Peak","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":100,"OSCI":0,"PRCF":0,"SCCI":98,"SCI":0,"SFFC":170,"SRCI":0,"TRCI":0,"WCCF":0,"Total":368,"Latitude":"","Longitude":""},
+          "2017_08":{"LabelName":"CFPA Pre-Position","DeploymentRecordName":"CFPA Pre-position","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_09":{"LabelName":"Chetco Bar","DeploymentRecordName":"Chetco Bar","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":207,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":207,"Latitude":"","Longitude":""},
+          "2017_10":{"LabelName":"Chetco Bar Pre-Position","DeploymentRecordName":"Chetco Bar Pre-position","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":13,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":13,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_11":{"LabelName":"Coos Bay Pre-Position","DeploymentRecordName":"Coos Bay Pre-position","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":109,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":109,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_12":{"LabelName":"Deadwood Crk.","DeploymentRecordName":"Deadwood Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":16,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":16,"Latitude":"","Longitude":""},
+          "2017_13":{"LabelName":"Eagle Crk.","DeploymentRecordName":"Eagle Creek","MissingLocation":0,"Preposition":0,"CCCF":47,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":47,"Latitude":"","Longitude":""},
+          "2017_14":{"LabelName":"Fir Grove","DeploymentRecordName":"Fir Grove","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":5,"SRCI":0,"TRCI":0,"WCCF":0,"Total":5,"Latitude":"","Longitude":""},
+          "2017_15":{"LabelName":"Flounce","DeploymentRecordName":"Flounce","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":104,"OSCI":0,"PRCF":0,"SCCI":141,"SCI":160,"SFFC":1362,"SRCI":0,"TRCI":0,"WCCF":80,"Total":1847,"Latitude":"","Longitude":""},
+          "2017_16":{"LabelName":"Frazer Rd.","DeploymentRecordName":"Frazer Road","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_17":{"LabelName":"Grizzly","DeploymentRecordName":"Grizzly Mountain","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":100,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":"","Longitude":""},
+          "2017_18":{"LabelName":"Hemlock","DeploymentRecordName":"Hemlock","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_19":{"LabelName":"Stubb Stewart","DeploymentRecordName":"Hillsboro Highway","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_20":{"LabelName":"Honey Cr.","DeploymentRecordName":"Honey Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_21":{"LabelName":"Horse Prairie","DeploymentRecordName":"Horse Prairie","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":300,"MCCF":126,"OSCI":0,"PRCF":130,"SCCI":340,"SCI":295,"SFFC":1883,"SRCI":435,"TRCI":120,"WCCF":340,"Total":3969,"Latitude":"","Longitude":""},
+          "2017_22":{"LabelName":"Hwy 47 MP 5","DeploymentRecordName":"HWY 47 MP5","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":200,"SRCI":0,"TRCI":0,"WCCF":0,"Total":200,"Latitude":"","Longitude":""},
+          "2017_23":{"LabelName":"I-5 MP 78","DeploymentRecordName":"I-5 N Exit 45","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":48,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":60,"SRCI":0,"TRCI":0,"WCCF":0,"Total":108,"Latitude":"","Longitude":""},
+          "2017_24":{"LabelName":"Indian Lake","DeploymentRecordName":"Indian Lake","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":215,"TRCI":40,"WCCF":0,"Total":255,"Latitude":"","Longitude":""},
+          "2017_25":{"LabelName":"Jade Crk. 591","DeploymentRecordName":"Jade Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":65,"Total":65,"Latitude":"","Longitude":""},
+          "2017_26":{"LabelName":"Kirk Rd.","DeploymentRecordName":"Kirk Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":10,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_27":{"LabelName":"Little North Fork Complex","DeploymentRecordName":"Little Green Mountain | Little Green Mountain #2 | Little North Fork Complex","MissingLocation":0,"Preposition":0,"CCCF":50,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":50,"Latitude":"","Longitude":""},
+          "2017_28":{"LabelName":"McGowan Powerline","DeploymentRecordName":"McGowan Powerline","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_29":{"LabelName":"McGowan Powerline 2","DeploymentRecordName":"McGowan Powerline #2","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":33,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":33,"Latitude":"","Longitude":""},
+          "2017_30":{"LabelName":"N. Cascade","DeploymentRecordName":"N. Cascade","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_31":{"LabelName":"Naylox 593","DeploymentRecordName":"Naylox Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":40,"Total":40,"Latitude":"","Longitude":""},
+          "2017_32":{"LabelName":"North Fork Cable Crk.","DeploymentRecordName":"North Fork Cable Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":10,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_33":{"LabelName":"Paha Piles","DeploymentRecordName":"Paha Loop Pile","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_34":{"LabelName":"Pisgah Homes Rd. #1","DeploymentRecordName":"Pisgahome","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_35":{"LabelName":"Wilark Rd","DeploymentRecordName":"Pittsburg Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_36":{"LabelName":"Santiam/Lyons Pre-Position","DeploymentRecordName":"Pre-position Santiam/Lyons","MissingLocation":0,"Preposition":1,"CCCF":20,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_37":{"LabelName":"Ramona Falls","DeploymentRecordName":"Ramona Falls","MissingLocation":1,"Preposition":0,"CCCF":29,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":29,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_38":{"LabelName":"Ravens Ridge","DeploymentRecordName":"Raven's Ridge","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":130,"SRCI":0,"TRCI":0,"WCCF":0,"Total":130,"Latitude":"","Longitude":""},
+          "2017_39":{"LabelName":"Reuben","DeploymentRecordName":"Reuben Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":96,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":96,"Latitude":"","Longitude":""},
+          "2017_40":{"LabelName":"Riley Central","DeploymentRecordName":"Riley Central","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":115,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":185,"Latitude":"","Longitude":""},
+          "2017_41":{"LabelName":"Saunders Crk.","DeploymentRecordName":"Saunders Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":80,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":80,"Latitude":"","Longitude":""},
+          "2017_42":{"LabelName":"Savage Crk.","DeploymentRecordName":"Savage Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_43":{"LabelName":"SCAS Avenue","DeploymentRecordName":"SCAS Avenue","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":148,"SRCI":0,"TRCI":0,"WCCF":0,"Total":148,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_44":{"LabelName":"Shepard's Pie","DeploymentRecordName":"Shepards Pie","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_45":{"LabelName":"Shepards Pie 3","DeploymentRecordName":"Shepards Pie #3","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_46":{"LabelName":"Shepards Pie Take 2","DeploymentRecordName":"Shepards Pie Take 2","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2017_47":{"LabelName":"Spring Crk.","DeploymentRecordName":"Spring Creek","MissingLocation":0,"Preposition":0,"CCCF":50,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":50,"Latitude":"","Longitude":""},
+          "2017_48":{"LabelName":"Trinity Ln.","DeploymentRecordName":"Trinity Lane","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_49":{"LabelName":"Triumph Rd.","DeploymentRecordName":"Triumph Rd","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2017_50":{"LabelName":"West Oregon Eclipse Pre-Position","DeploymentRecordName":"West Oregon Eclipse Prepo","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":100,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":44.187871,"Longitude":-124.341487},
+          "2017_51":{"LabelName":"Whitewater","DeploymentRecordName":"Whitewater","MissingLocation":0,"Preposition":0,"CCCF":35,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":35,"Latitude":"","Longitude":""},
+        },
+
+        "2018":{
+          "2018_01":{"LabelName":"Little Wilson","DeploymentRecordName":"116 Wilson Prairie","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":189.5,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":189.5,"Latitude":"","Longitude":""},
+          "2018_02":{"LabelName":"Simmons","DeploymentRecordName":"Astoria - Simmons Ridge  | Simmons Ridge Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":30,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2018_03":{"LabelName":"Gold Crk.","DeploymentRecordName":"Astoria- Gold Creek | Gold Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":30,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2018_04":{"LabelName":"Bear Springs","DeploymentRecordName":"Bear Springs","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":29,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":29,"Latitude":"","Longitude":""},
+          "2018_05":{"LabelName":"Beaver Crk.","DeploymentRecordName":"Beaver Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":40,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2018_06":{"LabelName":"Bill Crk.","DeploymentRecordName":"Bill Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":19,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":19,"Latitude":"","Longitude":""},
+          "2018_07":{"LabelName":"Bradley Flat","DeploymentRecordName":"Bradley Flat","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":20,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2018_08":{"LabelName":"Bryant 192","DeploymentRecordName":"Bryant","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":30,"Total":30,"Latitude":"","Longitude":""},
+          "2018_09":{"LabelName":"Cabbage","DeploymentRecordName":"Cabbage Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":20,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2018_10":{"LabelName":"Calamity","DeploymentRecordName":"Calamity","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":10,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_11":{"LabelName":"CF 400","DeploymentRecordName":"CF 400","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_12":{"LabelName":"CF 400 #2","DeploymentRecordName":"CF 400 #2","MissingLocation":0,"Preposition":0,"CCCF":40,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":60,"Latitude":"","Longitude":""},
+          "2018_13":{"LabelName":"CFPA July Pre-Position","DeploymentRecordName":"CFPA July Preposition","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":60,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":60,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_14":{"LabelName":"CFPA - 4 Mile Guard Pre-Position","DeploymentRecordName":"CFPA PrePo - 4 Mile Guard","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":40,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_15":{"LabelName":"CFPA  - Carpenteville Hwy Pre-Position","DeploymentRecordName":"CFPA PrePo - Carpenteville Hwy","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_16":{"LabelName":"CFPA - Coos Bay Pre-Position","DeploymentRecordName":"CFPA PrePo - Coos Bay","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":38,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":38,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_17":{"LabelName":"CFPA - Euchre Crk. Pre-Position","DeploymentRecordName":"CFPA PrePo - Euchre Creek","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_18":{"LabelName":"CFPA Pre-Position","DeploymentRecordName":"CFPA pre-position","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":98,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":98,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_19":{"LabelName":"Chapman Grange #1","DeploymentRecordName":"Chapman Rd. #1","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":20,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":220,"SRCI":0,"TRCI":0,"WCCF":0,"Total":240,"Latitude":"","Longitude":""},
+          "2018_20":{"LabelName":"Curry Complex","DeploymentRecordName":"Curry Complex","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":78,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":78,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_21":{"LabelName":"Dorris Crk.","DeploymentRecordName":"Dorris Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":100,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":172,"SRCI":0,"TRCI":0,"WCCF":0,"Total":272,"Latitude":"","Longitude":""},
+          "2018_22":{"LabelName":"Douglas Hill","DeploymentRecordName":"Douglas Hill","MissingLocation":0,"Preposition":0,"CCCF":20,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2018_23":{"LabelName":"Drift Crk.","DeploymentRecordName":"Drift Creek","MissingLocation":0,"Preposition":0,"CCCF":40,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2018_24":{"LabelName":"East Crk.","DeploymentRecordName":"East Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":60,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":"","Longitude":""},
+          "2018_25":{"LabelName":"Eli Crk.","DeploymentRecordName":"Eli Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":10,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":24,"WCCF":0,"Total":34,"Latitude":"","Longitude":""},
+          "2018_26":{"LabelName":"Ellendale","DeploymentRecordName":"Ellendale Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2018_27":{"LabelName":"Fall Crk.","DeploymentRecordName":"Fall Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":60,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":78,"SRCI":0,"TRCI":0,"WCCF":0,"Total":138,"Latitude":"","Longitude":""},
+          "2018_28":{"LabelName":"Gard Rd.","DeploymentRecordName":"Gard Road","MissingLocation":0,"Preposition":0,"CCCF":20,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2018_29":{"LabelName":"Garner RD","DeploymentRecordName":"Garner Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":412,"SFFC":220,"SRCI":984,"TRCI":0,"WCCF":162,"Total":1778,"Latitude":"","Longitude":""},
+          "2018_30":{"LabelName":"Grabhorn","DeploymentRecordName":"Grabhorn","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":80,"SRCI":0,"TRCI":0,"WCCF":0,"Total":80,"Latitude":"","Longitude":""},
+          "2018_31":{"LabelName":"Graham","DeploymentRecordName":"Graham","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":140,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":120,"SFFC":120,"SRCI":0,"TRCI":0,"WCCF":0,"Total":380,"Latitude":"","Longitude":""},
+          "2018_32":{"LabelName":"Greener Rd.","DeploymentRecordName":"Greener Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2018_33":{"LabelName":"Horse Crk. Bridge","DeploymentRecordName":"Horse Creek Bridge","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_34":{"LabelName":"Horsfall Beach","DeploymentRecordName":"Horsfall Beach","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":38,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":38,"Latitude":"","Longitude":""},
+          "2018_35":{"LabelName":"Hwy 22","DeploymentRecordName":"Hwy 22","MissingLocation":0,"Preposition":0,"CCCF":20,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2018_36":{"LabelName":"Kimmel","DeploymentRecordName":"Kimmel Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":60,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":264,"SRCI":0,"TRCI":10,"WCCF":0,"Total":334,"Latitude":"","Longitude":""},
+          "2018_37":{"LabelName":"Kinzua Complex","DeploymentRecordName":"Kinzua Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":170,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":218,"TRCI":0,"WCCF":0,"Total":88,"Latitude":"","Longitude":""},
+          "2018_38":{"LabelName":"Klamath Hills","DeploymentRecordName":"Klamath Hills","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":10,"Total":10,"Latitude":"","Longitude":""},
+          "2018_39":{"LabelName":"Lampa Mt./Ln.","DeploymentRecordName":"Lampa Mountain/Lane","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":110,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":110,"Latitude":"","Longitude":""},
+          "2018_40":{"LabelName":"Little Rail","DeploymentRecordName":"Little Rail","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":32,"WCCF":0,"Total":32,"Latitude":"","Longitude":""},
+          "2018_41":{"LabelName":"Lobster Crk.","DeploymentRecordName":"Lobster Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":891,"SCI":0,"SFFC":140,"SRCI":0,"TRCI":0,"WCCF":0,"Total":1031,"Latitude":"","Longitude":""},
+          "2018_42":{"LabelName":"Mile Post 163","DeploymentRecordName":"Mile Post 163","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":120,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":120,"Latitude":"","Longitude":""},
+          "2018_43":{"LabelName":"Morris Crk.","DeploymentRecordName":"Morris Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_44":{"LabelName":"North Spit","DeploymentRecordName":"North Spit","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_45":{"LabelName":"ODF S Crk./Central","DeploymentRecordName":"ODF S Creek/Central fire","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_46":{"LabelName":"ODF Severity 2018 Pre-Position","DeploymentRecordName":"ODF Severity 2018","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_47":{"LabelName":"Old Pittsburg - Indistrict","DeploymentRecordName":"Old Pittsburg - Indistrict","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":80,"SRCI":0,"TRCI":0,"WCCF":0,"Total":80,"Latitude":"","Longitude":""},
+          "2018_48":{"LabelName":"Pierce Rd.","DeploymentRecordName":"Pierce Road","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_49":{"LabelName":"Pongratz","DeploymentRecordName":"Pongratz Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_50":{"LabelName":"Rabbit Hill","DeploymentRecordName":"Rabbit Hill","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":42,"Total":42,"Latitude":"","Longitude":""},
+          "2018_51":{"LabelName":"Ramsey Canyon","DeploymentRecordName":"Ramsey Canyon","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":180,"SFFC":74,"SRCI":0,"TRCI":0,"WCCF":90,"Total":344,"Latitude":"","Longitude":""},
+          "2018_52":{"LabelName":"Retz Crk.","DeploymentRecordName":"Retz Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":18,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":18,"Latitude":"","Longitude":""},
+          "2018_53":{"LabelName":"Rye Hill","DeploymentRecordName":"Rye Hill","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_54":{"LabelName":"2018 Santiam Pre-Position","DeploymentRecordName":"Santiam Pre-Position","MissingLocation":0,"Preposition":1,"CCCF":70,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":70,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_55":{"LabelName":"Seven Devils Rd","DeploymentRecordName":"Seven Devils Rd","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":79,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":79,"Latitude":"","Longitude":""},
+          "2018_56":{"LabelName":"Shearer Hill","DeploymentRecordName":"Shearer Hill | Timmerman Rd","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":80,"SRCI":0,"TRCI":0,"WCCF":0,"Total":80,"Latitude":"","Longitude":""},
+          "2018_57":{"LabelName":"Silver Crk.","DeploymentRecordName":"Silver Creek | Silver Creek Cleanup","MissingLocation":0,"Preposition":0,"CCCF":140,"DRCI":0,"MCCF":20,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":230,"Latitude":"","Longitude":""},
+          "2018_58":{"LabelName":"South Valley Rd.","DeploymentRecordName":"South Valley Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":90,"MCCF":0,"OSCI":0,"PRCF":90,"SCCI":0,"SCI":80,"SFFC":150,"SRCI":0,"TRCI":0,"WCCF":0,"Total":410,"Latitude":"","Longitude":""},
+          "2018_59":{"LabelName":"Timber Jct HWY 26","DeploymentRecordName":"Timber 26 Junction","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_60":{"LabelName":"Train Smokey 2018","DeploymentRecordName":"Train Smokey 2018","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":44.187871,"Longitude":-124.341487},
+          "2018_61":{"LabelName":"Valley View","DeploymentRecordName":"Valley View","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2018_62":{"LabelName":"Wagner 2","DeploymentRecordName":"Wagner Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":421,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":2495,"SRCI":0,"TRCI":0,"WCCF":0,"Total":2916,"Latitude":"","Longitude":""},
+        },
+
+        "2019":{
+          "2019_01":{"LabelName":"1620 Rd.","DeploymentRecordName":"1620 Road Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":116,"TRCI":0,"WCCF":0,"Total":116,"Latitude":"","Longitude":""},
+          "2019_02":{"LabelName":"2019 CFPA Pre-Position","DeploymentRecordName":"2019 CFPA Preposition","MissingLocation":0,"Preposition":1,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":60,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":60,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_03":{"LabelName":"2019 Pre-Position","DeploymentRecordName":"2019 Preposition","MissingLocation":0,"Preposition":1,"CCCF":30,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_04":{"LabelName":"2019 Santiam Pre-Position","DeploymentRecordName":"2019 Santiam Preposition","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":20,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_05":{"LabelName":"5 Rivers Slash","DeploymentRecordName":"5 Rivers Slash Fire | 5 Rivers Slash","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":45,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":45,"Latitude":"","Longitude":""},
+          "2019_06":{"LabelName":"Berry Crk.","DeploymentRecordName":"Berry Creek Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2019_07":{"LabelName":"Bessy Crk.","DeploymentRecordName":"Bessy Creek Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2019_08":{"LabelName":"Big Cliff #1","DeploymentRecordName":"Big Cliff #1","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_09":{"LabelName":"Big Crk.","DeploymentRecordName":"Big Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2019_10":{"LabelName":"Big Tom Folley","DeploymentRecordName":"Big Tom Folley","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":69,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":69,"Latitude":"","Longitude":""},
+          "2019_11":{"LabelName":"Black Jetty","DeploymentRecordName":"Black jetty","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_12":{"LabelName":"Blue River Compound","DeploymentRecordName":"Blue River Compound","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":46,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":46,"Latitude":"","Longitude":""},
+          "2019_13":{"LabelName":"Bluff Rd.","DeploymentRecordName":"Bluff Road","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_14":{"LabelName":"Cabin Fever","DeploymentRecordName":"Cabin Fever","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_15":{"LabelName":"Camp Meriweather","DeploymentRecordName":"Camp Meriweather","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":70,"Latitude":"","Longitude":""},
+          "2019_16":{"LabelName":"Coos Sumner Rd./Ln.","DeploymentRecordName":"Coos Sumner Rd/ Lane Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":19,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":19,"Latitude":"","Longitude":""},
+          "2019_17":{"LabelName":"Crystal Crk.","DeploymentRecordName":"Crystal Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":20,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2019_18":{"LabelName":"Days Coffee","DeploymentRecordName":"Days Coffee Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":67,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":67,"Latitude":"","Longitude":""},
+          "2019_19":{"LabelName":"Deer Head Point","DeploymentRecordName":"Deer Head Point","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":97,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":97,"Latitude":"","Longitude":""},
+          "2019_20":{"LabelName":"Dowens","DeploymentRecordName":"Dowens Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":63,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":63,"Latitude":"","Longitude":""},
+          "2019_21":{"LabelName":"Dry Crk.","DeploymentRecordName":"Dry Creek","MissingLocation":0,"Preposition":0,"CCCF":40,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2019_22":{"LabelName":"E Evans Crk.","DeploymentRecordName":"E Evans Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":160,"SCI":0,"SFFC":640,"SRCI":0,"TRCI":0,"WCCF":0,"Total":800,"Latitude":"","Longitude":""},
+          "2019_23":{"LabelName":"Gyda Ln.","DeploymentRecordName":"Gyda Lane","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":270,"SRCI":0,"TRCI":0,"WCCF":0,"Total":270,"Latitude":"","Longitude":""},
+          "2019_24":{"LabelName":"Harlan","DeploymentRecordName":"Harlan Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":80,"Latitude":"","Longitude":""},
+          "2019_25":{"LabelName":"Hide and Seek Tree","DeploymentRecordName":"Hide and Seek Tree","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_26":{"LabelName":"High Heaven","DeploymentRecordName":"High Heaven Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":79,"SRCI":0,"TRCI":0,"WCCF":0,"Total":79,"Latitude":"","Longitude":""},
+          "2019_27":{"LabelName":"Hills Crk. Incident","DeploymentRecordName":"Hills Creek Incident","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":79,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":79,"Latitude":"","Longitude":""},
+          "2019_28":{"LabelName":"Hwy 53 MP 12","DeploymentRecordName":"Hwy 53 MP 12","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":50,"SRCI":0,"TRCI":0,"WCCF":0,"Total":50,"Latitude":"","Longitude":""},
+          "2019_29":{"LabelName":"Lake","DeploymentRecordName":"Lake Fire","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_30":{"LabelName":"Lake Incident","DeploymentRecordName":"Lake Incident","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":10,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_31":{"LabelName":"MP 97","DeploymentRecordName":"MP 97 | MP 97 Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":140,"SCI":334,"SFFC":150,"SRCI":130,"TRCI":0,"WCCF":240,"Total":994,"Latitude":"","Longitude":""},
+          "2019_32":{"LabelName":"Pihl Rd #1","DeploymentRecordName":"Pihl Rd #1","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2019_33":{"LabelName":"Pioneer","DeploymentRecordName":"Pioneer Fire","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_34":{"LabelName":"Pisgah","DeploymentRecordName":"Pisgah","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":76,"OSCI":0,"PRCF":0,"SCCI":37,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":113,"Latitude":"","Longitude":""},
+          "2019_35":{"LabelName":"2019 Santiam Pre-Position","DeploymentRecordName":"Preeposition - Santiam","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_36":{"LabelName":"Mollala Ofc Pre-Position","DeploymentRecordName":"Preposition - Mollala Ofc","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_37":{"LabelName":"Santiam/Lyons Pre-Position","DeploymentRecordName":"Preposition - Santiam  Ofc","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_38":{"LabelName":"Mollala Pre-Position","DeploymentRecordName":"Preposition-Mollala","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_39":{"LabelName":"Randleman Crk.","DeploymentRecordName":"Randleman Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":10,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_40":{"LabelName":"Santiam Park","DeploymentRecordName":"Santiam Park Fire  | Santiam Park Fire - Hoses","MissingLocation":0,"Preposition":0,"CCCF":130,"DRCI":0,"MCCF":50,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":220,"Latitude":"","Longitude":""},
+          "2019_41":{"LabelName":"Schockley Rd","DeploymentRecordName":"Schockley Rd","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_42":{"LabelName":"Susan Crk. Falls","DeploymentRecordName":"Susan Creek Falls fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":47,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":47,"Latitude":"","Longitude":""},
+          "2019_43":{"LabelName":"Swedetown Rd. #1","DeploymentRecordName":"Swedetown Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2019_44":{"LabelName":"Templeton Ln.","DeploymentRecordName":"Templeton Lane","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":17,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":17,"Latitude":"","Longitude":""},
+          "2019_45":{"LabelName":"Tom Rock","DeploymentRecordName":"Tom Rock fire","MissingLocation":0,"Preposition":0,"CCCF":20,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2019_46":{"LabelName":"Trojan","DeploymentRecordName":"Trojan fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":60,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":130,"Latitude":"","Longitude":""},
+          "2019_47":{"LabelName":"Union Gap","DeploymentRecordName":"Union Cap","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":27,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":27,"Latitude":"","Longitude":""},
+          "2019_48":{"LabelName":"West Shore","DeploymentRecordName":"West Shore Fire","MissingLocation":1,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":9,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":44.187871,"Longitude":-124.341487},
+          "2019_49":{"LabelName":"Whitney Rd. #1","DeploymentRecordName":"Whitney Road #1","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2019_50":{"LabelName":"Williams Rd.","DeploymentRecordName":"Williams Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":50,"Latitude":"","Longitude":""},
+        },
+
+        "2020":{
+          "2020_01":{"LabelName":"280 Rd/Humbug Mt.","DeploymentRecordName":"280 Rd/Humbug Mtn","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2020_02":{"LabelName":"Brattain","DeploymentRecordName":"Brattain (formerly called Murphy Ranch)","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":300,"Total":300,"Latitude":"","Longitude":""},
+          "2020_03":{"LabelName":"CD Molalla ODF Pre-Position","DeploymentRecordName":"CD Preposition Molalla ODF","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2020_04":{"LabelName":"Chehalem Mt. Mutual Aid","DeploymentRecordName":"Chehalem Mtn Mutual Aid","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":120,"SRCI":0,"TRCI":0,"WCCF":0,"Total":120,"Latitude":"","Longitude":""},
+          "2020_05":{"LabelName":"Clear Crk.","DeploymentRecordName":"Clear Creek","MissingLocation":0,"Preposition":0,"CCCF":20,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2020_06":{"LabelName":"Crane 345","DeploymentRecordName":"Crane","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":140,"Total":140,"Latitude":"","Longitude":""},
+          "2020_07":{"LabelName":"Echo Mt. Complex","DeploymentRecordName":"Echo Mountain  | Echo Mountain Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":90,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":444,"SRCI":0,"TRCI":0,"WCCF":0,"Total":534,"Latitude":"","Longitude":""},
+          "2020_08":{"LabelName":"Finley Loop","DeploymentRecordName":"Finley Loop","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2020_09":{"LabelName":"Fir Mt.","DeploymentRecordName":"Fir Mountain","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":70,"Latitude":"","Longitude":""},
+          "2020_10":{"LabelName":"Fisherman's Bend","DeploymentRecordName":"Fisherman's Bend","MissingLocation":0,"Preposition":0,"CCCF":60,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":60,"Latitude":"","Longitude":""},
+          "2020_11":{"LabelName":"Green Peter Peninsula","DeploymentRecordName":"Green Peter Peninsula","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":63,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":63,"Latitude":"","Longitude":""},
+          "2020_12":{"LabelName":"GREEN RIDGE 0684","DeploymentRecordName":"Green Ridge","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":110,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":572,"SRCI":0,"TRCI":0,"WCCF":0,"Total":682,"Latitude":"","Longitude":""},
+          "2020_13":{"LabelName":"Hwy 38 MM 16","DeploymentRecordName":"Highway 38 MM16","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":63,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":63,"Latitude":"","Longitude":""},
+          "2020_14":{"LabelName":"Holiday Farm","DeploymentRecordName":"Holiday Farm","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":140,"SCI":0,"SFFC":180,"SRCI":0,"TRCI":0,"WCCF":0,"Total":320,"Latitude":"","Longitude":""},
+          "2020_15":{"LabelName":"Kinney Crk.","DeploymentRecordName":"Kinney Creek Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2020_16":{"LabelName":"Little Grizzly 0493 OD","DeploymentRecordName":"Little Grizzly 0493 OD","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":30,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2020_17":{"LabelName":"Majors Crk.","DeploymentRecordName":"Majors Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":27,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":27,"Latitude":"","Longitude":""},
+          "2020_18":{"LabelName":"McCoy Crk.","DeploymentRecordName":"McCoy Creek","MissingLocation":0,"Preposition":0,"CCCF":80,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":80,"Latitude":"","Longitude":""},
+          "2020_19":{"LabelName":"Mink Crk.","DeploymentRecordName":"Mink Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":42,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":42,"Latitude":"","Longitude":""},
+          "2020_20":{"LabelName":"Mosier Crk.","DeploymentRecordName":"Mosier Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":70,"SRCI":0,"TRCI":0,"WCCF":0,"Total":70,"Latitude":"","Longitude":""},
+          "2020_21":{"LabelName":"Neal Border","DeploymentRecordName":"Neal Border","MissingLocation":0,"Preposition":0,"CCCF":20,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2020_22":{"LabelName":"North Bank Ln. MM8","DeploymentRecordName":"North Bank Lane MM8","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":166.5,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":166.5,"Latitude":"","Longitude":""},
+          "2020_23":{"LabelName":"North Cascade Complex","DeploymentRecordName":"North Cascade Complex  | [Recoded some records from Fir Grove Lane]","MissingLocation":0,"Preposition":0,"CCCF":403,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":403,"Latitude":"","Longitude":""},
+          "2020_24":{"LabelName":"OR-582S-458271-21","DeploymentRecordName":"OR-582S-458271-21","MissingLocation":1,"Preposition":0,"CCCF":100,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":44.187871,"Longitude":-124.341487},
+          "2020_25":{"LabelName":"Parsons Rd.","DeploymentRecordName":"Parsons Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":20,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2020_26":{"LabelName":"Pike Rd.","DeploymentRecordName":"Pike Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":350,"SRCI":0,"TRCI":0,"WCCF":0,"Total":350,"Latitude":"","Longitude":""},
+          "2020_27":{"LabelName":"Pine Crk.","DeploymentRecordName":"Pine Creek","MissingLocation":0,"Preposition":0,"CCCF":30,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2020_28":{"LabelName":"Siedelman Rd.","DeploymentRecordName":"Siedelman Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":100,"SRCI":0,"TRCI":0,"WCCF":0,"Total":100,"Latitude":"","Longitude":""},
+          "2020_29":{"LabelName":"Steet Mt.","DeploymentRecordName":"Steet Mountain","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":90,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":90,"Latitude":"","Longitude":""},
+          "2020_30":{"LabelName":"Sweet Crk.","DeploymentRecordName":"Sweet Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":286,"SRCI":0,"TRCI":0,"WCCF":0,"Total":295,"Latitude":"","Longitude":""},
+          "2020_31":{"LabelName":"Timber Rd Mulch","DeploymentRecordName":"Timber Rd Mulch Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":9,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2020_32":{"LabelName":"Timber Ridge","DeploymentRecordName":"Timber Ridge","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2020_33":{"LabelName":"Tugman Hill","DeploymentRecordName":"Tugman Hill","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2020_34":{"LabelName":"Yew Crk.","DeploymentRecordName":"Yew Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":10,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+        },
+
+        "2021":{
+          "2021_01":{"LabelName":"1003 Spot","DeploymentRecordName":"1003 Spot Fire","MissingLocation":1,"Preposition":0,"CCCF":30,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":44.187871,"Longitude":-124.341487},
+          "2021_02":{"LabelName":"Alder Crk. Rd.","DeploymentRecordName":"Alder Creek Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":260,"SRCI":0,"TRCI":0,"WCCF":0,"Total":260,"Latitude":"","Longitude":""},
+          "2021_03":{"LabelName":"Applegate Complex","DeploymentRecordName":"Applegate Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":573,"SRCI":0,"TRCI":0,"WCCF":0,"Total":573,"Latitude":"","Longitude":""},
+          "2021_04":{"LabelName":"Bone Canyon","DeploymentRecordName":"Bone Canyon","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":40,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2021_05":{"LabelName":"Bootleg","DeploymentRecordName":"Bootleg","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":220,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":242,"Total":462,"Latitude":"","Longitude":""},
+          "2021_06":{"LabelName":"Bruler","DeploymentRecordName":"Bruler","MissingLocation":0,"Preposition":0,"CCCF":154,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":154,"Latitude":"","Longitude":""},
+          "2021_07":{"LabelName":"Bull Complex","DeploymentRecordName":"Bull Complex","MissingLocation":0,"Preposition":0,"CCCF":540,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":540,"Latitude":"","Longitude":""},
+          "2021_08":{"LabelName":"Bull Springs","DeploymentRecordName":"Bull Springs","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":30,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2021_09":{"LabelName":"Camas Swale #2","DeploymentRecordName":"Camas Swale #2","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2021_10":{"LabelName":"Cottonwood","DeploymentRecordName":"Cottonwood","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":93,"TRCI":0,"WCCF":0,"Total":93,"Latitude":"","Longitude":""},
+          "2021_11":{"LabelName":"Cougar Peak","DeploymentRecordName":"Cougar Peak","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":180,"SCCI":0,"SCI":140,"SFFC":750,"SRCI":0,"TRCI":0,"WCCF":260,"Total":1330,"Latitude":"","Longitude":""},
+          "2021_12":{"LabelName":"Curry PrePosition 2021","DeploymentRecordName":"Curry PrePosition 2021","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2021_13":{"LabelName":"Dement Crk.","DeploymentRecordName":"Dement Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2021_14":{"LabelName":"Dixie Crk.","DeploymentRecordName":"Dixie Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":50,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":50,"Latitude":"","Longitude":""},
+          "2021_15":{"LabelName":"E. Meissner Rd.","DeploymentRecordName":"E. Meissner Road","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2021_16":{"LabelName":"Elbow Crk.","DeploymentRecordName":"Elbow Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":54,"SRCI":0,"TRCI":0,"WCCF":0,"Total":54,"Latitude":"","Longitude":""},
+          "2021_17":{"LabelName":"Fir Butte","DeploymentRecordName":"Fir Butte","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":20,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":20,"Latitude":"","Longitude":""},
+          "2021_18":{"LabelName":"Fox Complex","DeploymentRecordName":"Fox Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":143,"Total":143,"Latitude":"","Longitude":""},
+          "2021_19":{"LabelName":"Game Hog Crk.","DeploymentRecordName":"Game Hog Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":9,"SFFC":1020,"SRCI":0,"TRCI":0,"WCCF":0,"Total":1029,"Latitude":"","Longitude":""},
+          "2021_20":{"LabelName":"Government Mt.","DeploymentRecordName":"Government Mtn.","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":60,"TRCI":90,"WCCF":0,"Total":150,"Latitude":"","Longitude":""},
+          "2021_21":{"LabelName":"Joseph Canyon","DeploymentRecordName":"Joseph Canyon","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":60,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":60,"Latitude":"","Longitude":""},
+          "2021_22":{"LabelName":"Larson Crk. Beach","DeploymentRecordName":"Larson Creek Beach","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":30,"SRCI":0,"TRCI":0,"WCCF":0,"Total":30,"Latitude":"","Longitude":""},
+          "2021_23":{"LabelName":"Marshall's Place","DeploymentRecordName":"Marshall's Place","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":18,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":18,"Latitude":"","Longitude":""},
+          "2021_24":{"LabelName":"Mehl Crk.","DeploymentRecordName":"Mehl Canyon","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":36,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":36,"Latitude":"","Longitude":""},
+          "2021_25":{"LabelName":"Molalla Pre-Position","DeploymentRecordName":"Molalla PrePosition","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2021_26":{"LabelName":"Neibur Rd.","DeploymentRecordName":"Neibur Rd","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2021_27":{"LabelName":"Northernwood","DeploymentRecordName":"Northernwood","MissingLocation":0,"Preposition":0,"CCCF":18,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":18,"Latitude":"","Longitude":""},
+          "2021_28":{"LabelName":"Powerline #1","DeploymentRecordName":"Powerline Fire (formerly known as Gunners Lake)","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":40,"SRCI":0,"TRCI":0,"WCCF":0,"Total":40,"Latitude":"","Longitude":""},
+          "2021_29":{"LabelName":"S-503","DeploymentRecordName":"S-503 Fire","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":160,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":160,"Latitude":"","Longitude":""},
+          "2021_30":{"LabelName":"Santiam Pre-Position","DeploymentRecordName":"Santiam PrePosition","MissingLocation":0,"Preposition":1,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":44.187871,"Longitude":-124.341487},
+          "2021_31":{"LabelName":"Skyline Ridge Complex","DeploymentRecordName":"Skyline Ridge Complex","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":180,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":180,"Latitude":"","Longitude":""},
+          "2021_32":{"LabelName":"South End Rd.","DeploymentRecordName":"South End Road","MissingLocation":0,"Preposition":0,"CCCF":10,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2021_33":{"LabelName":"Walker Crk.","DeploymentRecordName":"Walker Creek","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":10,"SRCI":0,"TRCI":0,"WCCF":0,"Total":10,"Latitude":"","Longitude":""},
+          "2021_34":{"LabelName":"Windhurst Ln.","DeploymentRecordName":"Windhurst Lane","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":9,"SCI":0,"SFFC":0,"SRCI":0,"TRCI":0,"WCCF":0,"Total":9,"Latitude":"","Longitude":""},
+          "2021_35":{"LabelName":"Wise","DeploymentRecordName":"Wise","MissingLocation":0,"Preposition":0,"CCCF":0,"DRCI":0,"MCCF":0,"OSCI":0,"PRCF":0,"SCCI":0,"SCI":0,"SFFC":0,"SRCI":140,"TRCI":0,"WCCF":0,"Total":140,"Latitude":"","Longitude":""}
+        },
+
+        "YearSummary":{
+          
+          2015:"2015 summary goes here feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius",
+          2016:"2016 summary goes here pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius",
+          2017:"2017 summary goes here ipsum feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius",
+          2018:"2018 summary goes here nisl feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius",
+          2019:"2019 summary goes here pretium feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius",
+          2020:"2020 summary goes here quamfeugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius",
+          2021:"2021 summary goes here consequat feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius",          
+          
+        },
+      }
+  };
+
+  </script>
+
+
+<!-- REPOPULATE TOOL TIPS WITH PROTEST DATA -->
+<script>
+
+  //-----LOAD SVG----- 
+    d3.xml("https://infographicsuo.github.io/AEW/Carceral_Interactive_Maps/All_Years/All_Year_Carceral_Map_2023_12_07.svg") 
+        .then(data => {
+        d3.select("#mapDiv").nodes().forEach(n => {
+            n.append(data.documentElement.cloneNode(true))
+        })
+
+        doThings();
+        document.getElementById("_2018_Data").style.display = "block"
+        
+        
+    });
+    
+
+    
+
+    // Starting slider at 2018
+    let yearText = document.getElementById("sliderText")
+    yearText.innerHTML = "2018*"
+
+    // Function to update slider text
+    function slider() {
+    // Get the current slider value
+    const sliderValue = document.getElementById("sliderRange").value;
+    
+    // Update the year text with an asterisk for 2015 and 2018
+    yearText.innerHTML = sliderValue.toString() + ((sliderValue === "2015" || sliderValue === "2018") ? "*" : "");
+
+    // Build the year data ID
+    const yearBuilder = "_" + sliderValue + "_Data";
+    
+    // Clear previous fire year circles
+    document.querySelectorAll('[id*="_Data"]').forEach(el => el.style.display = "none");
+
+    // Set current fire year circles
+    if (document.getElementById(yearBuilder)) {
+      document.getElementById(yearBuilder).style.display = "block";
+    } else {
+      console.error("Element not found:", yearBuilder);
+    }
+
+    // Defines Fire Summary Text Located in Variable Fire_Data Above
+    let sumDeployments = fire_data.fireData.YearSummary[sliderValue];
+
+    // Uncomment and update this part if needed
+    /* d3.select("#tooltip")
+       .html("<b>Summary of " + yearText.innerHTML + " Deployments</b><br>" + sumDeployments); */
+  }
+    
+     // on sucessful load 
+     function doThings() {
+  console.log("doing things");
+
+  // Ensure initial pies are shown correctly
+  slider();
+
+  // Capture institutional tabs
+  var sciText = d3.select("#legend_sci");
+  var srciText = d3.select("#legend_srci");
+  var sffcText = d3.select("#legend_sffc");
+  var trciText = d3.select("#legend_trci");
+  var wccfText = d3.select("#legend_wccf");
+  var cccfText = d3.select("#legend_cccf");
+  var mccfText = d3.select("#legend_mccf");
+  var drciText = d3.select("#legend_drci");
+  var prcfText = d3.select("#legend_prcf");
+  var scciText = d3.select("#legend_scci");
+
+  // properties we want from each data
+  var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
+  var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText];
+  var insitutionLabels = ["Coffee_Creek", "Deer_Ridge", "Mill_Creek", "Powder_River", "Shutter_Creek", "Santiam", "South_Fork_Forest_Camp", "Snake_River", "Two_Rivers", "Warner_Creek"];
+
+  // Remove asterisk from yearText for selectors
+  const cleanYearText = yearText.innerHTML.replace('*', '');
+
+  // builder for d3 selectors
+  var fireSelector = "#_" + cleanYearText + "_Interactive_Pie_Outline>circle, #_" + cleanYearText + "_Interactive_Pie_Outline>path";
+  console.log("fireSelector =", fireSelector);
+  var fireOutlines = "#_" + cleanYearText + "_Interactive_Pie_Outline";
+
+  // display data for current year  
+  // Select all Fires based on ID and object type 
+  d3.selectAll(fireSelector)
+    .on("mouseover", function(d, i) {
+      console.log(this.id);
+      var lineID = "#line" + this.id.slice(1);
+      console.log("lineId =", lineID);
+      console.log('fire name?', fire_data.fireData[cleanYearText][this.id.slice(1)].LabelName.toUpperCase());
+
+      for (var i = 0; i < propertiesToCapture.length; i++) {
+        var id_str = "#title_" + propertiesToCapture[i].toLowerCase();
+        var box_str = "#box_" + propertiesToCapture[i];
+        if (fire_data.fireData[cleanYearText][this.id.slice(1)][propertiesToCapture[i]] == 0) {
+          fire_data.fireData[cleanYearText][this.id.slice(1)][propertiesToCapture[i]] = "";
+          d3.select(id_str).classed("selectedIsnt", false).classed("greyMask", true);
+          d3.select("#" + propertiesToCapture[i]).select("polygon").classed("greyMask", true);
+          d3.select("#" + insitutionLabels[i]).classed("greyMask", true);
+          d3.select(box_str).classed("greyMask", true);
+        } else {
+          institutionsToCapture[i].text(fire_data.fireData[cleanYearText][this.id.slice(1)][propertiesToCapture[i]]);
+          d3.select(id_str).classed("selectedIsnt", true);
+          d3.select("#" + propertiesToCapture[i]).select("polygon").classed("selectedHouse", true);
+        }
+      }
+
+      d3.selectAll(".cls-34").classed("greyMask", true);
+      d3.select(fireOutlines).classed("cls-87", false);
+
+      d3.select("#legend_fire_name").text(fire_data.fireData[cleanYearText][this.id.slice(1)].LabelName.toUpperCase());
+      d3.select(this).classed("selectedProtest", true).classed("greyMask", false);
+
+      if (lineID && lineID!="#line2018_41") {
+        d3.selectAll(lineID).classed("linePath", true);
+      }
+    })
+    .on("mouseout", function(d, i) { 
+      d3.select(this).classed("selectedProtest", false);
+      d3.select("#Interactive_Text").selectAll(".cls-64").text("");
+      d3.select("#Legend_Text_to_Highlight").selectAll(".cls-64").classed("selectedIsnt", false);
+      d3.select("#legend_fire_name").text("HOVER FOR DETAILS");
+      d3.selectAll(".selectedHouse").classed("selectedHouse", false);
+      d3.selectAll(".greyMask").classed("greyMask", false);
+      d3.selectAll(".linePath").classed("linePath", false);
+      d3.select(fireOutlines).classed("cls-87", true);
+    });
+
+  d3.select("#Legend_Text_to_Highlight").selectAll(".cls-64")
+    .on("mouseover", function(d, i) {
+      inst_str = this.id.split("_")[1].toUpperCase();
+      let labelIndex = propertiesToCapture.indexOf(inst_str);
+
+      for (var i in propertiesToCapture) {
+        var id_str = "#title_" + propertiesToCapture[i].toLowerCase();
+        var box_str = "#box_" + propertiesToCapture[i];
+        d3.select("#"+propertiesToCapture[i]).select("polygon").classed("greyMask", true);
+        d3.select("#" + insitutionLabels[i]).classed("greyMask", true);
+        d3.select(id_str).classed("greyMask", true);
+        d3.select(box_str).classed("greyMask", true);
+      }
+
+      for (var i in fire_data.fireData[cleanYearText]) {
+        if (fire_data.fireData[cleanYearText][i][inst_str] != 0) {
+          d3.select(document.getElementById("_"+i.toString())).classed("selectedProtest", true);
+        } else {
+          d3.select(document.getElementById("_"+i.toString())).classed("greyMask", true);
+        }
+      }
+
+      d3.select(fireOutlines).classed("cls-87", false);
+
+      d3.select(this).classed("selectedIsnt", true).classed("greyMask", false);
+      d3.select("#legend_fire_name").text(inst_str);
+      d3.select("#"+inst_str.toString()).select("polygon").classed("selectedHouse", true).classed("greyMask", false);
+      d3.select("#" + insitutionLabels[labelIndex]).classed("greyMask", false);
+      d3.select("#box_"+inst_str).classed("greyMask", false);
+    })
+    .on("mouseout", function(d, i) {
+      d3.selectAll(".selectedProtest").classed("selectedProtest", false);
+      d3.select("#legend_fire_name").text("HOVER FOR DETAILS");
+      d3.selectAll(".selectedHouse").classed("selectedHouse", false);
+      d3.selectAll(".greyMask").classed("greyMask", false);
+      d3.selectAll(".selectedIsnt").classed("selectedIsnt", false);
+      d3.select(fireOutlines).classed("cls-87", true);
+    });
+}
+
+</script>
+
+</body>
+
+</html>
