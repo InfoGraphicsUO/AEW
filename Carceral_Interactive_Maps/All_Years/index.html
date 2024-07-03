@@ -575,235 +575,122 @@
   }
     
      // on sucessful load 
-     function doThings(){    
-        console.log("doing things")
+     function doThings() {
+  console.log("doing things");
 
-        // set inital fires on load (Currently set for 2018 data on load)
-        // document.getElementById("_2018_Data").style.display = "block"
+  // Ensure initial pies are shown correctly
+  slider();
 
-       /* // On Load Start Summary of Fire Deployments on 2018
-        let sumDeployments = fire_data.fireData.YearSummary[2018]
-        d3.select("#tooltip")
-                        // .html(thisData + "<br> Year: " + thisYear + "<br> Description: " + thisDescription)
-                        .html("<b>Summary of "+ yearText.innerHTML + " Deployments</b><br>" + sumDeployments )*/
+  // Capture institutional tabs
+  var sciText = d3.select("#legend_sci");
+  var srciText = d3.select("#legend_srci");
+  var sffcText = d3.select("#legend_sffc");
+  var trciText = d3.select("#legend_trci");
+  var wccfText = d3.select("#legend_wccf");
+  var cccfText = d3.select("#legend_cccf");
+  var mccfText = d3.select("#legend_mccf");
+  var drciText = d3.select("#legend_drci");
+  var prcfText = d3.select("#legend_prcf");
+  var scciText = d3.select("#legend_scci");
 
-        // Capture institutional tabs
-        var sciText = d3.select("#legend_sci")
-        var srciText = d3.select("#legend_srci")
-        var sffcText = d3.select("#legend_sffc")
-        var trciText = d3.select("#legend_trci")
-        var wccfText = d3.select("#legend_wccf")
-        var cccfText = d3.select("#legend_cccf")
-        var mccfText = d3.select("#legend_mccf")
-        var drciText = d3.select("#legend_drci")
-        var prcfText = d3.select("#legend_prcf")
-        var scciText = d3.select("#legend_scci")
+  // properties we want from each data
+  var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
+  var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText];
+  var insitutionLabels = ["Coffee_Creek", "Deer_Ridge", "Mill_Creek", "Powder_River", "Shutter_Creek", "Santiam", "South_Fork_Forest_Camp", "Snake_River", "Two_Rivers", "Warner_Creek"];
 
-        // properties we want from each data
-        var propertiesToCapture = ["CCCF", "DRCI", "MCCF", "PRCF", "SCCI", "SCI", "SFFC", "SRCI", "TRCI", "WCCF"];
-        var institutionsToCapture = [cccfText, drciText, mccfText, prcfText, scciText, sciText, sffcText, srciText, trciText, wccfText]
-        var insitutionLabels = ["Coffee_Creek", "Deer_Ridge", "Mill_Creek", "Powder_River", "Shutter_Creek", "Santiam", "South_Fork_Forest_Camp", "Snake_River", "Two_Rivers", "Warner_Creek"]
-        
-        // Remove asterisk from yearText for selectors
-        const cleanYearText = yearText.innerHTML.replace('*', '');
+  // Remove asterisk from yearText for selectors
+  const cleanYearText = yearText.innerHTML.replace('*', '');
 
-        // builder for d3 selectors
-        var fireSelector = "#_"+cleanYearText.innerHTML+"_Interactive_Pie_Outline>circle, #_"+cleanYearText.innerHTML+"_Interactive_Pie_Outline>path"
-        console.log("fireSelector =", fireSelector)
-        var fireOutlines = "#_" + cleanYearText.innerHTML + "_Interactive_Pie_Outline"
+  // builder for d3 selectors
+  var fireSelector = "#_" + cleanYearText + "_Interactive_Pie_Outline>circle, #_" + cleanYearText + "_Interactive_Pie_Outline>path";
+  console.log("fireSelector =", fireSelector);
+  var fireOutlines = "#_" + cleanYearText + "_Interactive_Pie_Outline";
 
-        // display data for current year  
-        // Select all Fires based on ID and object type 
-        d3.selectAll(fireSelector)
-                  //Function which highlights the hovered on fire, and populates the legend with the fire's details
-                   .on("mouseover", function(d,i) {
-                        console.log(this.id)
-                        // console.log(fire_data.fireData[cleanYearText.innerHTML.toString()])
+  // display data for current year  
+  // Select all Fires based on ID and object type 
+  d3.selectAll(fireSelector)
+    .on("mouseover", function(d, i) {
+      console.log(this.id);
+      var lineID = "#line" + this.id.slice(1);
+      console.log("lineId =", lineID);
+      console.log('fire name?', fire_data.fireData[cleanYearText][this.id.slice(1)].LabelName.toUpperCase());
 
-                        // console.log("this =", this)
-                        // console.log("id =", this.id)
-                        var lineID = "#line" + this.id.slice(1)
-                        console.log("lineId =", lineID)
-                        console.log('fire name?', fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
-                        // console.log("fire details =", d3.select("#legend_fire_name"))
-                        // testing for grabbing house objects
-                        // console.log("SRCI house object =", d3.select("#SRCI"))
-                        // d3.select("#SRCI").select("polygon")
-                        //     .classed("selectedHouse", true)
-                            
-                        // for loop for legend info
-                        for(var i = 0; i < propertiesToCapture.length; i++){
-                          var id_str = "#title_"+propertiesToCapture[i].toLowerCase()
-                          var box_str = "#box_"+propertiesToCapture[i]
-                          // console.log(fire_data.fireData[this.id][propertiesToCapture[i]])
-                          // console.log(institutionsToCapture[i].text("test"))
-                          
-                          // if the cccf, drci...data value is 0, display blank text on legend
-                          if(fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] == 0){
-                            fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]] = ""
-                            // greying out legend inst names 
-                            d3.select(id_str)
-                                  .classed("selectedIsnt", false)
-                                  .classed("greyMask", true)
-                            // grey out homes on the map
-                            d3.select("#"+propertiesToCapture[i]).select("polygon")
-                                  .classed("greyMask", true)
-                            // grey out map inst labels that aren't involved on fire                                 
-                            d3.select("#" + insitutionLabels[i])
-                                  .classed("greyMask", true)
-                            // grey out legend home for unincluded insts
-                            d3.select(box_str)
-                                  .classed("greyMask", true)
-                          }
-                          // else the cccf, drci...data value is NOT 0, display that value in legend
-                          else{
-                            institutionsToCapture[i].text(fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)][propertiesToCapture[i]])
-                            d3.select(id_str)
-                                  .classed("selectedIsnt", true)
-                            // Highlight all of the house icons that are involved in this fire
-                            d3.select("#"+propertiesToCapture[i]).select("polygon")
-                                  .classed("selectedHouse", true)
-                          }
-                        }
+      for (var i = 0; i < propertiesToCapture.length; i++) {
+        var id_str = "#title_" + propertiesToCapture[i].toLowerCase();
+        var box_str = "#box_" + propertiesToCapture[i];
+        if (fire_data.fireData[cleanYearText][this.id.slice(1)][propertiesToCapture[i]] == 0) {
+          fire_data.fireData[cleanYearText][this.id.slice(1)][propertiesToCapture[i]] = "";
+          d3.select(id_str).classed("selectedIsnt", false).classed("greyMask", true);
+          d3.select("#" + propertiesToCapture[i]).select("polygon").classed("greyMask", true);
+          d3.select("#" + insitutionLabels[i]).classed("greyMask", true);
+          d3.select(box_str).classed("greyMask", true);
+        } else {
+          institutionsToCapture[i].text(fire_data.fireData[cleanYearText][this.id.slice(1)][propertiesToCapture[i]]);
+          d3.select(id_str).classed("selectedIsnt", true);
+          d3.select("#" + propertiesToCapture[i]).select("polygon").classed("selectedHouse", true);
+        }
+      }
 
-                        // Grey out all other circles that are not the current circle that's hovered
-                        d3.selectAll(".cls-34")
-                            .classed("greyMask", true)
-                        
-                        d3.select(fireOutlines)
-                            .classed("cls-87", false)
+      d3.selectAll(".cls-34").classed("greyMask", true);
+      d3.select(fireOutlines).classed("cls-87", false);
 
-                        // Set deployment name in legend
-                        d3.select("#legend_fire_name")
-                            .text(fire_data.fireData[cleanYearText.innerHTML.toString()][this.id.slice(1)].LabelName.toUpperCase())
+      d3.select("#legend_fire_name").text(fire_data.fireData[cleanYearText][this.id.slice(1)].LabelName.toUpperCase());
+      d3.select(this).classed("selectedProtest", true).classed("greyMask", false);
 
-                        d3.select(this)
-                            .classed("selectedProtest", true)
-                            .classed("greyMask", false)
+      if (lineID && lineID!="#line2018_41") {
+        d3.selectAll(lineID).classed("linePath", true);
+      }
+    })
+    .on("mouseout", function(d, i) { 
+      d3.select(this).classed("selectedProtest", false);
+      d3.select("#Interactive_Text").selectAll(".cls-64").text("");
+      d3.select("#Legend_Text_to_Highlight").selectAll(".cls-64").classed("selectedIsnt", false);
+      d3.select("#legend_fire_name").text("HOVER FOR DETAILS");
+      d3.selectAll(".selectedHouse").classed("selectedHouse", false);
+      d3.selectAll(".greyMask").classed("greyMask", false);
+      d3.selectAll(".linePath").classed("linePath", false);
+      d3.select(fireOutlines).classed("cls-87", true);
+    });
 
-                        // Display the path of the fire, if available
-                        // console.log("line object =", d3.select("#line2018_23"))
-                        // hide the offset line for lobster Crk (line2018_41)
-                        if(lineID && lineID!="#line2018_41"){
-                          console.log(d3.select(lineID))
-                          console.log("leader lines=", d3.select("#_2018_Leader_Line").select(lineID))
-                          d3.selectAll(lineID)
-                              .classed("linePath", true)
-                        }
-                      })
+  d3.select("#Legend_Text_to_Highlight").selectAll(".cls-64")
+    .on("mouseover", function(d, i) {
+      inst_str = this.id.split("_")[1].toUpperCase();
+      let labelIndex = propertiesToCapture.indexOf(inst_str);
 
-                   .on("mouseout", function(d,i) { 
-                        // console.log("mouse is out!")
-                        d3.select(this)
-                            .classed("selectedProtest", false)
-                        // Blank values on mouseout
-                        d3.select("#Interactive_Text").selectAll(".cls-64")
-                              .text("")
-                        // Unbold all bolded institution tiles
-                        d3.select("#Legend_Text_to_Highlight").selectAll(".cls-64")
-                              .classed("selectedIsnt", false)
-                        // Clear deployment name legend text
-                        d3.select("#legend_fire_name")
-                              .text("HOVER FOR DETAILS")
-                        // Clear highlighted houses
-                        d3.selectAll(".selectedHouse")
-                              .classed("selectedHouse", false)
-                        // Clear all grey masks
-                        d3.selectAll(".greyMask")
-                              .classed("greyMask", false)
-                        // Clear line path
-                        d3.selectAll(".linePath")
-                              .classed("linePath", false)
-                        d3.select(fireOutlines)
-                            .classed("cls-87", true)
-                       
-                   });
+      for (var i in propertiesToCapture) {
+        var id_str = "#title_" + propertiesToCapture[i].toLowerCase();
+        var box_str = "#box_" + propertiesToCapture[i];
+        d3.select("#"+propertiesToCapture[i]).select("polygon").classed("greyMask", true);
+        d3.select("#" + insitutionLabels[i]).classed("greyMask", true);
+        d3.select(id_str).classed("greyMask", true);
+        d3.select(box_str).classed("greyMask", true);
+      }
 
-        // Following code is for hover actions of an institution in the legend
-        d3.select("#Legend_Text_to_Highlight").selectAll(".cls-64")
-                .on("mouseover", function(d, i){
-                    console.log("this =", this)
-                    // console.log(this.id.split("_")[1])
-                    inst_str = this.id.split("_")[1].toUpperCase()
-                    console.log("inst str =", inst_str)
-                    let labelIndex = propertiesToCapture.indexOf(inst_str)
+      for (var i in fire_data.fireData[cleanYearText]) {
+        if (fire_data.fireData[cleanYearText][i][inst_str] != 0) {
+          d3.select(document.getElementById("_"+i.toString())).classed("selectedProtest", true);
+        } else {
+          d3.select(document.getElementById("_"+i.toString())).classed("greyMask", true);
+        }
+      }
 
-                    // Grey out institution homes, text, non-selected institution legend labels here
-                    for(var i in propertiesToCapture){
-                      var id_str = "#title_" + propertiesToCapture[i].toLowerCase()
-                      var box_str = "#box_"+propertiesToCapture[i]
-                      d3.select("#"+propertiesToCapture[i]).select("polygon")
-                            .classed("greyMask", true)
-                      d3.select("#" + insitutionLabels[i])
-                            .classed("greyMask", true)
-                      d3.select(id_str)
-                            .classed("greyMask", true)
-                      d3.select(box_str)
-                            .classed("greyMask", true)
-                    }
+      d3.select(fireOutlines).classed("cls-87", false);
 
-                    for(var i in fire_data.fireData[cleanYearText.innerHTML.toString()]){
-                      // console.log("i=",i)
-                      // console.log(d3.select(document.getElementById("_"+i.toString())))
-                      // console.log(fire_data.fireData[i][inst_str])
-                      if(fire_data.fireData[cleanYearText.innerHTML.toString()][i][inst_str] != 0){
-                        // console.log(fire_data.fireData[i][inst_str])
-                        // console.log(i.toString())   
-                        d3.select(document.getElementById("_"+i.toString()))
-                            .classed("selectedProtest", true)
-                      }
-                      else{
-                        // Apply grey masks to circles that aren't a part of current fire
-                        d3.select(document.getElementById("_"+i.toString()))
-                            .classed("greyMask", true)
-                      }
-                    }
-
-                    d3.select(fireOutlines)
-                        .classed("cls-87", false)
-
-                    // highlight institution label
-                    d3.select(this)
-                          .classed("selectedIsnt", true)
-                          .classed("greyMask", false)
-
-                    // set deployment name in legend
-                    d3.select("#legend_fire_name")
-                          .text(inst_str)
-
-                    // Highlight the home and text of selected institution on map
-                    d3.select("#"+inst_str.toString()).select("polygon")
-                            .classed("selectedHouse", true)
-                            .classed("greyMask", false)
-                    d3.select("#" + insitutionLabels[labelIndex])
-                          .classed("greyMask", false)
-
-                    // highlight legend box of institution
-                    d3.select("#box_"+inst_str)
-                          .classed("greyMask", false)
-
-                  })
-                
-                .on("mouseout", function(d, i){
-                    // Take away all highlighted fires from the institution
-                    d3.selectAll(".selectedProtest")
-                              .classed("selectedProtest", false)
-                    // Clear deployment name in legend
-                    d3.select("#legend_fire_name")
-                              .text("HOVER FOR DETAILS")
-                    // clear house highlights on map
-                    d3.selectAll(".selectedHouse")
-                              .classed("selectedHouse", false)
-                    // clear all grey masks
-                    d3.selectAll(".greyMask")
-                              .classed("greyMask", false)
-                    d3.selectAll(".selectedIsnt")
-                              .classed("selectedIsnt", false)
-                    d3.select(fireOutlines)
-                        .classed("cls-87", true)
-
-                })
-      };
+      d3.select(this).classed("selectedIsnt", true).classed("greyMask", false);
+      d3.select("#legend_fire_name").text(inst_str);
+      d3.select("#"+inst_str.toString()).select("polygon").classed("selectedHouse", true).classed("greyMask", false);
+      d3.select("#" + insitutionLabels[labelIndex]).classed("greyMask", false);
+      d3.select("#box_"+inst_str).classed("greyMask", false);
+    })
+    .on("mouseout", function(d, i) {
+      d3.selectAll(".selectedProtest").classed("selectedProtest", false);
+      d3.select("#legend_fire_name").text("HOVER FOR DETAILS");
+      d3.selectAll(".selectedHouse").classed("selectedHouse", false);
+      d3.selectAll(".greyMask").classed("greyMask", false);
+      d3.selectAll(".selectedIsnt").classed("selectedIsnt", false);
+      d3.select(fireOutlines).classed("cls-87", true);
+    });
+}
 
 </script>
 
